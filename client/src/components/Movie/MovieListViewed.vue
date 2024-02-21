@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="i in 5" :key="i" class="mb-7">
+        <div v-for="i in 4" :key="i" class="mb-7">
             <a href="">
                 <div
                     class="h-[190px] rounded-lg overflow-hidden relative"

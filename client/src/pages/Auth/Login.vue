@@ -1,6 +1,4 @@
-<template>
-  <div>Login page</div>
-</template>
+<template></template>
 
 <script>
 export default {}

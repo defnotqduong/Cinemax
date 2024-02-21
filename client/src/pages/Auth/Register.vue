@@ -1,6 +1,4 @@
-<template>
-  <div>Register page</div>
-</template>
+<template></template>
 
 <script>
 export default {}

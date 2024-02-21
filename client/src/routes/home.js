@@ -8,6 +8,11 @@ const home = [
                 path: '',
                 name: 'home-homepage',
                 component: () => import('../pages/Home/Home.vue')
+            },
+            {
+                path: 'the-loai/:slug',
+                name: 'home-category',
+                component: () => import('../pages/Home/Category.vue')
             }
         ]
     }

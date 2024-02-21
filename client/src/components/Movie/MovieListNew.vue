@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="i in 5" :key="i" class="mb-7">
+        <div v-for="i in 3" :key="i" class="mb-7">
             <div class="flex items-center justify-start">
                 <div class="mr-4 w-[90px]">
                     <img

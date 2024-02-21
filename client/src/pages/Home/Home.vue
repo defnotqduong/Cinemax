@@ -194,6 +194,9 @@ export default defineComponent({
         return {
             isFilter
         }
+    },
+    mounted() {
+        window.scrollTo({ top: 0 })
     }
 })
 </script>
