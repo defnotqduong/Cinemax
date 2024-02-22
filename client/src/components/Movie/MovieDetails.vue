@@ -102,7 +102,10 @@
                     <router-link
                         :to="{
                             name: 'home-watching',
-                            params: { slug: 'fate-stay-night-unlimited-blade' }
+                            params: {
+                                slug: 'fate-stay-night-unlimited-blade',
+                                ep: '1'
+                            }
                         }"
                         class="pl-6 py-2 pr-12 relative rounded bg-primary-alpha text-white text-lg font-semibold after:absolute after:conent after:top-0 after:right-6 after:h-full after:w-2 after:bg-base-100"
                     >

@@ -1,7 +1,7 @@
 <template>
     <div
         :class="{
-            'bg-transparent h-[7rem]': !isScrolled,
+            'bg-transparent h-[6rem]': !isScrolled,
             'bg-base-300 h-[5rem]': isScrolled
         }"
         class="fixed top-0 left-0 z-[9999] w-full transition-all duration-[400ms]"
@@ -36,7 +36,7 @@
                         class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                     >
                         <li>
-                            <a>Trang chủ</a>
+                            <a>Home</a>
                         </li>
                         <li>
                             <a>Thể loại</a>
@@ -46,8 +46,8 @@
                                 <li><a>Viễn tưởng khoa học</a></li>
                             </ul>
                         </li>
-                        <li><a>Top thịnh hành</a></li>
-                        <li><a>Lịch chiếu phim</a></li>
+                        <li><a>Quốc gia</a></li>
+                        <li><a>Sắp chiếu</a></li>
                     </ul>
                 </div>
                 <router-link :to="{ name: 'home-homepage' }" class="w-[160px]"
@@ -65,7 +65,7 @@
                         <router-link
                             :to="{ name: 'home-homepage' }"
                             class="hover:bg-transparent hover:text-primary"
-                            >Trang chủ</router-link
+                            >Home</router-link
                         >
                     </li>
                     <li>
@@ -176,12 +176,12 @@
                     </li>
                     <li>
                         <a class="hover:bg-transparent hover:text-primary"
-                            >Top thịnh hành</a
+                            >Quốc gia</a
                         >
                     </li>
                     <li>
                         <a class="hover:bg-transparent hover:text-primary"
-                            >Lịch chiếu phim</a
+                            >Sắp chiếu</a
                         >
                     </li>
                 </ul>

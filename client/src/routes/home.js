@@ -20,7 +20,7 @@ const home = [
                 component: () => import('../pages/Home/MovieDetails.vue')
             },
             {
-                path: 'xem-phim/:slug',
+                path: 'xem-phim/:slug/:ep',
                 name: 'home-watching',
                 component: () => import('../pages/Home/WatchMovie.vue')
             }
