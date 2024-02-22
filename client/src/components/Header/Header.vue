@@ -232,7 +232,7 @@ export default defineComponent({
     },
     methods: {
         shrinkHeader() {
-            if (window.scrollY > 100) {
+            if (window.scrollY > 80) {
                 this.isScrolled = true
             } else {
                 this.isScrolled = false

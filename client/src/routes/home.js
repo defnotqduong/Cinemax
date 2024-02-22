@@ -13,6 +13,16 @@ const home = [
                 path: 'the-loai/:slug',
                 name: 'home-category',
                 component: () => import('../pages/Home/Category.vue')
+            },
+            {
+                path: 'chi-tiet/:slug',
+                name: 'home-details',
+                component: () => import('../pages/Home/MovieDetails.vue')
+            },
+            {
+                path: 'xem-phim/:slug',
+                name: 'home-watching',
+                component: () => import('../pages/Home/WatchMovie.vue')
             }
         ]
     }

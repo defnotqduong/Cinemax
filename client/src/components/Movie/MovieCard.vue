@@ -1,6 +1,11 @@
 <template>
     <div class="mb-6">
-        <a href="">
+        <router-link
+            :to="{
+                name: 'home-details',
+                params: { slug: 'the-seven-deadly-sins-wrath-of-the-gods' }
+            }"
+        >
             <div class="h-[325px] relative">
                 <img
                     src="https://rare-gallery.com/uploads/posts/400745-animegirl-wallpaper.png"
@@ -72,7 +77,7 @@
                     The Seven Deadly Sins: Wrath of the Gods
                 </h5>
             </div>
-        </a>
+        </router-link>
     </div>
 </template>
 

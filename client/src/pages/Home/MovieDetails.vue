@@ -25,7 +25,7 @@
                             />
                         </svg>
                     </li>
-                    <li>Thể loại</li>
+                    <li>Chi tiết</li>
                     <li>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -43,42 +43,27 @@
                             />
                         </svg>
                     </li>
-                    <li class="text-secondary">Anime</li>
+                    <li class="text-secondary">
+                        The Seven Deadly Sins: Wrath of the Gods
+                    </li>
                 </ul>
             </div>
         </div>
-        <div class="max-w-[1240px] mx-auto px-2 pb-10 grid grid-cols-3 gap-10">
-            <div class="col-span-3">
-                <div class="mb-10">
-                    <div class="mb-7 flex items-center justify-between">
+        <div class="max-w-[1240px] mx-auto px-2 mb-10">
+            <MovieDetails />
+            <div class="grid grid-cols-3 gap-10 mt-16">
+                <div class="col-span-2">
+                    <Review />
+                </div>
+                <div class="col-span-1">
+                    <div class="mb-[30px]">
                         <h4
-                            class="text-3xl font-bold uppercase text-white pl-3 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
+                            class="text-base font-bold uppercase text-white pl-3 mt-1 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
                         >
-                            Xu hướng
+                            Có thể bạn muốn xem...
                         </h4>
-                        <div
-                            class="relative flex items-center justify-center gap-3 py-[2px]"
-                        >
-                            Sắp xếp theo :
-                            <select
-                                class="select select-bordered select-sm w-[90px] max-w-xs"
-                            >
-                                <option class="line-clamp-1">A-Z</option>
-                                <option class="line-clamp-1">1-10</option>
-                                <option class="line-clamp-1">10-20</option>
-                            </select>
-                        </div>
                     </div>
-                    <div
-                        class="grid grid-cols-4 items-center justify-start gap-7"
-                    >
-                        <div v-for="i in 15" :key="i">
-                            <MovieCard />
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <Pagination />
-                    </div>
+                    <MovieListV3 :type="'update'" />
                 </div>
             </div>
         </div>
@@ -86,26 +71,17 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import Pagination from '../../components/Pagination/Pagination.vue'
-import MovieCard from '../../components/Movie/MovieCard.vue'
-export default defineComponent({
-    components: { MovieCard, Pagination },
-    setup() {
-        const category = ref('')
+import { defineComponent } from 'vue'
+import MovieDetails from '../../components/Movie/MovieDetails.vue'
+import MovieListV2 from '../../components/Movie/MovieListV2.vue'
+import MovieListV3 from '../../components/Movie/MovieListV3.vue'
+import Review from '../../components/Review/Review.vue'
 
-        return {
-            category
-        }
-    },
-    methods: {
-        getUrlQueryParam() {
-            return this.$route.params.slug
-        }
-    },
+export default defineComponent({
+    components: { MovieDetails, Review, MovieListV2, MovieListV3 },
+    setup() {},
     mounted() {
         window.scrollTo({ top: 0 })
-        this.category = this.getUrlQueryParam()
     }
 })
 </script>

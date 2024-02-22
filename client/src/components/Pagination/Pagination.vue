@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex items-center justify-start text-secondary gap-1 text-base font-medium"
+        class="flex items-center justify-center text-secondary gap-1 text-base font-medium"
     >
         <button
             class="w-12 h-12 rounded-full hover:text-white transition-all duration-[400ms]"

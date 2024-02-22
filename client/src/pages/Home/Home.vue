@@ -162,7 +162,7 @@
                             </li>
                         </ul>
                     </div>
-                    <MovieListViewed :type="isFilter" />
+                    <MovieListV3 :type="'mostviewed'" />
                 </div>
                 <div>
                     <div class="mb-[30px]">
@@ -172,7 +172,7 @@
                             Phim mới cập nhật
                         </h4>
                     </div>
-                    <MovieListNew />
+                    <MovieListV2 :type="'update'" />
                 </div>
             </div>
         </div>
@@ -183,11 +183,11 @@
 import { defineComponent, ref } from 'vue'
 import HeroSlide from '../../components/HeroSlide/HeroSlide.vue'
 import MovieList from '../../components/Movie/MovieList.vue'
-import MovieListNew from '../../components/Movie/MovieListNew.vue'
-import MovieListViewed from '../../components/Movie/MovieListViewed.vue'
+import MovieListV2 from '../../components/Movie/MovieListV2.vue'
+import MovieListV3 from '../../components/Movie/MovieListV3.vue'
 
 export default defineComponent({
-    components: { HeroSlide, MovieList, MovieListViewed, MovieListNew },
+    components: { HeroSlide, MovieList, MovieListV2, MovieListV3 },
     setup() {
         const isFilter = ref('day')
 
