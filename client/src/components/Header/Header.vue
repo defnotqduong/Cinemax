@@ -175,9 +175,216 @@
                         </div>
                     </li>
                     <li>
-                        <a class="hover:bg-transparent hover:text-primary"
-                            >Quốc gia</a
+                        <div
+                            class="dropdown dropdown-hover dropdown-bottom group hover:bg-transparent hover:text-primary"
                         >
+                            <div tabindex="0" role="button">
+                                Danh mục
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18px"
+                                    height="18px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    class="inline-block group-hover:rotate-180 transition-all duration-[350ms]"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M4.29289 8.29289C4.68342 7.90237 5.31658 7.90237 5.70711 8.29289L12 14.5858L18.2929 8.29289C18.6834 7.90237 19.3166 7.90237 19.7071 8.29289C20.0976 8.68342 20.0976 9.31658 19.7071 9.70711L12.7071 16.7071C12.3166 17.0976 11.6834 17.0976 11.2929 16.7071L4.29289 9.70711C3.90237 9.31658 3.90237 8.68342 4.29289 8.29289Z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                            </div>
+                            <ul
+                                tabindex="0"
+                                class="dropdown-content grid grid-cols-3 z-[1] menu p-2 shadow bg-base-200 rounded-box w-[460px] max-h-[200px] overflow-y-auto before:w-0 text-white"
+                            >
+                                <li>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-category',
+                                            params: { slug: 'anime' }
+                                        }"
+                                        class="hover:bg-transparent hover:text-primary"
+                                    >
+                                        <p class="line-clamp-1">
+                                            Anime
+                                        </p></router-link
+                                    >
+                                </li>
+                                <li>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-category',
+                                            params: { slug: 'kinh-di' }
+                                        }"
+                                        class="hover:bg-transparent hover:text-primary"
+                                        ><p class="line-clamp-1">
+                                            Kinh dị
+                                        </p></router-link
+                                    >
+                                </li>
+                                <li>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-category',
+                                            params: {
+                                                slug: 'khoa-hoc-vien-tuong'
+                                            }
+                                        }"
+                                        class="hover:bg-transparent hover:text-primary"
+                                        ><p class="line-clamp-1">
+                                            Khoa học viễn tưởng
+                                        </p></router-link
+                                    >
+                                </li>
+                                <li>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-category',
+                                            params: { slug: 'gia-dinh' }
+                                        }"
+                                        class="hover:bg-transparent hover:text-primary"
+                                        ><p class="line-clamp-1">
+                                            Gia đình
+                                        </p></router-link
+                                    >
+                                </li>
+                                <li>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-category',
+                                            params: { slug: 'chien-tranh' }
+                                        }"
+                                        class="hover:bg-transparent hover:text-primary"
+                                        ><p class="line-clamp-1">
+                                            Chiến tranh
+                                        </p></router-link
+                                    >
+                                </li>
+                                <li>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-category',
+                                            params: {
+                                                slug: 'du-hanh-thoi-gian'
+                                            }
+                                        }"
+                                        class="hover:bg-transparent hover:text-primary"
+                                        ><p class="line-clamp-1">
+                                            Du hành thời gian
+                                        </p></router-link
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div
+                            class="dropdown dropdown-hover dropdown-bottom group hover:bg-transparent hover:text-primary"
+                        >
+                            <div tabindex="0" role="button">
+                                Quốc gia
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18px"
+                                    height="18px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    class="inline-block group-hover:rotate-180 transition-all duration-[350ms]"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M4.29289 8.29289C4.68342 7.90237 5.31658 7.90237 5.70711 8.29289L12 14.5858L18.2929 8.29289C18.6834 7.90237 19.3166 7.90237 19.7071 8.29289C20.0976 8.68342 20.0976 9.31658 19.7071 9.70711L12.7071 16.7071C12.3166 17.0976 11.6834 17.0976 11.2929 16.7071L4.29289 9.70711C3.90237 9.31658 3.90237 8.68342 4.29289 8.29289Z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                            </div>
+                            <ul
+                                tabindex="0"
+                                class="dropdown-content grid grid-cols-3 z-[1] menu p-2 shadow bg-base-200 rounded-box w-[460px] max-h-[200px] overflow-y-auto before:w-0 text-white"
+                            >
+                                <li>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-category',
+                                            params: { slug: 'anime' }
+                                        }"
+                                        class="hover:bg-transparent hover:text-primary"
+                                    >
+                                        <p class="line-clamp-1">
+                                            Anime
+                                        </p></router-link
+                                    >
+                                </li>
+                                <li>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-category',
+                                            params: { slug: 'kinh-di' }
+                                        }"
+                                        class="hover:bg-transparent hover:text-primary"
+                                        ><p class="line-clamp-1">
+                                            Kinh dị
+                                        </p></router-link
+                                    >
+                                </li>
+                                <li>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-category',
+                                            params: {
+                                                slug: 'khoa-hoc-vien-tuong'
+                                            }
+                                        }"
+                                        class="hover:bg-transparent hover:text-primary"
+                                        ><p class="line-clamp-1">
+                                            Khoa học viễn tưởng
+                                        </p></router-link
+                                    >
+                                </li>
+                                <li>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-category',
+                                            params: { slug: 'gia-dinh' }
+                                        }"
+                                        class="hover:bg-transparent hover:text-primary"
+                                        ><p class="line-clamp-1">
+                                            Gia đình
+                                        </p></router-link
+                                    >
+                                </li>
+                                <li>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-category',
+                                            params: { slug: 'chien-tranh' }
+                                        }"
+                                        class="hover:bg-transparent hover:text-primary"
+                                        ><p class="line-clamp-1">
+                                            Chiến tranh
+                                        </p></router-link
+                                    >
+                                </li>
+                                <li>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-category',
+                                            params: {
+                                                slug: 'du-hanh-thoi-gian'
+                                            }
+                                        }"
+                                        class="hover:bg-transparent hover:text-primary"
+                                        ><p class="line-clamp-1">
+                                            Du hành thời gian
+                                        </p></router-link
+                                    >
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a class="hover:bg-transparent hover:text-primary"
