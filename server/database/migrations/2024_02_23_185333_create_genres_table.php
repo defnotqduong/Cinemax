@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->text('description')->nullable();
-            $table->boolean('status')->default('true');
+            $table->longText('description')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

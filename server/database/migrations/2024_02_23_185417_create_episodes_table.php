@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('episodes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('movie_id')->constrained('movies');
+            $table->string('link');
+            $table->integer('episode');
             $table->timestamps();
         });
     }

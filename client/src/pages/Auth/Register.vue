@@ -1,7 +1,7 @@
 <template>
     <div>
         <div
-            class="container mx-auto py-[200px] bg-cover bg-center bg-no-repeat"
+            class="container min-h-[100vh] mx-auto py-[220px] bg-cover bg-center bg-no-repeat"
             :style="{
                 backgroundImage: `url('https://c.wallhere.com/photos/1a/29/portrait_anime_anime_girls_digital_art_artwork_2D-1946437.jpg!d')`
             }"

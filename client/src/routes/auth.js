@@ -5,12 +5,12 @@ const auth = [
         component: () => import('../layouts/Auth.vue'),
         children: [
             {
-                path: 'dang-nhap',
+                path: 'login',
                 name: 'auth-login',
                 component: () => import('../pages/Auth/Login.vue')
             },
             {
-                path: 'dang-ky',
+                path: 'register',
                 name: 'auth-register',
                 component: () => import('../pages/Auth/Register.vue')
             }
