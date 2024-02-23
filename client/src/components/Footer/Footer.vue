@@ -49,8 +49,6 @@
                         ></path></svg
                 ></a>
                 <a
-                    href="https://www.facebook.com/phanquangduonq/"
-                    target="blank"
                     class="cursor-pointer hover:text-primary transition-all duration-[300ms]"
                     ><svg
                         xmlns="http://www.w3.org/2000/svg"

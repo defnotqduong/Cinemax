@@ -1,8 +1,8 @@
 <template>
     <div class="pt-8">
-        <div class="mb-20">
+        <div class="mb-20 flex items-center justify-center">
             <iframe
-                width="100%"
+                width="90%"
                 height="500"
                 src="https://www.youtube.com/embed/PsVEpKthrcg"
                 frameborder="0"

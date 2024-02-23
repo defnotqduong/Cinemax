@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto relative text-white">
+    <div class="relative">
         <Header />
         <router-view></router-view>
         <Footer />

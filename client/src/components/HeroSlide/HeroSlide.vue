@@ -1,5 +1,5 @@
 <template>
-    <div class="relative mb-16">
+    <div class="relative mb-16 container mx-auto">
         <div
             class="bg-cover bg-center bg-no-repeat absolute top-0 left-0 w-full h-full z-[-1] after:absolute after:content after:top-0 after:left-0 after:w-full after:h-full after:bg-overlay before:absolute before:content before:bottom-0 before:left-0 before:w-full before:h-[100px] before:bg-blur"
             :style="{

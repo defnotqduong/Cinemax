@@ -7,7 +7,9 @@ export default {
                 primary: '#FF0000',
                 purple: '#A958A5',
                 secondary: '#b7b7b7',
-                comment: '#1d1e39'
+                'primary-alpha': '#e53637',
+                comment: '#1d1e39',
+                badge: 'rgba(255, 255, 255, 0.2)'
             },
             backgroundColor: {
                 primary: '#FF0000',

@@ -1,8 +1,8 @@
 <template>
     <div
         :class="{
-            'bg-transparent h-[6rem]': !isScrolled,
-            'bg-base-300 h-[5rem]': isScrolled
+            'bg-transparent h-[5.5rem]': !isScrolled,
+            'bg-base-300 h-[4.5rem]': isScrolled
         }"
         class="fixed top-0 left-0 z-[9999] w-full transition-all duration-[400ms]"
     >
@@ -80,7 +80,7 @@
                                     height="18px"
                                     viewBox="0 0 24 24"
                                     fill="none"
-                                    class="inline-block group-hover:rotate-180 transition-all duration-[400ms]"
+                                    class="inline-block group-hover:rotate-180 transition-all duration-[350ms]"
                                 >
                                     <path
                                         fill-rule="evenodd"
