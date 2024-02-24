@@ -37,10 +37,10 @@ class MovieController extends Controller
         }
     }
 
-    public function getMovie($slug)
+    public function getMovie($id)
     {
         try {
-            $movie = Movie::where('movies.slug', $slug)
+            $movie = Movie::where('movies.id', $id)
                 ->join('categories', 'movies.category_id', '=', 'categories.id')
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
@@ -112,7 +112,7 @@ class MovieController extends Controller
         }
     }
 
-    public function editMovie(Request $request, $slug)
+    public function editMovie(Request $request, $id)
     {
 
         try {
@@ -128,7 +128,7 @@ class MovieController extends Controller
                 'genre_id' => 'required|numeric',
             ]);
 
-            $movie = Movie::findBySlug($slug);
+            $movie = Movie::find($id);
 
             if (!$movie) return response()->json([
                 'success' => false,
@@ -171,11 +171,11 @@ class MovieController extends Controller
         }
     }
 
-    public function deleteMovie($slug)
+    public function deleteMovie($id)
     {
         try {
 
-            $movie = Movie::findBySlug($slug);
+            $movie = Movie::find($id);
 
             if (!$movie) return response()->json([
                 'success' => false,

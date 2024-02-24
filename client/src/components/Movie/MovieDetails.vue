@@ -89,9 +89,9 @@
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
-                        <div class="w-[40%]">Nhà sản xuất:</div>
+                        <div class="w-[40%]">Năm sản xuất:</div>
                         <div class="text-white font-semibold line-clamp-1">
-                            Anime Studio
+                            2002
                         </div>
                     </li>
                 </ul>

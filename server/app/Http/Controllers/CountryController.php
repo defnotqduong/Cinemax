@@ -48,10 +48,10 @@ class CountryController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
-    public function getCountry($slug)
+    public function getCountry($id)
     {
         try {
-            $country  = Country::findBySlug($slug);
+            $country  = Country::find($id);
 
             if (!$country) return response()->json([
                 'success' => false,
@@ -68,12 +68,12 @@ class CountryController extends Controller
         }
     }
 
-    public function editCountry(Request $request, $slug)
+    public function editCountry(Request $request, $id)
     {
         try {
             $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
 
-            $country  = Country::findBySlug($slug);
+            $country  = Country::find($id);
 
             if (!$country) return response()->json([
                 'success' => false,
@@ -95,10 +95,10 @@ class CountryController extends Controller
         }
     }
 
-    public function deleteCountry($slug)
+    public function deleteCountry($id)
     {
         try {
-            $country  = Country::findBySlug($slug);
+            $country  = Country::find($id);
 
             if (!$country) return response()->json([
                 'success' => false,

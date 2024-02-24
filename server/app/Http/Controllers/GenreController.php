@@ -48,10 +48,10 @@ class GenreController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
-    public function getGenre($slug)
+    public function getGenre($id)
     {
         try {
-            $genre  = Genre::findBySlug($slug);
+            $genre  = Genre::find($id);
 
             if (!$genre) return response()->json([
                 'success' => false,
@@ -68,12 +68,12 @@ class GenreController extends Controller
         }
     }
 
-    public function editGenre(Request $request, $slug)
+    public function editGenre(Request $request, $id)
     {
         try {
             $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
 
-            $genre = Genre::findBySlug($slug);
+            $genre = Genre::find($id);
 
             if (!$genre) return response()->json([
                 'success' => false,
@@ -95,10 +95,10 @@ class GenreController extends Controller
         }
     }
 
-    public function deleteGenre($slug)
+    public function deleteGenre($id)
     {
         try {
-            $genre  = Genre::findBySlug($slug);
+            $genre  = Genre::find($id);
 
             if (!$genre) return response()->json([
                 'success' => false,

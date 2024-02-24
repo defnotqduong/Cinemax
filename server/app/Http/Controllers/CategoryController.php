@@ -50,10 +50,10 @@ class CategoryController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
-    public function getCategory($slug)
+    public function getCategory($id)
     {
         try {
-            $category  = Category::findBySlug($slug);
+            $category  = Category::find($id);
 
             if (!$category) return response()->json([
                 'success' => false,
@@ -70,12 +70,12 @@ class CategoryController extends Controller
         }
     }
 
-    public function editCategory(Request $request, $slug)
+    public function editCategory(Request $request, $id)
     {
         try {
             $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
 
-            $category  = Category::findBySlug($slug);
+            $category  = Category::find($id);
 
             if (!$category) return response()->json([
                 'success' => false,
@@ -97,10 +97,10 @@ class CategoryController extends Controller
         }
     }
 
-    public function deleteCategory($slug)
+    public function deleteCategory($id)
     {
         try {
-            $category  = Category::findBySlug($slug);
+            $category  = Category::find($id);
 
             if (!$category) return response()->json([
                 'success' => false,

@@ -15,11 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
+            $table->string('name_eng')->nullable();
             $table->longText('description')->nullable();
-            $table->boolean('status')->default(true);
-            $table->string('thumbnail');
-            $table->integer('resolution')->default(0); // 0 - FullHD, 1 - HD, 2 - SD, 3 - HDCam, 4 - Cam
+            $table->string('thumbnail')->nullable();
+            $table->boolean('status')->default(true); // published or unpublished
+            $table->string('season')->default('0');
+            $table->integer('eps')->default(1); // Số tập phim
+            $table->string('year')->nullable(); // năm sản xuất
+            $table->string('duration')->nullable(); // thời lượng phim
+            $table->integer('resolution')->default(0); // 0 - FullHD, 1 - HD, 2 - SD, 3 - HDCam, 4 - Cam , 5 - Trailer
             $table->boolean('subtitle')->default(true); // true - vietsub, false - thuyet minh
+            $table->longText('tags')->nullable(); // từ khóa
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('genre_id')->constrained('genres');
             $table->foreignId('country_id')->constrained('countries');

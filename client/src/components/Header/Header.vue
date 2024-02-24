@@ -179,7 +179,7 @@
                             class="dropdown dropdown-hover dropdown-bottom group hover:bg-transparent hover:text-primary"
                         >
                             <div tabindex="0" role="button">
-                                Danh mục
+                                Năm sản xuất
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="18px"
