@@ -1,9 +1,9 @@
 <template>
-  <div class="text-center">Dashboard</div>
+    <div class="text-center">Dashboard</div>
 </template>
 
 <script>
-export default {};
+export default {}
 </script>
 
 <style></style>
