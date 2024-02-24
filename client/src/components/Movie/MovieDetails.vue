@@ -43,7 +43,7 @@
                     >
                         <div class="w-[40%]">Thời lượng:</div>
                         <div class="text-white font-semibold line-clamp-1">
-                            23 phút
+                            23 phút / Tập
                         </div>
                     </li>
                     <li
@@ -57,9 +57,25 @@
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
+                        <div class="w-[40%]">Độ phân giải:</div>
+                        <div class="text-white font-semibold line-clamp-1">
+                            HD
+                        </div>
+                    </li>
+                    <li
+                        class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
+                    >
                         <div class="w-[40%]">Số người theo dõi:</div>
                         <div class="text-white font-semibold line-clamp-1">
                             517
+                        </div>
+                    </li>
+                    <li
+                        class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
+                    >
+                        <div class="w-[40%]">Phụ đề:</div>
+                        <div class="text-white font-semibold line-clamp-1">
+                            Vietsub
                         </div>
                     </li>
                     <li

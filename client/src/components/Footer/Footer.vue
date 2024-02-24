@@ -64,7 +64,9 @@
             </div>
         </nav>
         <aside>
-            <p>Copyright © 2024 - All right reserved by QuangDuong</p>
+            <p class="font-semibold">
+                Copyright © 2024 - All right reserved by QuangDuong
+            </p>
         </aside>
     </footer>
 </template>

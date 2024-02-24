@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\MovieController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,16 +30,35 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($routes) {
 });
 
 Route::group(['middleware' => 'api', 'prefix' => 'category'], function ($routes) {
+    Route::get('', [CategoryController::class, 'getAllCategory']);
     Route::post('', [CategoryController::class, 'createCategory']);
+    Route::get('/{slug}', [CategoryController::class, 'getCategory']);
+    Route::put('/{slug}', [CategoryController::class, 'editCategory']);
+    Route::delete('/{slug}', [CategoryController::class, 'deleteCategory']);
 });
 
 Route::group(['middleware' => 'api', 'prefix' => 'genre'], function ($routes) {
+    Route::get('', [GenreController::class, 'getAllGenre']);
+    Route::post('', [GenreController::class, 'createGenre']);
+    Route::get('/{slug}', [GenreController::class, 'getGenre']);
+    Route::put('/{slug}', [GenreController::class, 'editGenre']);
+    Route::delete('/{slug}', [GenreController::class, 'deleteGenre']);
 });
 
 Route::group(['middleware' => 'api', 'prefix' => 'country'], function ($routes) {
+    Route::get('', [CountryController::class, 'getAllCountry']);
+    Route::post('', [CountryController::class, 'createCountry']);
+    Route::get('/{slug}', [CountryController::class, 'getCountry']);
+    Route::put('/{slug}', [CountryController::class, 'editCountry']);
+    Route::delete('/{slug}', [CountryController::class, 'deleteCountry']);
 });
 
 Route::group(['middleware' => 'api', 'prefix' => 'movie'], function ($routes) {
+    Route::get('', [MovieController::class, 'getAllMovie']);
+    Route::post('', [MovieController::class, 'createMovie']);
+    Route::get('/{slug}', [MovieController::class, 'getMovie']);
+    Route::put('/{slug}', [MovieController::class, 'editMovie']);
+    Route::delete('/{slug}', [MovieController::class, 'deleteMovie']);
 });
 
 Route::group(['middleware' => 'api', 'prefix' => 'episode'], function ($routes) {

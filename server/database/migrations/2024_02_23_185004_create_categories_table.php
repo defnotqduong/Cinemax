@@ -18,6 +18,8 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
+
+            $table->index('slug');
         });
     }
 

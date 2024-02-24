@@ -38,8 +38,8 @@
                     >
                         <input
                             type="text"
-                            id="username"
-                            placeholder="Tên đăng nhập"
+                            id="name"
+                            placeholder="Họ tên"
                             class="w-full py-2 pr-6 bg-transparent outline-none"
                         />
                         <svg
