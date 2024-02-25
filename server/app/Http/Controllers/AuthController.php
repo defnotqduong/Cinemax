@@ -29,7 +29,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email',
+            'email' => 'required|email',
             'password' => 'required|string|min:6|max:100'
         ]);
         if ($validator->fails()) {
@@ -49,7 +49,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:2|max:100',
-            'email' => 'required|string|email|max:100|unique:users',
+            'email' => 'required|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:6|max:100',
         ]);
         if ($validator->fails()) {

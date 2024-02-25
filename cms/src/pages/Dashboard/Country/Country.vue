@@ -1,5 +1,5 @@
 <template>
-    <router-view></router-view>
+    <div>Quốc gia</div>
 </template>
 
 <script>

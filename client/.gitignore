@@ -25,3 +25,5 @@ dist-ssr
 
 # Ignore Prettier configuration file
 .prettierrc
+
+.env

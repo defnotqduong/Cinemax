@@ -1,5 +1,5 @@
 <template>
-    <router-view></router-view>
+    <div>Phim</div>
 </template>
 
 <script>

@@ -17,13 +17,13 @@ class CategoryController extends Controller
 
     public function createCategory(Request $request)
     {
+        $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
         try {
-            $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
-
             $category = new Category();
 
             $category->title = $request->title;
             $category->description = $request->description;
+            $category->status = $request->status;
 
             $category->save();
 
@@ -50,10 +50,10 @@ class CategoryController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
-    public function getCategory($id)
+    public function getCategory($slug)
     {
         try {
-            $category  = Category::find($id);
+            $category  = Category::findBySlug($slug);
 
             if (!$category) return response()->json([
                 'success' => false,
@@ -70,12 +70,12 @@ class CategoryController extends Controller
         }
     }
 
-    public function editCategory(Request $request, $id)
+    public function editCategory(Request $request, $slug)
     {
+        $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
         try {
-            $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
 
-            $category  = Category::find($id);
+            $category  = Category::findBySlug($slug);
 
             if (!$category) return response()->json([
                 'success' => false,

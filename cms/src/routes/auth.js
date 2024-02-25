@@ -8,11 +8,6 @@ const auth = [
                 path: 'dang-nhap',
                 name: 'auth-login',
                 component: () => import('../pages/Auth/Login.vue')
-            },
-            {
-                path: 'dang-ky',
-                name: 'auth-register',
-                component: () => import('../pages/Auth/Register.vue')
             }
         ]
     }

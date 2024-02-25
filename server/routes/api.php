@@ -32,8 +32,8 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($routes) {
 Route::group(['middleware' => 'api', 'prefix' => 'category'], function ($routes) {
     Route::get('', [CategoryController::class, 'getAllCategory']);
     Route::post('', [CategoryController::class, 'createCategory']);
-    Route::get('/{id}', [CategoryController::class, 'getCategory']);
-    Route::put('/{id}', [CategoryController::class, 'editCategory']);
+    Route::get('/{slug}', [CategoryController::class, 'getCategory']);
+    Route::put('/{slug}', [CategoryController::class, 'editCategory']);
     Route::delete('/{id}', [CategoryController::class, 'deleteCategory']);
 });
 
