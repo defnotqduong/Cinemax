@@ -61,6 +61,16 @@ const dashboard = [
                 path: 'phim',
                 name: 'dashboard-movie',
                 component: () => import('../pages/Dashboard/Movie/Movie.vue')
+            },
+            {
+                path: 'phim/tao-moi',
+                name: 'dashboard-create-movie',
+                component: () => import('../pages/Dashboard/Movie/Create.vue')
+            },
+            {
+                path: 'phim/:slug',
+                name: 'dashboard-edit-movie',
+                component: () => import('../pages/Dashboard/Movie/Edit.vue')
             }
         ]
     }

@@ -93,5 +93,27 @@ export default {
     DELETE_COUNTRY_API: {
         method: 'deleted',
         url: '/country'
+    },
+
+    // moive
+    GET_ALL_MOVIE_API: {
+        method: 'get',
+        url: '/movie'
+    },
+    GET_MOVIE_API: {
+        method: 'get',
+        url: '/movie'
+    },
+    CREATE_MOVIE_API: {
+        method: 'post',
+        url: '/movie'
+    },
+    EDIT_MOVIE_API: {
+        method: 'put',
+        url: '/movie'
+    },
+    DELETE_MOVIE_API: {
+        method: 'deleted',
+        url: '/movie'
     }
 }

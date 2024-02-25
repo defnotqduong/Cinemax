@@ -1,7 +1,7 @@
 <template>
     <div class="relative">
         <SideBar />
-        <div class="ml-[250px]">
+        <div class="ml-[220px]">
             <router-view></router-view>
         </div>
     </div>

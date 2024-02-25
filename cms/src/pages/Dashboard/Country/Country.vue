@@ -56,7 +56,7 @@
                                     }"
                                     class="w-full h-full px-3 py-2 block"
                                 >
-                                    Chỉnh sửa
+                                    Sửa
                                 </router-link>
                             </button>
                             <label
@@ -73,7 +73,10 @@
                                 <div class="modal-box">
                                     <h3 class="font-bold text-lg">Xác nhận!</h3>
                                     <p class="py-4">
-                                        Xóa quốc gia {{ country.title }}
+                                        Xóa quốc gia
+                                        <span class="font-bold">{{
+                                            country.title
+                                        }}</span>
                                     </p>
                                     <div class="modal-action">
                                         <label

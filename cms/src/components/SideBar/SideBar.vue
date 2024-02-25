@@ -1,7 +1,9 @@
 <template>
     <div class="fixed top-0 left-0 h-[100vh] overflow-y-auto">
-        <ul class="menu bg-base-200 w-56 min-h-[100vh] rounded-box py-8 gap-2">
-            <div class="w-[150px] mb-4">
+        <ul
+            class="menu bg-base-200 w-[200px] min-h-[100vh] font-bold rounded-box py-8 gap-2"
+        >
+            <div class="w-[140px] mb-4">
                 <img
                     src="../../assets/images/logo.png"
                     alt="Logo"
@@ -50,7 +52,7 @@
                                 />
                             </div>
                         </div>
-                        <div class="pl-5 text-lg font-bold">Admin</div>
+                        <div class="pl-5 font-bold">Admin</div>
                     </div>
                     <ul
                         tabindex="0"
