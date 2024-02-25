@@ -114,7 +114,6 @@ export default defineComponent({
         const getGenreList = async () => {
             loading.value = true
             const data = await getAllGenre()
-            console.log(data)
             genres.value = data.genres.data
             loading.value = false
         }

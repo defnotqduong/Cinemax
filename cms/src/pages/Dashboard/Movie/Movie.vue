@@ -1,7 +1,7 @@
 <template>
     <div class="py-20 mr-8">
         <div class="flex items-center justify-between">
-            <h3 class="text-2xl font-bold text-white">Phim:</h3>
+            <h3 class="text-2xl font-bold text-white">Danh sách Phim:</h3>
             <button
                 class="px-3 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300"
             >
@@ -192,7 +192,6 @@ export default defineComponent({
         const getMovieList = async () => {
             loading.value = true
             const data = await getAllMovie()
-            console.log(data)
             movies.value = data.movies.data
             loading.value = false
         }
