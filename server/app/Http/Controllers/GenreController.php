@@ -15,13 +15,15 @@ class GenreController extends Controller
 
     public function createGenre(Request $request)
     {
+        $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
         try {
-            $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
 
             $genre = new Genre();
 
             $genre->title = $request->title;
             $genre->description = $request->description;
+            $genre->status = $request->status;
+
 
             $genre->save();
 
@@ -48,10 +50,10 @@ class GenreController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
-    public function getGenre($id)
+    public function getGenre($slug)
     {
         try {
-            $genre  = Genre::find($id);
+            $genre  = Genre::findBySlug($slug);
 
             if (!$genre) return response()->json([
                 'success' => false,
@@ -68,12 +70,12 @@ class GenreController extends Controller
         }
     }
 
-    public function editGenre(Request $request, $id)
+    public function editGenre(Request $request, $slug)
     {
         try {
             $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
 
-            $genre = Genre::find($id);
+            $genre = Genre::findBySlug($slug);
 
             if (!$genre) return response()->json([
                 'success' => false,

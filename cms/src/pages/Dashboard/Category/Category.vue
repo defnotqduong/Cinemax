@@ -1,19 +1,22 @@
 <template>
-    <div class="py-20">
-        <button
-            class="px-3 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300"
-        >
-            <router-link
-                :to="{
-                    name: 'dashboard-create-category'
-                }"
-                class="w-full h-full block"
+    <div class="py-20 mr-8">
+        <div class="flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-white">Danh mục:</h3>
+            <button
+                class="px-3 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300"
             >
-                Thêm mới
-            </router-link>
-        </button>
+                <router-link
+                    :to="{
+                        name: 'dashboard-create-category'
+                    }"
+                    class="w-full h-full block"
+                >
+                    Thêm mới
+                </router-link>
+            </button>
+        </div>
         <div
-            class="w-full flex items-center justify-center py-10"
+            class="w-full flex items-center justify-center min-h-[50vh]"
             v-if="loading"
         >
             <span class="loading loading-spinner text-white"></span>

@@ -15,13 +15,14 @@ class CountryController extends Controller
 
     public function createCountry(Request $request)
     {
+        $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
         try {
-            $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
 
             $country = new Country();
 
             $country->title = $request->title;
             $country->description = $request->description;
+            $country->status = $request->status;
 
             $country->save();
 
@@ -48,10 +49,10 @@ class CountryController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
-    public function getCountry($id)
+    public function getCountry($slug)
     {
         try {
-            $country  = Country::find($id);
+            $country  = Country::findBySlug($slug);
 
             if (!$country) return response()->json([
                 'success' => false,
@@ -68,12 +69,12 @@ class CountryController extends Controller
         }
     }
 
-    public function editCountry(Request $request, $id)
+    public function editCountry(Request $request, $slug)
     {
+        $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
         try {
-            $request->validate(['title' => 'required|string', 'description' => 'nullable', 'status' => 'required|boolean']);
 
-            $country  = Country::find($id);
+            $country  = Country::findBySlug($slug);
 
             if (!$country) return response()->json([
                 'success' => false,

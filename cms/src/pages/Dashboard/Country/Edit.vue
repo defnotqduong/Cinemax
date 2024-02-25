@@ -1,12 +1,18 @@
 <template>
     <div class="py-20">
-        <h3 class="text-2xl font-bold mb-10">Thêm danh mục:</h3>
-        <form class="w-[50%] mx-auto" @submit.prevent="create">
+        <h3 class="text-2xl font-bold mb-10">Chỉnh sửa quốc gia:</h3>
+        <div
+            v-if="loading"
+            class="flex items-center justify-center min-h-[50vh]"
+        >
+            <span class="loading loading-spinner text-white"></span>
+        </div>
+        <form v-if="!loading" class="w-[50%] mx-auto" @submit.prevent="edit">
             <div
                 class="px-4 py-2 mb-3 text-center text-lg font-semibold text-white bg-green-400 rounded-md"
                 v-if="success"
             >
-                Thêm thành công
+                Chỉnh sửa thành công
             </div>
             <label for="title" class="block mb-6">
                 <div class="text-lg font-semibold mb-3">Tiều đề:</div>
@@ -55,10 +61,10 @@
                 class="px-6 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300"
             >
                 <span
-                    v-if="loading"
+                    v-if="loadingSubmit"
                     class="loading loading-spinner text-white"
                 ></span>
-                <span v-if="!loading">Thêm</span>
+                <span v-if="!loadingSubmit">Sửa</span>
             </button>
         </form>
     </div>
@@ -66,11 +72,12 @@
 
 <script>
 import { defineComponent, ref, reactive, toRefs } from 'vue'
-import { createCategory } from '../../../webServices/categoryService'
+import { editCountry, getCountry } from '../../../webServices/countryService'
 export default defineComponent({
     setup() {
-        const category = reactive({
+        const country = reactive({
             title: '',
+            slug: '',
             description: '',
             status: 1
         })
@@ -78,34 +85,52 @@ export default defineComponent({
         const errors = ref([])
         const success = ref(false)
         const loading = ref(false)
+        const loadingSubmit = ref(false)
 
-        const create = async () => {
-            loading.value = true
-            const data = await createCategory(category)
+        const edit = async () => {
+            loadingSubmit.value = true
+            const data = await editCountry(country)
             console.log(data)
             if (data.success) {
                 success.value = true
                 errors.value = []
-                loading.value = false
+                loadingSubmit.value = false
                 setTimeout(() => {
                     success.value = false
                 }, 2000)
-                category.title = ''
-                category.description = ''
-                category.status = 1
             } else {
                 errors.value = data.data.errors
-                loading.value = false
+                loadingSubmit.value = false
             }
         }
 
         return {
-            ...toRefs(category),
-            create,
+            ...toRefs(country),
+            edit,
             success,
             errors,
-            loading
+            loading,
+            loadingSubmit
         }
+    },
+    methods: {
+        async getCountryDetails() {
+            const slug = this.$route.params.slug
+            this.loading = true
+            const data = await getCountry(slug)
+
+            if (data.success) {
+                this.title = data.country.title
+                this.slug = data.country.slug
+                this.description = data.country.description
+                this.status = data.country.status
+
+                this.loading = false
+            }
+        }
+    },
+    mounted() {
+        this.getCountryDetails()
     }
 })
 </script>

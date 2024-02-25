@@ -32,10 +32,30 @@ const dashboard = [
                 component: () => import('../pages/Dashboard/Genre/Genre.vue')
             },
             {
+                path: 'the-loai/tao-moi',
+                name: 'dashboard-create-genre',
+                component: () => import('../pages/Dashboard/Genre/Create.vue')
+            },
+            {
+                path: 'the-loai/:slug',
+                name: 'dashboard-edit-genre',
+                component: () => import('../pages/Dashboard/Genre/Edit.vue')
+            },
+            {
                 path: 'quoc-gia',
                 name: 'dashboard-country',
                 component: () =>
                     import('../pages/Dashboard/Country/Country.vue')
+            },
+            {
+                path: 'quoc-gia/tao-moi',
+                name: 'dashboard-create-country',
+                component: () => import('../pages/Dashboard/Country/Create.vue')
+            },
+            {
+                path: 'quoc-gia/:slug',
+                name: 'dashboard-edit-country',
+                component: () => import('../pages/Dashboard/Country/Edit.vue')
             },
             {
                 path: 'phim',

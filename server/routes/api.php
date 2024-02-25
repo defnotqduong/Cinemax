@@ -40,16 +40,16 @@ Route::group(['middleware' => 'api', 'prefix' => 'category'], function ($routes)
 Route::group(['middleware' => 'api', 'prefix' => 'genre'], function ($routes) {
     Route::get('', [GenreController::class, 'getAllGenre']);
     Route::post('', [GenreController::class, 'createGenre']);
-    Route::get('/{id}', [GenreController::class, 'getGenre']);
-    Route::put('/{id}', [GenreController::class, 'editGenre']);
+    Route::get('/{slug}', [GenreController::class, 'getGenre']);
+    Route::put('/{slug}', [GenreController::class, 'editGenre']);
     Route::delete('/{id}', [GenreController::class, 'deleteGenre']);
 });
 
 Route::group(['middleware' => 'api', 'prefix' => 'country'], function ($routes) {
     Route::get('', [CountryController::class, 'getAllCountry']);
     Route::post('', [CountryController::class, 'createCountry']);
-    Route::get('/{id}', [CountryController::class, 'getCountry']);
-    Route::put('/{id}', [CountryController::class, 'editCountry']);
+    Route::get('/{slug}', [CountryController::class, 'getCountry']);
+    Route::put('/{slug}', [CountryController::class, 'editCountry']);
     Route::delete('/{id}', [CountryController::class, 'deleteCountry']);
 });
 

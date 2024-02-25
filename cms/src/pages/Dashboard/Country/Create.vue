@@ -1,6 +1,6 @@
 <template>
     <div class="py-20">
-        <h3 class="text-2xl font-bold mb-10">Thêm danh mục:</h3>
+        <h3 class="text-2xl font-bold mb-10">Thêm quốc gia:</h3>
         <form class="w-[50%] mx-auto" @submit.prevent="create">
             <div
                 class="px-4 py-2 mb-3 text-center text-lg font-semibold text-white bg-green-400 rounded-md"
@@ -66,10 +66,10 @@
 
 <script>
 import { defineComponent, ref, reactive, toRefs } from 'vue'
-import { createCategory } from '../../../webServices/categoryService'
+import { createCountry } from '../../../webServices/countryService'
 export default defineComponent({
     setup() {
-        const category = reactive({
+        const country = reactive({
             title: '',
             description: '',
             status: 1
@@ -81,8 +81,7 @@ export default defineComponent({
 
         const create = async () => {
             loading.value = true
-            const data = await createCategory(category)
-            console.log(data)
+            const data = await createCountry(country)
             if (data.success) {
                 success.value = true
                 errors.value = []
@@ -90,9 +89,9 @@ export default defineComponent({
                 setTimeout(() => {
                     success.value = false
                 }, 2000)
-                category.title = ''
-                category.description = ''
-                category.status = 1
+                country.title = ''
+                country.description = ''
+                country.status = 1
             } else {
                 errors.value = data.data.errors
                 loading.value = false
@@ -100,7 +99,7 @@ export default defineComponent({
         }
 
         return {
-            ...toRefs(category),
+            ...toRefs(country),
             create,
             success,
             errors,
