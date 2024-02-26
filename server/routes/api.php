@@ -70,4 +70,5 @@ Route::group(['middleware' => 'api', 'prefix' => 'episode'], function ($routes) 
 
 Route::group(['middleware' => 'api'], function ($routes) {
     Route::post('/upload-image', [ImageController::class, 'upload']);
+    Route::delete('/delete-image', [ImageController::class, 'delete']);
 });

@@ -284,6 +284,9 @@ export default defineComponent({
     },
     mounted() {
         this.getInitialData()
+    },
+    beforeUnmount() {
+        console.log('Component is about to be unmounted')
     }
 })
 </script>
