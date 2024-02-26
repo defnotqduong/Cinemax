@@ -2,9 +2,7 @@
     <div class="flex items-start justify-start gap-7 mb-5">
         <div class="avatar">
             <div class="w-[50px] rounded-full">
-                <img
-                    src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                />
+                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
             </div>
         </div>
         <div
@@ -15,10 +13,7 @@
                     <span class="font-bold text-white">Chris Curry</span> -
                     <span>1 Hour ago</span>
                 </div>
-                <p>
-                    whachikan Just noticed that someone categorized this as
-                    belonging to the genre "demons" LOL
-                </p>
+                <p>whachikan Just noticed that someone categorized this as belonging to the genre "demons" LOL</p>
             </div>
         </div>
     </div>

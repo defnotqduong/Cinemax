@@ -9,22 +9,16 @@
         <div class="max-w-[1240px] mx-auto py-[160px]">
             <div class="flex items-center justify-center gap-6">
                 <div class="flex-1 px-10">
-                    <h3 class="text-[80px] font-bold text-white line-clamp-1">
-                        The Seven Deadly Sins: Wrath of the Gods
-                    </h3>
+                    <h3 class="text-[80px] font-bold text-white line-clamp-1">The Seven Deadly Sins: Wrath of the Gods</h3>
                     <p class="mt-10 text-white font-bold line-clamp-3">
-                        Mười năm trước, "Cổng" xuất hiện và kết nối thế giới
-                        thực với vương quốc ma thuật và quái vật. Để chiến đấu
-                        với những con thú hèn hạ này, những người bình thường đã
-                        nhận được sức mạnh siêu phàm và được gọi là "Thợ săn".
+                        Mười năm trước, "Cổng" xuất hiện và kết nối thế giới thực với vương quốc ma thuật và quái vật. Để chiến đấu với những con thú hèn hạ
+                        này, những người bình thường đã nhận được sức mạnh siêu phàm và được gọi là "Thợ săn".
                     </p>
                     <div class="mt-10">
                         <Button :content="'Xem phim'" />
                     </div>
                 </div>
-                <div
-                    class="w-[400px] h-[560px] rounded-3xl overflow-hidden shadow mr-10"
-                >
+                <div class="w-[400px] h-[560px] rounded-3xl overflow-hidden shadow mr-10">
                     <img
                         src="https://rare-gallery.com/uploads/posts/400745-animegirl-wallpaper.png"
                         alt="Poster"

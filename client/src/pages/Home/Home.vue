@@ -13,20 +13,8 @@
                         <a
                             class="relative flex items-center justify-center gap-3 py-[2px] cursor-pointer hover:text-primary transition-colors duration-[700ms] after:absolute after:content after:bottom-0 after:left-auto after:right-0 after:w-0 after:h-[2px] after:bg-primary after:rounded hover:after:w-full hover:after:right-auto hover:after:left-0 after:transition-width after:duration-[400ms]"
                             >Xem thêm
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16px"
-                                height="16px"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                            >
-                                <path
-                                    d="M2 12.0701H22"
-                                    stroke="currentColor"
-                                    stroke-width="1.5"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
+                                <path d="M2 12.0701H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 <path
                                     d="M16 5L21.16 10C21.4324 10.2571 21.6494 10.567 21.7977 10.9109C21.946 11.2548 22.0226 11.6255 22.0226 12C22.0226 12.3745 21.946 12.7452 21.7977 13.0891C21.6494 13.433 21.4324 13.7429 21.16 14L16 19"
                                     stroke="currentColor"
@@ -48,20 +36,8 @@
                         <a
                             class="relative flex items-center justify-center gap-3 py-[2px] cursor-pointer hover:text-primary transition-colors duration-[700ms] after:absolute after:content after:bottom-0 after:left-auto after:right-0 after:w-0 after:h-[2px] after:bg-primary after:rounded hover:after:w-full hover:after:right-auto hover:after:left-0 after:transition-width after:duration-[400ms]"
                             >Xem thêm
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16px"
-                                height="16px"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                            >
-                                <path
-                                    d="M2 12.0701H22"
-                                    stroke="currentColor"
-                                    stroke-width="1.5"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
+                                <path d="M2 12.0701H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 <path
                                     d="M16 5L21.16 10C21.4324 10.2571 21.6494 10.567 21.7977 10.9109C21.946 11.2548 22.0226 11.6255 22.0226 12C22.0226 12.3745 21.946 12.7452 21.7977 13.0891C21.6494 13.433 21.4324 13.7429 21.16 14L16 19"
                                     stroke="currentColor"
@@ -83,20 +59,8 @@
                         <a
                             class="relative flex items-center justify-center gap-3 py-[2px] cursor-pointer hover:text-primary transition-colors duration-[700ms] after:absolute after:content after:bottom-0 after:left-auto after:right-0 after:w-0 after:h-[2px] after:bg-primary after:rounded hover:after:w-full hover:after:right-auto hover:after:left-0 after:transition-width after:duration-[400ms]"
                             >Xem thêm
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16px"
-                                height="16px"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                            >
-                                <path
-                                    d="M2 12.0701H22"
-                                    stroke="currentColor"
-                                    stroke-width="1.5"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
+                                <path d="M2 12.0701H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 <path
                                     d="M16 5L21.16 10C21.4324 10.2571 21.6494 10.567 21.7977 10.9109C21.946 11.2548 22.0226 11.6255 22.0226 12C22.0226 12.3745 21.946 12.7452 21.7977 13.0891C21.6494 13.433 21.4324 13.7429 21.16 14L16 19"
                                     stroke="currentColor"
@@ -117,9 +81,7 @@
                         >
                             Lượt xem hàng đầu
                         </h4>
-                        <ul
-                            class="flex items-center justify-center gap-[10px] text-sm font-medium text-secondary"
-                        >
+                        <ul class="flex items-center justify-center gap-[10px] text-sm font-medium text-secondary">
                             <li>
                                 <button
                                     :class="{

@@ -11,13 +11,8 @@
                 backgroundImage: `url('https://blogger.googleusercontent.com/img/a/AVvXsEjj_rM2gCPhJ92kDavLT-AJCfNbGZdAPuR6l_7ReBsj1_m9n3-8oS2PUki6RvHauH48DJEQ2bSHborpUqwLqNNWZxK359K2CeH18--Cft9pWir2Rweez_fqG5YKyiVDDNhFL0GgLldTRTKkGGq8Nmj6mqmR5yBOmxpzOknljJQJMiu7VZ22IKl4Nw91ZB1v=w640-h360-rw')`
             }"
         >
-            <span
-                class="absolute top-4 left-[10px] bg-primary rounded px-2 text-sm"
-                >18 / 18</span
-            >
-            <span
-                class="absolute right-[10px] top-4 bg-gray rounded px-2 text-sm flex items-center justify-center gap-1"
-            >
+            <span class="absolute top-4 left-[10px] bg-primary rounded px-2 text-sm">18 / 18</span>
+            <span class="absolute right-[10px] top-4 bg-gray rounded px-2 text-sm flex items-center justify-center gap-1">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"
@@ -35,9 +30,7 @@
                 </svg>
                 9141</span
             >
-            <h4 class="absolute bottom-5 px-5 w-full text-2xl font-semibold">
-                Fullmetal Alchemist: Brotherhood
-            </h4>
+            <h4 class="absolute bottom-5 px-5 w-full text-2xl font-semibold">Fullmetal Alchemist: Brotherhood</h4>
         </div>
     </router-link>
 </template>

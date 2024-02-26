@@ -16,12 +16,8 @@
         </div>
         <div class="flex-1">
             <div class="mb-[10px] flex items-center justify-start gap-2">
-                <div class="badge bg-badge text-white text-xs font-semibold">
-                    Active
-                </div>
-                <div class="badge bg-badge text-white text-xs font-semibold">
-                    Movie
-                </div>
+                <div class="badge bg-badge text-white text-xs font-semibold">Active</div>
+                <div class="badge bg-badge text-white text-xs font-semibold">Movie</div>
             </div>
             <h5 class="mr-4 text-lg font-semibold cursor-pointer line-clamp-2">
                 <router-link
@@ -35,9 +31,7 @@
                     The Seven Deadly Sins: Wrath of the Gods
                 </router-link>
             </h5>
-            <div
-                class="flex items-center justify-start gap-2 text-xs text-secondary mt-1"
-            >
+            <div class="flex items-center justify-start gap-2 text-xs text-secondary mt-1">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"

@@ -6,9 +6,7 @@ const connectServer = config => {
     let headersDefault = {
         'Content-Type': 'application/json; charset=utf-8'
     }
-    let headers = config.headers
-        ? { ...headersDefault, ...config.headers }
-        : headersDefault
+    let headers = config.headers ? { ...headersDefault, ...config.headers } : headersDefault
     headers.Authorization = gtka() || false
     return axios.create({
         headers: headers,
@@ -16,10 +14,7 @@ const connectServer = config => {
     })
 }
 export const endpointAccess = path => {
-    const endpoint =
-        import.meta.env.PROD == true
-            ? import.meta.env.API_PROD
-            : import.meta.env.API_DEV
+    const endpoint = import.meta.env.PROD == true ? import.meta.env.API_PROD : import.meta.env.API_DEV
     return `${endpoint}/${path}`
 }
 

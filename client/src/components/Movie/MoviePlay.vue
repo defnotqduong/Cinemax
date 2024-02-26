@@ -1,13 +1,7 @@
 <template>
     <div class="pt-8">
         <div class="mb-20 flex items-center justify-center">
-            <iframe
-                width="90%"
-                height="500"
-                src="https://www.youtube.com/embed/PsVEpKthrcg"
-                frameborder="0"
-                allowfullscreen
-            ></iframe>
+            <iframe width="90%" height="500" src="https://www.youtube.com/embed/PsVEpKthrcg" frameborder="0" allowfullscreen></iframe>
         </div>
         <div>
             <div class="mb-7 flex items-center justify-between">
@@ -19,9 +13,7 @@
             </div>
             <ul class="grid grid-cols-11 gap-4 max-h-[250px] overflow-y-auto">
                 <li v-for="i in 500" :key="i">
-                    <button
-                        class="py-2 w-full text-center rounded-md bg-ep text-white hover:bg-white hover:text-black transition-all duration-200"
-                    >
+                    <button class="py-2 w-full text-center rounded-md bg-ep text-white hover:bg-white hover:text-black transition-all duration-200">
                         <router-link
                             :to="{
                                 name: 'home-watching',

@@ -7,21 +7,10 @@
             }"
         >
             <div class="w-[35%] mx-auto">
-                <form
-                    class="py-8 px-10 rounded-xl border-[1px] border-bagde text-white backdrop-blur"
-                >
-                    <h4 class="text-3xl font-bold text-center mb-8">
-                        Đăng nhập
-                    </h4>
-                    <div
-                        class="relative mb-6 px-4 rounded-full border-[1px] border-bagde"
-                    >
-                        <input
-                            type="text"
-                            id="email"
-                            placeholder="Email"
-                            class="w-full py-2 pr-6 bg-transparent outline-none"
-                        />
+                <form class="py-8 px-10 rounded-xl border-[1px] border-bagde text-white backdrop-blur">
+                    <h4 class="text-3xl font-bold text-center mb-8">Đăng nhập</h4>
+                    <div class="relative mb-6 px-4 rounded-full border-[1px] border-bagde">
+                        <input type="text" id="email" placeholder="Email" class="w-full py-2 pr-6 bg-transparent outline-none" />
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor"
@@ -30,20 +19,11 @@
                             viewBox="0 0 24 24"
                             class="absolute right-4 top-1/2 -translate-y-1/2"
                         >
-                            <path
-                                d="M22,5V9L12,13,2,9V5A1,1,0,0,1,3,4H21A1,1,0,0,1,22,5ZM2,11.154V19a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V11.154l-10,4Z"
-                            />
+                            <path d="M22,5V9L12,13,2,9V5A1,1,0,0,1,3,4H21A1,1,0,0,1,22,5ZM2,11.154V19a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V11.154l-10,4Z" />
                         </svg>
                     </div>
-                    <div
-                        class="relative mb-6 px-4 rounded-full border-[1px] border-bagde"
-                    >
-                        <input
-                            type="password"
-                            id="password"
-                            placeholder="Mật khẩu"
-                            class="w-full py-2 pr-6 bg-transparent outline-none"
-                        />
+                    <div class="relative mb-6 px-4 rounded-full border-[1px] border-bagde">
+                        <input type="password" id="password" placeholder="Mật khẩu" class="w-full py-2 pr-6 bg-transparent outline-none" />
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16px"
@@ -61,22 +41,14 @@
                         </svg>
                     </div>
                     <div class="flex items-center justify-end mr-1 mb-4">
-                        <router-link
-                            :to="{ name: 'home-homepage' }"
-                            class="hover:text-primary transition-all duration-200"
-                            >Quên mật khẩu?</router-link
-                        >
+                        <router-link :to="{ name: 'home-homepage' }" class="hover:text-primary transition-all duration-200">Quên mật khẩu?</router-link>
                     </div>
-                    <button
-                        class="w-full py-3 bg-white text-black font-bold rounded-full hover:bg-primary hover:text-white transition-all duration-[400ms]"
-                    >
+                    <button class="w-full py-3 bg-white text-black font-bold rounded-full hover:bg-primary hover:text-white transition-all duration-[400ms]">
                         Đăng nhập
                     </button>
                     <div class="mt-6 flex items-center justify-center gap-1">
                         <p>Bạn chưa có tài khoản?</p>
-                        <router-link
-                            :to="{ name: 'auth-register' }"
-                            class="font-bold hover:text-primary-alpha transition-all duration-200"
+                        <router-link :to="{ name: 'auth-register' }" class="font-bold hover:text-primary-alpha transition-all duration-200"
                             >Đăng ký</router-link
                         >
                     </div>

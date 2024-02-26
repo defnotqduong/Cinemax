@@ -12,20 +12,9 @@
                     alt="thumb"
                     class="w-full h-full object-cover object-center rounded-lg"
                 />
-                <span
-                    class="absolute top-4 left-[10px] bg-primary rounded px-2 text-sm"
-                    >18 / 18</span
-                >
-                <span
-                    class="absolute left-[10px] bottom-4 bg-gray rounded px-2 text-sm flex items-center justify-center gap-1"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16px"
-                        height="16px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                    >
+                <span class="absolute top-4 left-[10px] bg-primary rounded px-2 text-sm">18 / 18</span>
+                <span class="absolute left-[10px] bottom-4 bg-gray rounded px-2 text-sm flex items-center justify-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
                         <path
                             d="M10.968 18.769C15.495 18.107 19 14.434 19 9.938a8.49 8.49 0 0 0-.216-1.912C20.718 9.178 22 11.188 22 13.475a6.1 6.1 0 0 1-1.113 3.506c.06.949.396 1.781 1.01 2.497a.43.43 0 0 1-.36.71c-1.367-.111-2.485-.426-3.354-.945A7.434 7.434 0 0 1 15 19.95a7.36 7.36 0 0 1-4.032-1.181z"
                             fill="currentColor"
@@ -37,9 +26,7 @@
                     </svg>
                     11</span
                 >
-                <span
-                    class="absolute right-[10px] bottom-4 bg-gray rounded px-2 text-sm flex items-center justify-center gap-1"
-                >
+                <span class="absolute right-[10px] bottom-4 bg-gray rounded px-2 text-sm flex items-center justify-center gap-1">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="currentColor"
@@ -60,20 +47,10 @@
             </div>
             <div class="pt-5">
                 <div class="mb-[10px] flex items-center justify-start gap-2">
-                    <div
-                        class="badge bg-badge text-white text-xs font-semibold"
-                    >
-                        Active
-                    </div>
-                    <div
-                        class="badge bg-badge text-white text-xs font-semibold"
-                    >
-                        Movie
-                    </div>
+                    <div class="badge bg-badge text-white text-xs font-semibold">Active</div>
+                    <div class="badge bg-badge text-white text-xs font-semibold">Movie</div>
                 </div>
-                <h5
-                    class="text-lg font-semibold cursor-pointer hover:text-primary transitio-all duration-[400ms] line-clamp-2"
-                >
+                <h5 class="text-lg font-semibold cursor-pointer hover:text-primary transitio-all duration-[400ms] line-clamp-2">
                     The Seven Deadly Sins: Wrath of the Gods
                 </h5>
             </div>

@@ -2,9 +2,7 @@
     <div class="py-20 mr-8">
         <div class="flex items-center justify-between">
             <h3 class="text-2xl font-bold text-white">Thể loại:</h3>
-            <button
-                class="px-3 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300"
-            >
+            <button class="px-3 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
                 <router-link
                     :to="{
                         name: 'dashboard-create-genre'
@@ -15,10 +13,7 @@
                 </router-link>
             </button>
         </div>
-        <div
-            class="w-full flex items-center justify-center min-h-[50vh]"
-            v-if="loading"
-        >
+        <div class="w-full flex items-center justify-center min-h-[50vh]" v-if="loading">
             <span class="loading loading-spinner text-white"></span>
         </div>
         <div v-if="!loading" class="overflow-x-auto mt-10">
@@ -44,9 +39,7 @@
                             {{ genre.status == 1 ? 'Hiển thị' : 'Ẩn' }}
                         </td>
                         <td class="flex items-center justify-center gap-3">
-                            <button
-                                class="text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300"
-                            >
+                            <button class="text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
                                 <router-link
                                     :to="{
                                         name: 'dashboard-edit-genre',
@@ -64,19 +57,13 @@
                                 class="px-3 py-2 text-white bg-primary rounded font-bold cursor-pointer hover:bg-primary-alpha transition-all duration-300"
                                 >Xóa</label
                             >
-                            <input
-                                type="checkbox"
-                                :id="'modal_delete_' + genre.id"
-                                class="modal-toggle"
-                            />
+                            <input type="checkbox" :id="'modal_delete_' + genre.id" class="modal-toggle" />
                             <div class="modal" role="dialog">
                                 <div class="modal-box">
                                     <h3 class="font-bold text-lg">Xác nhận!</h3>
                                     <p class="py-4">
                                         Xóa thể loại
-                                        <span class="font-bold">{{
-                                            genre.title
-                                        }}</span>
+                                        <span class="font-bold">{{ genre.title }}</span>
                                     </p>
                                     <div class="modal-action">
                                         <label
@@ -86,11 +73,7 @@
                                         >
                                             Xóa
                                         </label>
-                                        <label
-                                            :for="'modal_delete_' + genre.id"
-                                            class="btn"
-                                            >Hủy!</label
-                                        >
+                                        <label :for="'modal_delete_' + genre.id" class="btn">Hủy!</label>
                                     </div>
                                 </div>
                             </div>
