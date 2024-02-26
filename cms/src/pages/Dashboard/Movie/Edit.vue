@@ -196,6 +196,12 @@ export default defineComponent({
         const edit = async () => {
             loadingSubmit.value = true
             const data = await editMovie(movie)
+
+            if (data.status === 401) {
+                router.push({ name: 'auth-login' })
+                return
+            }
+
             if (data.success) {
                 success.value = true
                 errors.value = []
@@ -203,11 +209,6 @@ export default defineComponent({
                 setTimeout(() => {
                     success.value = false
                 }, 2000)
-                return
-            }
-            if (data.status === 401) {
-                router.push({ name: 'auth-login' })
-                return
             }
 
             errors.value = data.data.errors

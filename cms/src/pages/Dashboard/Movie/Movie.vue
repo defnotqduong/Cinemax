@@ -99,42 +99,44 @@
                                     {{ movie.status == 1 ? 'Hiển thị' : 'Ẩn' }}
                                 </p>
                             </td>
-                            <td class="px-2 py-1 flex flex-col items-center justify-center gap-3">
-                                <button class="text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
-                                    <router-link
-                                        :to="{
-                                            name: 'dashboard-edit-movie',
-                                            params: {
-                                                slug: movie.slug
-                                            }
-                                        }"
-                                        class="w-full h-full px-3 py-2 block"
+                            <td>
+                                <div class="flex flex-col items-center justify-center gap-3">
+                                    <button class="text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
+                                        <router-link
+                                            :to="{
+                                                name: 'dashboard-edit-movie',
+                                                params: {
+                                                    slug: movie.slug
+                                                }
+                                            }"
+                                            class="w-full h-full px-3 py-2 block"
+                                        >
+                                            Sửa
+                                        </router-link>
+                                    </button>
+                                    <label
+                                        :for="'modal_delete_' + movie.id"
+                                        class="px-3 py-2 text-white bg-primary rounded font-bold cursor-pointer hover:bg-primary-alpha transition-all duration-300"
+                                        >Xóa</label
                                     >
-                                        Sửa
-                                    </router-link>
-                                </button>
-                                <label
-                                    :for="'modal_delete_' + movie.id"
-                                    class="px-3 py-2 text-white bg-primary rounded font-bold cursor-pointer hover:bg-primary-alpha transition-all duration-300"
-                                    >Xóa</label
-                                >
-                                <input type="checkbox" :id="'modal_delete_' + movie.id" class="modal-toggle" />
-                                <div class="modal" role="dialog">
-                                    <div class="modal-box">
-                                        <h3 class="font-bold text-lg">Xác nhận!</h3>
-                                        <p class="py-4">
-                                            Xóa phim
-                                            <span class="font-bold">{{ movie.title }}</span>
-                                        </p>
-                                        <div class="modal-action">
-                                            <label
-                                                @click="deleteMov(movie.id)"
-                                                :for="'modal_delete_' + movie.id"
-                                                class="btn text-white bg-primary rounded font-bold cursor-pointer hover:bg-primary-alpha transition-all duration-300"
-                                            >
-                                                Xóa
-                                            </label>
-                                            <label :for="'modal_delete_' + movie.id" class="btn">Hủy!</label>
+                                    <input type="checkbox" :id="'modal_delete_' + movie.id" class="modal-toggle" />
+                                    <div class="modal" role="dialog">
+                                        <div class="modal-box">
+                                            <h3 class="font-bold text-lg">Xác nhận!</h3>
+                                            <p class="py-4">
+                                                Xóa phim
+                                                <span class="font-bold">{{ movie.title }}</span>
+                                            </p>
+                                            <div class="modal-action">
+                                                <label
+                                                    @click="deleteMov(movie.id)"
+                                                    :for="'modal_delete_' + movie.id"
+                                                    class="btn text-white bg-primary rounded font-bold cursor-pointer hover:bg-primary-alpha transition-all duration-300"
+                                                >
+                                                    Xóa
+                                                </label>
+                                                <label :for="'modal_delete_' + movie.id" class="btn">Hủy!</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

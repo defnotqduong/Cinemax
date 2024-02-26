@@ -206,13 +206,13 @@ export default defineComponent({
 
             const data = await uploadImage(formData)
 
-            movie.thumbnail = data.image_url
-            thumbUrl.value = URL.createObjectURL(file)
-
             if (data.status === 401) {
                 router.push({ name: 'auth-login' })
                 return
             }
+
+            movie.thumbnail = data.image_url
+            thumbUrl.value = URL.createObjectURL(file)
         }
 
         const resetMovie = () => {
@@ -236,6 +236,12 @@ export default defineComponent({
         const create = async () => {
             loadingSubmit.value = true
             const data = await createMovie(movie)
+
+            if (data.status === 401) {
+                router.push({ name: 'auth-login' })
+                return
+            }
+
             if (data.success) {
                 success.value = true
                 errors.value = []
@@ -244,11 +250,6 @@ export default defineComponent({
                     success.value = false
                 }, 2000)
                 resetMovie()
-                return
-            }
-            if (data.status === 401) {
-                router.push({ name: 'auth-login' })
-                return
             }
 
             errors.value = data.data.errors

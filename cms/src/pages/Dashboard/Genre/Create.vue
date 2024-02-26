@@ -1,63 +1,30 @@
 <template>
     <div class="py-20">
         <h3 class="text-2xl font-bold mb-10">Thêm thể loại:</h3>
-        <div
-            v-if="success"
-            role="alert"
-            class="alert bg-green-400 text-white w-[20%] fixed top-10 right-10"
-        >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="stroke-current shrink-0 h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
+        <div v-if="success" role="alert" class="alert bg-green-400 text-white w-[20%] fixed top-10 right-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span>Thêm thành công</span>
         </div>
         <form class="w-[50%] mx-auto" @submit.prevent="create">
             <label for="title" class="block mb-6">
                 <div class="text-lg font-semibold mb-3">Tiều đề:</div>
-                <input
-                    id="title"
-                    type="text"
-                    v-model="title"
-                    placeholder="Tiêu đề"
-                    class="input input-bordered h-10 input-secondary w-full"
-                />
+                <input id="title" type="text" v-model="title" placeholder="Tiêu đề" class="input input-bordered h-10 input-secondary w-full" />
                 <div v-if="errors && errors.title" class="mt-2 text-primary">
                     {{ errors.title[0] }}
                 </div>
             </label>
             <label for="description" class="block mb-6">
                 <div class="text-lg font-semibold mb-3">Mô tả:</div>
-                <input
-                    id="description"
-                    type="text"
-                    v-model="description"
-                    placeholder="Mô tả"
-                    class="input input-bordered h-10 input-secondary w-full"
-                />
-                <div
-                    v-if="errors && errors.description"
-                    class="mt-2 text-primary"
-                >
+                <input id="description" type="text" v-model="description" placeholder="Mô tả" class="input input-bordered h-10 input-secondary w-full" />
+                <div v-if="errors && errors.description" class="mt-2 text-primary">
                     {{ errors.description[0] }}
                 </div>
             </label>
             <label for="status" class="block mb-6">
                 <div class="text-lg font-semibold mb-3">Trạng thái:</div>
-                <select
-                    class="select select-secondary w-full h-10"
-                    id="status"
-                    v-model="status"
-                >
+                <select class="select select-secondary w-full h-10" id="status" v-model="status">
                     <option value="1">Hiển thị</option>
                     <option value="0">Ẩn</option>
                 </select>
@@ -65,13 +32,8 @@
                     {{ errors.status[0] }}
                 </div>
             </label>
-            <button
-                class="px-6 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300"
-            >
-                <span
-                    v-if="loading"
-                    class="loading loading-spinner text-white"
-                ></span>
+            <button class="px-6 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
+                <span v-if="loading" class="loading loading-spinner text-white"></span>
                 <span v-if="!loading">Thêm</span>
             </button>
         </form>
@@ -96,6 +58,12 @@ export default defineComponent({
         const create = async () => {
             loading.value = true
             const data = await createGenre(genre)
+
+            if (data.status === 401) {
+                router.push({ name: 'auth-login' })
+                return
+            }
+
             if (data.success) {
                 success.value = true
                 errors.value = []
@@ -106,11 +74,6 @@ export default defineComponent({
                 genre.title = ''
                 genre.description = ''
                 genre.status = 1
-                return
-            }
-            if (data.status === 401) {
-                router.push({ name: 'auth-login' })
-                return
             }
 
             errors.value = data.data.errors
