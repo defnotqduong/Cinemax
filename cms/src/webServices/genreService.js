@@ -7,6 +7,13 @@ export const getAllGenre = dataPost => {
     )
 }
 
+export const getInitialGenre = dataPost => {
+    return connectServer[api.GET_INITIAL_GENRE_API.method](
+        api.GET_INITIAL_GENRE_API.url,
+        dataPost
+    )
+}
+
 export const getGenre = dataPost => {
     return connectServer[api.GET_GENRE_API.method](
         api.GET_GENRE_API.url + '/' + dataPost,
@@ -36,6 +43,7 @@ export const deleteGenre = dataPost => {
 
 export default {
     getAllGenre,
+    getInitialGenre,
     createGenre,
     editGenre,
     deleteGenre

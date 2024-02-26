@@ -34,6 +34,10 @@ export default {
         method: 'get',
         url: '/category'
     },
+    GET_INITIAL_CATEGORY_API: {
+        method: 'get',
+        url: '/category/initial'
+    },
     GET_CATEGORY_API: {
         method: 'get',
         url: '/category'
@@ -56,6 +60,10 @@ export default {
         method: 'get',
         url: '/genre'
     },
+    GET_INITIAL_GENRE_API: {
+        method: 'get',
+        url: '/genre/initial'
+    },
     GET_GENRE_API: {
         method: 'get',
         url: '/genre'
@@ -77,6 +85,10 @@ export default {
     GET_ALL_COUNTRY_API: {
         method: 'get',
         url: '/country'
+    },
+    GET_INITIAL_COUNTRY_API: {
+        method: 'get',
+        url: '/country/initial'
     },
     GET_COUNTRY_API: {
         method: 'get',
@@ -115,5 +127,11 @@ export default {
     DELETE_MOVIE_API: {
         method: 'deleted',
         url: '/movie'
+    },
+
+    // image
+    UPLOAD_IMAGE_API: {
+        method: 'post',
+        url: '/upload-image'
     }
 }

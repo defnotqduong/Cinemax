@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MovieController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($routes) {
 Route::group(['middleware' => 'api', 'prefix' => 'category'], function ($routes) {
     Route::get('', [CategoryController::class, 'getAllCategory']);
     Route::post('', [CategoryController::class, 'createCategory']);
+    Route::get('/initial', [CategoryController::class, 'getInitialCategory']);
     Route::get('/{slug}', [CategoryController::class, 'getCategory']);
     Route::put('/{slug}', [CategoryController::class, 'editCategory']);
     Route::delete('/{id}', [CategoryController::class, 'deleteCategory']);
@@ -40,6 +42,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'category'], function ($routes)
 Route::group(['middleware' => 'api', 'prefix' => 'genre'], function ($routes) {
     Route::get('', [GenreController::class, 'getAllGenre']);
     Route::post('', [GenreController::class, 'createGenre']);
+    Route::get('/initial', [GenreController::class, 'getInitialGenre']);
     Route::get('/{slug}', [GenreController::class, 'getGenre']);
     Route::put('/{slug}', [GenreController::class, 'editGenre']);
     Route::delete('/{id}', [GenreController::class, 'deleteGenre']);
@@ -48,6 +51,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'genre'], function ($routes) {
 Route::group(['middleware' => 'api', 'prefix' => 'country'], function ($routes) {
     Route::get('', [CountryController::class, 'getAllCountry']);
     Route::post('', [CountryController::class, 'createCountry']);
+    Route::get('/initial', [CountryController::class, 'getInitialCountry']);
     Route::get('/{slug}', [CountryController::class, 'getCountry']);
     Route::put('/{slug}', [CountryController::class, 'editCountry']);
     Route::delete('/{id}', [CountryController::class, 'deleteCountry']);
@@ -56,10 +60,14 @@ Route::group(['middleware' => 'api', 'prefix' => 'country'], function ($routes) 
 Route::group(['middleware' => 'api', 'prefix' => 'movie'], function ($routes) {
     Route::get('', [MovieController::class, 'getAllMovie']);
     Route::post('', [MovieController::class, 'createMovie']);
-    Route::get('/{id}', [MovieController::class, 'getMovie']);
-    Route::put('/{id}', [MovieController::class, 'editMovie']);
+    Route::get('/{slug}', [MovieController::class, 'getMovie']);
+    Route::put('/{slug}', [MovieController::class, 'editMovie']);
     Route::delete('/{id}', [MovieController::class, 'deleteMovie']);
 });
 
 Route::group(['middleware' => 'api', 'prefix' => 'episode'], function ($routes) {
+});
+
+Route::group(['middleware' => 'api'], function ($routes) {
+    Route::post('/upload-image', [ImageController::class, 'upload']);
 });

@@ -7,6 +7,13 @@ export const getAllCategory = dataPost => {
     )
 }
 
+export const getInitialCategory = dataPost => {
+    return connectServer[api.GET_INITIAL_CATEGORY_API.method](
+        api.GET_INITIAL_CATEGORY_API.url,
+        dataPost
+    )
+}
+
 export const getCategory = dataPost => {
     return connectServer[api.GET_CATEGORY_API.method](
         api.GET_CATEGORY_API.url + '/' + dataPost,
@@ -36,6 +43,7 @@ export const deleteCategory = dataPost => {
 
 export default {
     getAllCategory,
+    getInitialCategory,
     createCategory,
     editCategory,
     deleteCategory

@@ -8,10 +8,24 @@
             <span class="loading loading-spinner text-white"></span>
         </div>
         <div
-            class="w-[50%] mx-auto px-4 py-2 mb-3 text-center text-lg font-semibold text-white bg-green-400 rounded-md"
             v-if="success"
+            role="alert"
+            class="alert bg-green-400 text-white w-[20%] fixed top-10 right-10"
         >
-            Chỉnh sửa thành công
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="stroke-current shrink-0 h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+            </svg>
+            <span>Chỉnh sửa thành công</span>
         </div>
         <form v-if="!loading" class="w-[50%] mx-auto" @submit.prevent="edit">
             <label for="title" class="block mb-6">
@@ -90,7 +104,7 @@ export default defineComponent({
         const edit = async () => {
             loadingSubmit.value = true
             const data = await editCountry(country)
-            console.log(data)
+
             if (data.success) {
                 success.value = true
                 errors.value = []
@@ -98,10 +112,16 @@ export default defineComponent({
                 setTimeout(() => {
                     success.value = false
                 }, 2000)
-            } else {
-                errors.value = data.data.errors
-                loadingSubmit.value = false
+
+                return
             }
+            if (data.status === 401) {
+                router.push({ name: 'auth-login' })
+                return
+            }
+
+            errors.value = data.data.errors
+            loadingSubmit.value = false
         }
 
         return {

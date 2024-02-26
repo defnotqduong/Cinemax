@@ -7,6 +7,13 @@ export const getAllCountry = dataPost => {
     )
 }
 
+export const getInitialCountry = dataPost => {
+    return connectServer[api.GET_INITIAL_COUNTRY_API.method](
+        api.GET_INITIAL_COUNTRY_API.url,
+        dataPost
+    )
+}
+
 export const getCountry = dataPost => {
     return connectServer[api.GET_COUNTRY_API.method](
         api.GET_COUNTRY_API.url + '/' + dataPost,
@@ -36,6 +43,7 @@ export const deleteCountry = dataPost => {
 
 export default {
     getAllCountry,
+    getInitialCountry,
     createCountry,
     editCountry,
     deleteCountry

@@ -37,10 +37,10 @@ class MovieController extends Controller
         }
     }
 
-    public function getMovie($id)
+    public function getMovie($slug)
     {
         try {
-            $movie = Movie::where('movies.id', $id)
+            $movie = Movie::where('movies.slug', $slug)
                 ->join('categories', 'movies.category_id', '=', 'categories.id')
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
@@ -67,32 +67,42 @@ class MovieController extends Controller
 
     public function createMovie(Request $request)
     {
+        $request->validate([
+            'title' => 'required|string',
+            'name_eng' => 'nullable|string',
+            'description' => 'nullable|string',
+            'status' => 'required|boolean',
+            'thumbnail' => 'required|string',
+            'resolution' => 'required|numeric',
+            'season' => 'nullable|string',
+            'eps' => 'nullable|numeric',
+            'year' => 'nullable|string',
+            'duration' => 'nullable|string',
+            'tags' => 'nullable|string',
+            'subtitle' => 'required|boolean',
+            'category_id' => 'required|numeric',
+            'country_id' => 'required|numeric',
+            'genre_id' => 'required|numeric',
+        ]);
         try {
-            $request->validate([
-                'title' => 'required|string',
-                'description' => 'nullable',
-                'status' => 'required|boolean',
-                'thumbnail' => 'required|file',
-                'resolution' => 'required|numeric',
-                'subtitle' => 'required|boolean',
-                'category_id' => 'required|numeric',
-                'country_id' => 'required|numeric',
-                'genre_id' => 'required|numeric',
-            ]);
 
             $movie = new Movie();
 
 
-            $image_url = cloudinary()->upload($request->file('thumbnail')->getRealPath(), [
-                'folder' => 'images',
-            ])->getSecurePath();
+
 
             $movie->title = $request->title;
+            $movie->name_eng = $request->name_eng;
             $movie->description = $request->description;
             $movie->status = $request->status;
-            $movie->thumbnail = $image_url;
+            $movie->thumbnail = $request->thumbnail;
             $movie->resolution = $request->resolution;
+            $movie->season = $request->season;
+            $movie->eps = $request->eps;
+            $movie->year = $request->year;
             $movie->subtitle = $request->subtitle;
+            $movie->duration = $request->duration;
+            $movie->tags = $request->tags;
             $movie->category_id = $request->category_id;
             $movie->country_id = $request->country_id;
             $movie->genre_id = $request->genre_id;
@@ -112,47 +122,47 @@ class MovieController extends Controller
         }
     }
 
-    public function editMovie(Request $request, $id)
+    public function editMovie(Request $request, $slug)
     {
 
+        $request->validate([
+            'title' => 'required|string',
+            'name_eng' => 'nullable|string',
+            'description' => 'nullable|string',
+            'status' => 'required|boolean',
+            // 'thumbnail' => 'required|file',
+            'resolution' => 'required|numeric',
+            'season' => 'nullable|string',
+            'eps' => 'nullable|numeric',
+            'year' => 'nullable|string',
+            'duration' => 'nullable|string',
+            'tags' => 'nullable|string',
+            'subtitle' => 'required|boolean',
+            'category_id' => 'required|numeric',
+            'country_id' => 'required|numeric',
+            'genre_id' => 'required|numeric',
+        ]);
         try {
-            $request->validate([
-                'title' => 'required|string',
-                'description' => 'nullable',
-                'status' => 'required|boolean',
-                'thumbnail' => 'required|file',
-                'resolution' => 'required|numeric',
-                'subtitle' => 'required|boolean',
-                'category_id' => 'required|numeric',
-                'country_id' => 'required|numeric',
-                'genre_id' => 'required|numeric',
-            ]);
 
-            $movie = Movie::find($id);
+            $movie = Movie::findBySlug($slug);
 
             if (!$movie) return response()->json([
                 'success' => false,
                 'message' => 'Movie not Found!'
             ], 404);
 
-            $image_url = $movie->image;
-            $filename = pathinfo($image_url)['filename'];
-            $public_id = 'images/' . $filename;
-
-            cloudinary()->destroy($public_id);
-
-            $image_url = cloudinary()->upload($request->file('thumbnail')->getRealPath(), [
-                'folder' => 'images',
-            ])->getSecurePath();
-
-            $movie->image = $image_url;
-
             $movie->title = $request->title;
+            $movie->name_eng = $request->name_eng;
             $movie->description = $request->description;
             $movie->status = $request->status;
-            $movie->thumbnail = $image_url;
+            // $movie->thumbnail = $image_url;
             $movie->resolution = $request->resolution;
+            $movie->season = $request->season;
+            $movie->eps = $request->eps;
+            $movie->year = $request->year;
             $movie->subtitle = $request->subtitle;
+            $movie->duration = $request->duration;
+            $movie->tags = $request->tags;
             $movie->category_id = $request->category_id;
             $movie->country_id = $request->country_id;
             $movie->genre_id = $request->genre_id;

@@ -2,9 +2,7 @@
     <div class="py-20 mr-8">
         <div class="flex items-center justify-between">
             <h3 class="text-2xl font-bold text-white">Danh sách Phim:</h3>
-            <button
-                class="px-3 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300"
-            >
+            <button class="px-3 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
                 <router-link
                     :to="{
                         name: 'dashboard-create-movie'
@@ -15,10 +13,7 @@
                 </router-link>
             </button>
         </div>
-        <div
-            class="w-full flex items-center justify-center min-h-[50vh]"
-            v-if="loading"
-        >
+        <div class="w-full flex items-center justify-center min-h-[50vh]" v-if="loading">
             <span class="loading loading-spinner text-white"></span>
         </div>
         <div class="max-w-[100vw] overflow-x-auto">
@@ -49,11 +44,7 @@
                         <tr v-for="(movie, index) in movies" :key="movie.id">
                             <th>{{ index + 1 }}</th>
                             <td>
-                                <img
-                                    :src="movie.thumbnail"
-                                    alt="thumbnail"
-                                    class="w-20 h-24 object-cover object-center rounded"
-                                />
+                                <img :src="movie.thumbnail" alt="thumbnail" class="w-20 h-24 object-cover object-center rounded" />
                             </td>
                             <td>
                                 <p class="line-clamp-3">{{ movie.title }}</p>
@@ -100,11 +91,7 @@
                             </td>
                             <td>
                                 <p class="line-clamp-3">
-                                    {{
-                                        movie.subtitle == 1
-                                            ? 'Vietsub'
-                                            : 'Thuyết minh'
-                                    }}
+                                    {{ movie.subtitle == 1 ? 'Vietsub' : 'Thuyết minh' }}
                                 </p>
                             </td>
                             <td>
@@ -112,12 +99,8 @@
                                     {{ movie.status == 1 ? 'Hiển thị' : 'Ẩn' }}
                                 </p>
                             </td>
-                            <td
-                                class="px-2 py-1 flex flex-col items-center justify-center gap-3"
-                            >
-                                <button
-                                    class="text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300"
-                                >
+                            <td class="px-2 py-1 flex flex-col items-center justify-center gap-3">
+                                <button class="text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
                                     <router-link
                                         :to="{
                                             name: 'dashboard-edit-movie',
@@ -135,39 +118,23 @@
                                     class="px-3 py-2 text-white bg-primary rounded font-bold cursor-pointer hover:bg-primary-alpha transition-all duration-300"
                                     >Xóa</label
                                 >
-                                <input
-                                    type="checkbox"
-                                    :id="'modal_delete_' + movie.id"
-                                    class="modal-toggle"
-                                />
+                                <input type="checkbox" :id="'modal_delete_' + movie.id" class="modal-toggle" />
                                 <div class="modal" role="dialog">
                                     <div class="modal-box">
-                                        <h3 class="font-bold text-lg">
-                                            Xác nhận!
-                                        </h3>
+                                        <h3 class="font-bold text-lg">Xác nhận!</h3>
                                         <p class="py-4">
                                             Xóa phim
-                                            <span class="font-bold">{{
-                                                movie.title
-                                            }}</span>
+                                            <span class="font-bold">{{ movie.title }}</span>
                                         </p>
                                         <div class="modal-action">
                                             <label
-                                                @click="deleteCat(movie.id)"
-                                                :for="
-                                                    'modal_delete_' + movie.id
-                                                "
+                                                @click="deleteMov(movie.id)"
+                                                :for="'modal_delete_' + movie.id"
                                                 class="btn text-white bg-primary rounded font-bold cursor-pointer hover:bg-primary-alpha transition-all duration-300"
                                             >
                                                 Xóa
                                             </label>
-                                            <label
-                                                :for="
-                                                    'modal_delete_' + movie.id
-                                                "
-                                                class="btn"
-                                                >Hủy!</label
-                                            >
+                                            <label :for="'modal_delete_' + movie.id" class="btn">Hủy!</label>
                                         </div>
                                     </div>
                                 </div>

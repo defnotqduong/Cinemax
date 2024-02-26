@@ -12,7 +12,7 @@ class CategoryController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['getAllCategory', 'getCategory']]);
+        $this->middleware('auth:api', ['except' => ['getAllCategory', 'getInitialCategory', 'getCategory']]);
     }
 
     public function createCategory(Request $request)
@@ -30,6 +30,21 @@ class CategoryController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Category created Successfully!'
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function getInitialCategory()
+    {
+        try {
+            $categories = Category::all();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Categories Fetched Successfully!',
+                'categories' => $categories
             ], 200);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);

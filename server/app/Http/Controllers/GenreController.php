@@ -10,7 +10,7 @@ class GenreController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['getAllGenre', 'getGenre']]);
+        $this->middleware('auth:api', ['except' => ['getAllGenre', 'getInitialGenre', 'getGenre']]);
     }
 
     public function createGenre(Request $request)
@@ -30,6 +30,21 @@ class GenreController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Genre created Successfully!'
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function getInitialGenre()
+    {
+        try {
+            $genres = Genre::all();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Countries Fetched Successfully!',
+                'genres' => $genres
             ], 200);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);

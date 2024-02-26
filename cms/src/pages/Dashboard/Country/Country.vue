@@ -117,7 +117,6 @@ export default defineComponent({
         const getCountryList = async () => {
             loading.value = true
             const data = await getAllCountry()
-            console.log(data)
             countries.value = data.countries.data
             loading.value = false
         }

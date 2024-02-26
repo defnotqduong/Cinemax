@@ -10,7 +10,7 @@ class CountryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['getAllCountry', 'getCountry']]);
+        $this->middleware('auth:api', ['except' => ['getAllCountry', 'getInitialCountry', 'getCountry']]);
     }
 
     public function createCountry(Request $request)
@@ -29,6 +29,22 @@ class CountryController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Country created Successfully!'
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+
+    public function getInitialCountry()
+    {
+        try {
+            $countries = Country::all();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Countries Fetched Successfully!',
+                'countries' => $countries
             ], 200);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);

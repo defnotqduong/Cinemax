@@ -6,19 +6,19 @@ const connectServer = config => {
     let headersDefault = {
         'Content-Type': 'application/json; charset=utf-8'
     }
-    let headers = config.headers
-        ? { ...headersDefault, ...config.headers }
-        : headersDefault
+    let headers = config.headers ? { ...headersDefault, ...config.headers } : headersDefault
 
     const token = gtka()
     if (token) {
         headers.Authorization = `Bearer ${token}`
     }
+
     return axios.create({
         headers: headers,
         timeout: config.timeout || TIMEOUT
     })
 }
+
 export const endpointAccess = path => {
     // const endpoint =
     //     import.meta.env.PROD == true
