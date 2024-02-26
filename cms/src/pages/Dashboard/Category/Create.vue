@@ -1,13 +1,13 @@
 <template>
     <div class="py-20">
         <h3 class="text-2xl font-bold mb-10">Thêm danh mục:</h3>
+        <div
+            class="w-[50%] mx-auto px-4 py-2 mb-3 text-center text-lg font-semibold text-white bg-green-400 rounded-md"
+            v-if="success"
+        >
+            Thêm thành công
+        </div>
         <form class="w-[50%] mx-auto" @submit.prevent="create">
-            <div
-                class="px-4 py-2 mb-3 text-center text-lg font-semibold text-white bg-green-400 rounded-md"
-                v-if="success"
-            >
-                Thêm thành công
-            </div>
             <label for="title" class="block mb-6">
                 <div class="text-lg font-semibold mb-3">Tiều đề:</div>
                 <input

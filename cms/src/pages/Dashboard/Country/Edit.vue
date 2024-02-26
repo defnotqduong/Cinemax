@@ -7,13 +7,13 @@
         >
             <span class="loading loading-spinner text-white"></span>
         </div>
+        <div
+            class="w-[50%] mx-auto px-4 py-2 mb-3 text-center text-lg font-semibold text-white bg-green-400 rounded-md"
+            v-if="success"
+        >
+            Chỉnh sửa thành công
+        </div>
         <form v-if="!loading" class="w-[50%] mx-auto" @submit.prevent="edit">
-            <div
-                class="px-4 py-2 mb-3 text-center text-lg font-semibold text-white bg-green-400 rounded-md"
-                v-if="success"
-            >
-                Chỉnh sửa thành công
-            </div>
             <label for="title" class="block mb-6">
                 <div class="text-lg font-semibold mb-3">Tiều đề:</div>
                 <input

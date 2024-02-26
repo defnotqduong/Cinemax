@@ -7,7 +7,7 @@
             >
                 <router-link
                     :to="{
-                        name: 'dashboard-create-category'
+                        name: 'dashboard-create-movie'
                     }"
                     class="w-full h-full block"
                 >
@@ -120,7 +120,7 @@
                                 >
                                     <router-link
                                         :to="{
-                                            name: 'dashboard-edit-category',
+                                            name: 'dashboard-edit-movie',
                                             params: {
                                                 slug: movie.slug
                                             }
