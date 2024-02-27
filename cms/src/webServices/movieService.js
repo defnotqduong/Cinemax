@@ -8,6 +8,12 @@ export const getMovie = dataPost => {
     return connectServer[api.GET_MOVIE_API.method](api.GET_MOVIE_API.url + '/' + dataPost, dataPost)
 }
 
+export const findMovieById = (param, dataPost) => {
+    const url = param ? '/' + param : ''
+
+    return connectServer[api.FIND_MOVIE_API.method](api.FIND_MOVIE_API.url + url, dataPost)
+}
+
 export const createMovie = dataPost => {
     return connectServer[api.CREATE_MOVIE_API.method](api.CREATE_MOVIE_API.url, dataPost, {
         headers: {
@@ -16,8 +22,8 @@ export const createMovie = dataPost => {
     })
 }
 
-export const editMovie = (slug, dataPost) => {
-    const url = slug ? '/' + slug : ''
+export const editMovie = (param, dataPost) => {
+    const url = param ? '/' + param : ''
 
     return connectServer[api.EDIT_MOVIE_API.method](api.EDIT_MOVIE_API.url + url, dataPost, {
         headers: {
@@ -32,6 +38,8 @@ export const deleteMovie = dataPost => {
 
 export default {
     getAllMovie,
+    getMovie,
+    findMovieById,
     createMovie,
     editMovie,
     deleteMovie

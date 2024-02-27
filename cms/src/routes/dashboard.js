@@ -12,14 +12,12 @@ const dashboard = [
             {
                 path: 'danh-muc',
                 name: 'dashboard-category',
-                component: () =>
-                    import('../pages/Dashboard/Category/Category.vue')
+                component: () => import('../pages/Dashboard/Category/Category.vue')
             },
             {
                 path: 'danh-muc/tao-moi',
                 name: 'dashboard-create-category',
-                component: () =>
-                    import('../pages/Dashboard/Category/Create.vue')
+                component: () => import('../pages/Dashboard/Category/Create.vue')
             },
             {
                 path: 'danh-muc/:slug',
@@ -44,8 +42,7 @@ const dashboard = [
             {
                 path: 'quoc-gia',
                 name: 'dashboard-country',
-                component: () =>
-                    import('../pages/Dashboard/Country/Country.vue')
+                component: () => import('../pages/Dashboard/Country/Country.vue')
             },
             {
                 path: 'quoc-gia/tao-moi',
@@ -71,6 +68,21 @@ const dashboard = [
                 path: 'phim/:slug',
                 name: 'dashboard-edit-movie',
                 component: () => import('../pages/Dashboard/Movie/Edit.vue')
+            },
+            {
+                path: 'phim/:id/danh-sach-tap-phim',
+                name: 'dashboard-movie-episode',
+                component: () => import('../pages/Dashboard/Episode/Episode.vue')
+            },
+            {
+                path: 'phim/:id/tap-phim/tao-moi',
+                name: 'dashboard-create-movie-episode',
+                component: () => import('../pages/Dashboard/Episode/Create.vue')
+            },
+            {
+                path: 'phim/:id/tap-phim/:epId',
+                name: 'dashboard-edit-movie-episode',
+                component: () => import('../pages/Dashboard/Episode/Edit.vue')
             }
         ]
     }

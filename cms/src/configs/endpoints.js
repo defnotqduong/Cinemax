@@ -116,6 +116,10 @@ export default {
         method: 'get',
         url: '/movie'
     },
+    FIND_MOVIE_API: {
+        method: 'get',
+        url: '/movie/find'
+    },
     CREATE_MOVIE_API: {
         method: 'post',
         url: '/movie'
@@ -133,5 +137,11 @@ export default {
     UPLOAD_IMAGE_API: {
         method: 'post',
         url: '/upload-image'
+    },
+
+    // episode
+    GET_EPISODE_BY_MOVIE_ID_API: {
+        method: 'get',
+        url: '/episode/find-by-movie-id'
     }
 }

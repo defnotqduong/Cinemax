@@ -16,9 +16,17 @@ class Movie extends Model
     protected $fillable = [
         'title',
         'slug',
+        'name_eng',
         'description',
-        'status',
         'thumbnail',
+        'status',
+        'season',
+        'eps',
+        'year',
+        'duration',
+        'resolution',
+        'subtitle',
+        'tags',
         'category_id',
         'genre_id',
         'country_id'

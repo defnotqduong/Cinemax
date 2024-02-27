@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MovieController;
@@ -61,11 +62,14 @@ Route::group(['middleware' => 'api', 'prefix' => 'movie'], function ($routes) {
     Route::get('', [MovieController::class, 'getAllMovie']);
     Route::post('', [MovieController::class, 'createMovie']);
     Route::get('/{slug}', [MovieController::class, 'getMovie']);
+    Route::get('/find/{id}', [MovieController::class, 'findMovieById']);
     Route::post('/{slug}', [MovieController::class, 'editMovie']);
     Route::delete('/{id}', [MovieController::class, 'deleteMovie']);
 });
 
 Route::group(['middleware' => 'api', 'prefix' => 'episode'], function ($routes) {
+    Route::post('', [EpisodeController::class, 'createEpisode']);
+    Route::get('/find-by-movie-id/{id}', [EpisodeController::class, 'getAllEpisodeByMovieId']);
 });
 
 Route::group(['middleware' => 'api'], function ($routes) {
