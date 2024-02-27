@@ -42,6 +42,7 @@
 
 <script>
 import { defineComponent, ref, reactive, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
 import { createGenre } from '../../../webServices/genreService'
 export default defineComponent({
     setup() {
@@ -50,6 +51,8 @@ export default defineComponent({
             description: '',
             status: 1
         })
+
+        const router = useRouter()
 
         const errors = ref([])
         const success = ref(false)
@@ -74,6 +77,8 @@ export default defineComponent({
                 genre.title = ''
                 genre.description = ''
                 genre.status = 1
+
+                return
             }
 
             errors.value = data.data.errors

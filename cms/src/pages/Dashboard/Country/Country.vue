@@ -87,10 +87,12 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { getAllCountry, deleteCountry } from '../../../webServices/countryService'
 
 export default defineComponent({
     setup() {
+        const router = useRouter()
         const countries = ref([])
         const loading = ref(false)
 
@@ -103,6 +105,11 @@ export default defineComponent({
 
         const deleteCoun = async id => {
             const data = await deleteCountry(id)
+            if (data.status === 401) {
+                router.push({ name: 'auth-login' })
+                return
+            }
+
             if (data.success) {
                 getCountryList()
             }

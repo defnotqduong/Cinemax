@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Movie;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Component\HttpKernel\Exception\ResolverNotFoundException;
 
@@ -70,16 +71,16 @@ class MovieController extends Controller
         $request->validate([
             'title' => 'required|string',
             'name_eng' => 'nullable|string',
+            'image' => 'nullable',
             'description' => 'nullable|string',
-            'status' => 'required|boolean',
-            'thumbnail' => 'required|string',
-            'resolution' => 'required|numeric',
+            'status' => 'nullable|boolean',
+            'resolution' => 'nullable|numeric',
             'season' => 'nullable|string',
             'eps' => 'nullable|numeric',
             'year' => 'nullable|string',
             'duration' => 'nullable|string',
             'tags' => 'nullable|string',
-            'subtitle' => 'required|boolean',
+            'subtitle' => 'nullable|boolean',
             'category_id' => 'required|numeric',
             'country_id' => 'required|numeric',
             'genre_id' => 'required|numeric',
@@ -88,14 +89,16 @@ class MovieController extends Controller
 
             $movie = new Movie();
 
-
-
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $path = $image->store('uploads', 'public');
+                $movie->thumbnail = asset('storage/' . $path);
+            }
 
             $movie->title = $request->title;
             $movie->name_eng = $request->name_eng;
             $movie->description = $request->description;
             $movie->status = $request->status;
-            $movie->thumbnail = $request->thumbnail;
             $movie->resolution = $request->resolution;
             $movie->season = $request->season;
             $movie->eps = $request->eps;
@@ -124,20 +127,19 @@ class MovieController extends Controller
 
     public function editMovie(Request $request, $slug)
     {
-
         $request->validate([
             'title' => 'required|string',
             'name_eng' => 'nullable|string',
+            'image' => 'nullable',
             'description' => 'nullable|string',
-            'status' => 'required|boolean',
-            // 'thumbnail' => 'required|file',
-            'resolution' => 'required|numeric',
+            'status' => 'nullable|boolean',
+            'resolution' => 'nullable|numeric',
             'season' => 'nullable|string',
             'eps' => 'nullable|numeric',
             'year' => 'nullable|string',
             'duration' => 'nullable|string',
             'tags' => 'nullable|string',
-            'subtitle' => 'required|boolean',
+            'subtitle' => 'nullable|boolean',
             'category_id' => 'required|numeric',
             'country_id' => 'required|numeric',
             'genre_id' => 'required|numeric',
@@ -151,11 +153,23 @@ class MovieController extends Controller
                 'message' => 'Movie not Found!'
             ], 404);
 
+            if ($request->hasFile('image')) {
+
+                if ($movie->thumbnail) {
+                    $filePath = str_replace(url('/storage'), 'public', $movie->thumbnail);
+                    if (Storage::disk('local')->exists($filePath))
+                        Storage::disk('local')->delete($filePath);
+                }
+
+                $image = $request->file('image');
+                $path = $image->store('uploads', 'public');
+                $movie->thumbnail = asset('storage/' . $path);
+            }
+
             $movie->title = $request->title;
             $movie->name_eng = $request->name_eng;
             $movie->description = $request->description;
             $movie->status = $request->status;
-            // $movie->thumbnail = $image_url;
             $movie->resolution = $request->resolution;
             $movie->season = $request->season;
             $movie->eps = $request->eps;

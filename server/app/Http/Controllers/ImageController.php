@@ -18,7 +18,7 @@ class ImageController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
 
-            $path = Storage::putFile('public/uploads', $image);
+            $path = $image->store('uploads', 'public');
 
             return response()->json([
                 'success' => true,

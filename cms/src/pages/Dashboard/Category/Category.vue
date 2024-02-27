@@ -87,10 +87,12 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { getAllCategory, deleteCategory } from '../../../webServices/categoryService'
 
 export default defineComponent({
     setup() {
+        const router = useRouter()
         const categories = ref([])
         const loading = ref(false)
 
@@ -103,6 +105,11 @@ export default defineComponent({
 
         const deleteCat = async id => {
             const data = await deleteCategory(id)
+            if (data.status === 401) {
+                router.push({ name: 'auth-login' })
+                return
+            }
+
             if (data.success) {
                 getCategoryList()
             }

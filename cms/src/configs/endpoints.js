@@ -121,7 +121,7 @@ export default {
         url: '/movie'
     },
     EDIT_MOVIE_API: {
-        method: 'put',
+        method: 'post',
         url: '/movie'
     },
     DELETE_MOVIE_API: {

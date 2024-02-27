@@ -17,9 +17,9 @@
                     class="w-[50%] h-[300px] flex items-center justify-center relative mx-auto border-[1px] border-[#6793fa] rounded-md overflow-hidden cursor-pointer"
                     for="thumbnail"
                 >
-                    <img :src="thumbnail" alt="Thumbnail" class="w-full h-full object-cover object-center" />
+                    <img ref="fileInput" :src="thumbUrl ? thumbUrl : thumbnail" alt="Thumbnail" class="w-full h-full object-cover object-center" />
                 </label>
-                <input id="thumbnail" type="file" placeholder="Hình ảnh" class="input input-bordered h-10 input-secondary hidden" />
+                <input @change="handleFileChange" id="thumbnail" type="file" placeholder="Hình ảnh" class="input input-bordered h-10 input-secondary hidden" />
                 <div v-if="errors && errors.thumbnail" class="mt-2 text-primary">
                     {{ errors.thumbnail[0] }}
                 </div>
@@ -158,13 +158,16 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
 import { defineComponent, ref, reactive, toRefs } from 'vue'
 import { getInitialGenre } from '../../../webServices/genreService'
 import { getInitialCategory } from '../../../webServices/categoryService'
 import { getInitialCountry } from '../../../webServices/countryService'
-import { editMovie, getMovie } from '../../../webServices/movieService'
+import { getMovie, editMovie } from '../../../webServices/movieService'
 export default defineComponent({
     setup() {
+        const router = useRouter()
+
         const movie = reactive({
             title: '',
             thumbnail: '',
@@ -184,6 +187,9 @@ export default defineComponent({
             status: 1
         })
 
+        const file = ref(null)
+        const thumbUrl = ref(null)
+
         const errors = ref([])
         const success = ref(false)
         const loading = ref(false)
@@ -193,9 +199,29 @@ export default defineComponent({
         const genres = ref([])
         const countries = ref([])
 
+        const handleFileChange = async e => {
+            file.value = e.target.files[0]
+
+            thumbUrl.value = URL.createObjectURL(file.value)
+        }
+
         const edit = async () => {
             loadingSubmit.value = true
-            const data = await editMovie(movie)
+
+            const formData = new FormData()
+
+            for (const key in movie) {
+                if (Object.hasOwnProperty.call(movie, key)) {
+                    formData.append(key, movie[key])
+                }
+            }
+
+            console.log(file.value)
+            console.log(movie)
+
+            if (file.value) formData.append('image', file.value)
+
+            const data = await editMovie(movie.slug, formData)
 
             if (data.status === 401) {
                 router.push({ name: 'auth-login' })
@@ -209,6 +235,8 @@ export default defineComponent({
                 setTimeout(() => {
                     success.value = false
                 }, 2000)
+
+                return
             }
 
             errors.value = data.data.errors
@@ -219,8 +247,11 @@ export default defineComponent({
             categories,
             genres,
             countries,
+            file,
+            thumbUrl,
             ...toRefs(movie),
             edit,
+            handleFileChange,
             success,
             errors,
             loading,

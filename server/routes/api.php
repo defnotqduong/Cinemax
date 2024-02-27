@@ -61,7 +61,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'movie'], function ($routes) {
     Route::get('', [MovieController::class, 'getAllMovie']);
     Route::post('', [MovieController::class, 'createMovie']);
     Route::get('/{slug}', [MovieController::class, 'getMovie']);
-    Route::put('/{slug}', [MovieController::class, 'editMovie']);
+    Route::post('/{slug}', [MovieController::class, 'editMovie']);
     Route::delete('/{id}', [MovieController::class, 'deleteMovie']);
 });
 

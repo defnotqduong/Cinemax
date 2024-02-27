@@ -151,12 +151,15 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { getAllMovie, deleteMovie } from '../../../webServices/movieService'
 
 export default defineComponent({
     setup() {
         const movies = ref([])
         const loading = ref(false)
+
+        const router = useRouter()
 
         const getMovieList = async () => {
             loading.value = true
@@ -167,6 +170,10 @@ export default defineComponent({
 
         const deleteMov = async id => {
             const data = await deleteMovie(id)
+            if (data.status === 401) {
+                router.push({ name: 'auth-login' })
+                return
+            }
             if (data.success) {
                 getMovieList()
             }

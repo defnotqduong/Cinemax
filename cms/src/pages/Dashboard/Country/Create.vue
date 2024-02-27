@@ -42,6 +42,7 @@
 
 <script>
 import { defineComponent, ref, reactive, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
 import { createCountry } from '../../../webServices/countryService'
 export default defineComponent({
     setup() {
@@ -51,6 +52,7 @@ export default defineComponent({
             status: 1
         })
 
+        const router = useRouter()
         const errors = ref([])
         const success = ref(false)
         const loading = ref(false)
@@ -74,6 +76,7 @@ export default defineComponent({
                 country.title = ''
                 country.description = ''
                 country.status = 1
+                return
             }
 
             errors.value = data.data.errors

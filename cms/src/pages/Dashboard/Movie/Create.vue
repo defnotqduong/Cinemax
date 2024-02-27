@@ -164,14 +164,12 @@ import { getInitialGenre } from '../../../webServices/genreService'
 import { getInitialCategory } from '../../../webServices/categoryService'
 import { getInitialCountry } from '../../../webServices/countryService'
 import { createMovie } from '../../../webServices/movieService'
-import { uploadImage } from '../../../webServices/imageService'
 export default defineComponent({
     setup() {
         const router = useRouter()
 
         const movie = reactive({
             title: '',
-            thumbnail: '',
             name_eng: '',
             description: '',
             season: '',
@@ -187,6 +185,7 @@ export default defineComponent({
             status: 1
         })
 
+        const file = ref(null)
         const thumbUrl = ref(null)
 
         const errors = ref([])
@@ -199,26 +198,14 @@ export default defineComponent({
         const countries = ref([])
 
         const handleFileChange = async e => {
-            const file = e.target.files[0]
+            file.value = e.target.files[0]
 
-            const formData = new FormData()
-            formData.append('image', file)
-
-            const data = await uploadImage(formData)
-
-            if (data.status === 401) {
-                router.push({ name: 'auth-login' })
-                return
-            }
-
-            movie.thumbnail = data.image_url
-            thumbUrl.value = URL.createObjectURL(file)
+            thumbUrl.value = URL.createObjectURL(file.value)
         }
 
         const resetMovie = () => {
             movie.title = ''
             movie.name_eng = ''
-            movie.thumbnail = ''
             movie.description = ''
             movie.season = ''
             movie.eps = null
@@ -235,7 +222,18 @@ export default defineComponent({
 
         const create = async () => {
             loadingSubmit.value = true
-            const data = await createMovie(movie)
+
+            const formData = new FormData()
+
+            for (const key in movie) {
+                if (Object.hasOwnProperty.call(movie, key)) {
+                    formData.append(key, movie[key])
+                }
+            }
+
+            formData.append('image', file.value)
+
+            const data = await createMovie(formData)
 
             if (data.status === 401) {
                 router.push({ name: 'auth-login' })
@@ -250,6 +248,9 @@ export default defineComponent({
                     success.value = false
                 }, 2000)
                 resetMovie()
+                thumbUrl.value = null
+                file.value = null
+                return
             }
 
             errors.value = data.data.errors
@@ -285,9 +286,7 @@ export default defineComponent({
     mounted() {
         this.getInitialData()
     },
-    beforeUnmount() {
-        console.log('Component is about to be unmounted')
-    }
+    beforeUnmount() {}
 })
 </script>
 

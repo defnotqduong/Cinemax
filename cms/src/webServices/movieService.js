@@ -9,15 +9,25 @@ export const getMovie = dataPost => {
 }
 
 export const createMovie = dataPost => {
-    return connectServer[api.CREATE_MOVIE_API.method](api.CREATE_MOVIE_API.url, dataPost)
+    return connectServer[api.CREATE_MOVIE_API.method](api.CREATE_MOVIE_API.url, dataPost, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
 }
 
-export const editMovie = dataPost => {
-    return connectServer[api.EDIT_MOVIE_API.method](api.EDIT_MOVIE_API.url + '/' + dataPost.slug, dataPost)
+export const editMovie = (slug, dataPost) => {
+    const url = slug ? '/' + slug : ''
+
+    return connectServer[api.EDIT_MOVIE_API.method](api.EDIT_MOVIE_API.url + url, dataPost, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
 }
 
 export const deleteMovie = dataPost => {
-    return connectServer[api.DELETE_MOVIE_API.method](api.DELETE_MOVIE_API.url + '/' + dataPost)
+    return connectServer[api.DELETE_MOVIE_API.method](api.DELETE_MOVIE_API.url + '/' + dataPost, dataPost)
 }
 
 export default {

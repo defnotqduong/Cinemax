@@ -81,6 +81,8 @@ export default defineComponent({
                 setTimeout(() => {
                     success.value = false
                 }, 2000)
+
+                return
             }
 
             errors.value = data.data.errors

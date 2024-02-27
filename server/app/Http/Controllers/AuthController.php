@@ -260,7 +260,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'refresh_token' => $refreshToken,
             'token_type' => 'bearer',
-            'expires_in' => Auth::factory()->getTTL() * 60 * 24,
+            'expires_in' => Auth::factory()->getTTL() * 60,
             'user' => Auth::user()
         ]);
     }
