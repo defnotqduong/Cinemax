@@ -116,6 +116,10 @@ export default {
         method: 'get',
         url: '/movie'
     },
+    GET_MOVIE_BY_CATEGORY_API: {
+        method: 'get',
+        url: '/movie'
+    },
     FIND_MOVIE_API: {
         method: 'get',
         url: '/movie/find'

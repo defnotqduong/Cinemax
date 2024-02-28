@@ -112,6 +112,10 @@ export default {
         method: 'get',
         url: '/movie'
     },
+    GET_INITIAL_MOVIE_API: {
+        method: 'get',
+        url: '/movie/initial'
+    },
     GET_MOVIE_API: {
         method: 'get',
         url: '/movie'

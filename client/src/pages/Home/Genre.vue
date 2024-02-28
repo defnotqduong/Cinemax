@@ -21,7 +21,7 @@
                                 />
                             </svg>
                         </li>
-                        <li>Danh mục</li>
+                        <li>Thể loại</li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none">
                                 <path
@@ -33,7 +33,7 @@
                                 />
                             </svg>
                         </li>
-                        <li class="text-secondary">{{ category.title }}</li>
+                        <li class="text-secondary">{{ genre.title }}</li>
                     </ul>
                 </div>
             </div>
@@ -75,11 +75,11 @@ import { defineComponent, ref, reactive, toRefs } from 'vue'
 import Pagination from '../../components/Pagination/Pagination.vue'
 import MovieCard from '../../components/Movie/MovieCard.vue'
 
-import { getCategory } from '../../webServices/categoryService'
+import { getGenre } from '../../webServices/genreService'
 export default defineComponent({
     components: { MovieCard, Pagination },
     setup() {
-        const category = ref({
+        const genre = ref({
             id: null,
             title: '',
             slug: ''
@@ -92,7 +92,7 @@ export default defineComponent({
         const loadingPage = ref(false)
 
         return {
-            category,
+            genre,
             movies,
             loading,
             loadingPage
@@ -108,14 +108,14 @@ export default defineComponent({
         async getData() {
             this.loading = true
             const slug = this.$route.params.slug
-            const [categoryData] = await Promise.all([getCategory(slug)])
+            const [genreData] = await Promise.all([getGenre(slug)])
 
-            console.log(categoryData)
+            console.log(genreData)
 
-            if (categoryData.success) {
-                this.category.id = categoryData.category.id
-                this.category.title = categoryData.category.title
-                this.category.slug = categoryData.category.slug
+            if (genreData.success) {
+                this.genre.id = genreData.genre.id
+                this.genre.title = genreData.genre.title
+                this.genre.slug = genreData.genre.slug
                 this.loading = false
             }
         }

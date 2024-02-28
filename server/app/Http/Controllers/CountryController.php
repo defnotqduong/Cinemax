@@ -54,7 +54,7 @@ class CountryController extends Controller
     public function getAllCountry()
     {
         try {
-            $countries = Country::paginate();
+            $countries = Country::where('status', 1)->get();
 
             return response()->json([
                 'success' => true,

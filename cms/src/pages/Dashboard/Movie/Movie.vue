@@ -192,7 +192,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { getAllMovie, deleteMovie } from '../../../webServices/movieService'
+import { getInitialMovie, deleteMovie } from '../../../webServices/movieService'
 
 export default defineComponent({
     setup() {
@@ -203,9 +203,11 @@ export default defineComponent({
 
         const getMovieList = async () => {
             loading.value = true
-            const data = await getAllMovie()
-            movies.value = data.movies.data
-            loading.value = false
+            const data = await getInitialMovie()
+            if (data.success) {
+                movies.value = data.movies.data
+                loading.value = false
+            }
         }
 
         const deleteMov = async id => {

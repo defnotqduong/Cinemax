@@ -283,7 +283,7 @@ export default defineComponent({
             this.loading = false
         }
     },
-    mounted() {
+    created() {
         this.getInitialData()
     },
     beforeUnmount() {}

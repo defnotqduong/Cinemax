@@ -11,8 +11,18 @@ const home = [
             },
             {
                 path: 'the-loai/:slug',
+                name: 'home-genre',
+                component: () => import('../pages/Home/Genre.vue')
+            },
+            {
+                path: 'danh-muc/:slug',
                 name: 'home-category',
                 component: () => import('../pages/Home/Category.vue')
+            },
+            {
+                path: 'quoc-gia/:slug',
+                name: 'home-country',
+                component: () => import('../pages/Home/Country.vue')
             },
             {
                 path: 'chi-tiet/:slug',

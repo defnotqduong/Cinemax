@@ -16,7 +16,7 @@
             <li>
                 <details open>
                     <summary>Phim</summary>
-                    <ul>
+                    <ul class="menu gap-2">
                         <li>
                             <router-link :to="{ name: 'dashboard-movie' }">Danh sách phim</router-link>
                         </li>
@@ -35,7 +35,7 @@
             <li>
                 <details open>
                     <summary>Tập phim</summary>
-                    <ul>
+                    <ul class="menu gap-2">
                         <li>
                             <a>Leech phim</a>
                         </li>

@@ -4,6 +4,10 @@ export const getAllMovie = dataPost => {
     return connectServer[api.GET_ALL_MOVIE_API.method](api.GET_ALL_MOVIE_API.url, dataPost)
 }
 
+export const getInitialMovie = dataPost => {
+    return connectServer[api.GET_INITIAL_MOVIE_API.method](api.GET_INITIAL_MOVIE_API.url, dataPost)
+}
+
 export const getMovie = dataPost => {
     return connectServer[api.GET_MOVIE_API.method](api.GET_MOVIE_API.url + '/' + dataPost, dataPost)
 }
@@ -38,6 +42,7 @@ export const deleteMovie = dataPost => {
 
 export default {
     getAllMovie,
+    getInitialMovie,
     getMovie,
     findMovieById,
     createMovie,

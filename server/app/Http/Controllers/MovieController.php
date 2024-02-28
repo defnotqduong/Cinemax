@@ -14,10 +14,32 @@ class MovieController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['getAllMovie', 'getMovie', 'findMovieById']]);
+        $this->middleware('auth:api', ['except' => ['getAllMovie', 'getInitialMovie', 'getMovie', 'findMovieById']]);
     }
 
     public function getAllMovie()
+    {
+        try {
+            $movies = Movie::where('status', 1)->join('categories', 'movies.category_id', '=', 'categories.id')
+                ->join('genres', 'movies.genre_id', '=', 'genres.id')
+                ->join('countries', 'movies.country_id', '=', 'countries.id')
+                ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->paginate(16);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Movies Fetched Successfully',
+                'movies' => $movies
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getInitialMovie()
     {
         try {
             $movies = Movie::join('categories', 'movies.category_id', '=', 'categories.id')

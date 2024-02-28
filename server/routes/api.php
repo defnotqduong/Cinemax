@@ -61,6 +61,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'country'], function ($routes) 
 Route::group(['middleware' => 'api', 'prefix' => 'movie'], function ($routes) {
     Route::get('', [MovieController::class, 'getAllMovie']);
     Route::post('', [MovieController::class, 'createMovie']);
+    Route::get('/initial', [MovieController::class, 'getInitialMovie']);
     Route::get('/{slug}', [MovieController::class, 'getMovie']);
     Route::get('/find/{id}', [MovieController::class, 'findMovieById']);
     Route::post('/{slug}', [MovieController::class, 'editMovie']);

@@ -140,7 +140,7 @@ export default defineComponent({
             }
         }
     },
-    mounted() {
+    created() {
         this.loadData()
     }
 })

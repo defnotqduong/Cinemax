@@ -102,7 +102,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { getAllCategory, deleteCategory } from '../../../webServices/categoryService'
+import { getInitialCategory, deleteCategory } from '../../../webServices/categoryService'
 
 export default defineComponent({
     setup() {
@@ -112,9 +112,11 @@ export default defineComponent({
 
         const getCategoryList = async () => {
             loading.value = true
-            const data = await getAllCategory()
-            categories.value = data.categories.data
-            loading.value = false
+            const data = await getInitialCategory()
+            if (data.success) {
+                categories.value = data.categories
+                loading.value = false
+            }
         }
 
         const deleteCat = async id => {

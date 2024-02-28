@@ -54,7 +54,7 @@ class GenreController extends Controller
     public function getAllGenre()
     {
         try {
-            $genres = Genre::paginate();
+            $genres = Genre::where('status', 1)->get();
 
             return response()->json([
                 'success' => true,

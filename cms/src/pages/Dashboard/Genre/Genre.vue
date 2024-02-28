@@ -102,7 +102,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { getAllGenre, deleteGenre } from '../../../webServices/genreService'
+import { getInitialGenre, deleteGenre } from '../../../webServices/genreService'
 
 export default defineComponent({
     setup() {
@@ -113,9 +113,11 @@ export default defineComponent({
 
         const getGenreList = async () => {
             loading.value = true
-            const data = await getAllGenre()
-            genres.value = data.genres.data
-            loading.value = false
+            const data = await getInitialGenre()
+            if (data.success) {
+                genres.value = data.genres
+                loading.value = false
+            }
         }
 
         const deleteGen = async id => {

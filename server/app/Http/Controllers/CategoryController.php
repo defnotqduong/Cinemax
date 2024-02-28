@@ -54,7 +54,7 @@ class CategoryController extends Controller
     public function getAllCategory()
     {
         try {
-            $categories = Category::paginate();
+            $categories = Category::where('status', 1)->get();
 
             return response()->json([
                 'success' => true,

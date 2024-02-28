@@ -102,7 +102,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { getAllCountry, deleteCountry } from '../../../webServices/countryService'
+import { getInitialCountry, deleteCountry } from '../../../webServices/countryService'
 
 export default defineComponent({
     setup() {
@@ -112,9 +112,11 @@ export default defineComponent({
 
         const getCountryList = async () => {
             loading.value = true
-            const data = await getAllCountry()
-            countries.value = data.countries.data
-            loading.value = false
+            const data = await getInitialCountry()
+            if (data.success) {
+                countries.value = data.countries
+                loading.value = false
+            }
         }
 
         const deleteCoun = async id => {

@@ -21,7 +21,7 @@
                                 />
                             </svg>
                         </li>
-                        <li>Danh mục</li>
+                        <li>Quốc gia</li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none">
                                 <path
@@ -33,7 +33,7 @@
                                 />
                             </svg>
                         </li>
-                        <li class="text-secondary">{{ category.title }}</li>
+                        <li class="text-secondary">{{ country.title }}</li>
                     </ul>
                 </div>
             </div>
@@ -75,11 +75,11 @@ import { defineComponent, ref, reactive, toRefs } from 'vue'
 import Pagination from '../../components/Pagination/Pagination.vue'
 import MovieCard from '../../components/Movie/MovieCard.vue'
 
-import { getCategory } from '../../webServices/categoryService'
+import { getCountry } from '../../webServices/countryService'
 export default defineComponent({
     components: { MovieCard, Pagination },
     setup() {
-        const category = ref({
+        const country = ref({
             id: null,
             title: '',
             slug: ''
@@ -92,7 +92,7 @@ export default defineComponent({
         const loadingPage = ref(false)
 
         return {
-            category,
+            country,
             movies,
             loading,
             loadingPage
@@ -108,14 +108,14 @@ export default defineComponent({
         async getData() {
             this.loading = true
             const slug = this.$route.params.slug
-            const [categoryData] = await Promise.all([getCategory(slug)])
+            const [countryData] = await Promise.all([getCountry(slug)])
 
-            console.log(categoryData)
+            console.log(countryData)
 
-            if (categoryData.success) {
-                this.category.id = categoryData.category.id
-                this.category.title = categoryData.category.title
-                this.category.slug = categoryData.category.slug
+            if (countryData.success) {
+                this.country.id = countryData.country.id
+                this.country.title = countryData.country.title
+                this.country.slug = countryData.country.slug
                 this.loading = false
             }
         }
