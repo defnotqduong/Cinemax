@@ -7,15 +7,25 @@ const connectServer = config => {
         'Content-Type': 'application/json; charset=utf-8'
     }
     let headers = config.headers ? { ...headersDefault, ...config.headers } : headersDefault
-    headers.Authorization = gtka() || false
+
+    const token = gtka()
+    if (token) {
+        headers.Authorization = `Bearer ${token}`
+    }
+
     return axios.create({
-        headers: headers,
-        timeout: config.timeout || TIMEOUT
+        headers: headers
     })
 }
+
 export const endpointAccess = path => {
-    const endpoint = import.meta.env.PROD == true ? import.meta.env.API_PROD : import.meta.env.API_DEV
-    return `${endpoint}/${path}`
+    // const endpoint =
+    //     import.meta.env.PROD == true
+    //         ? import.meta.env.API_PROD
+    //         : import.meta.env.API_DEV
+
+    const endpoint = 'http://localhost:8000/api'
+    return `${endpoint}${path}`
 }
 
 export const get = async (path, data = {}, config = {}) => {
@@ -26,6 +36,7 @@ export const get = async (path, data = {}, config = {}) => {
         return res.data
     } catch (err) {
         console.log('catch api GET:', err)
+        return err.response
     }
 }
 
@@ -37,6 +48,7 @@ export const post = async (path, data = {}, config = {}) => {
         return res.data
     } catch (err) {
         console.log('catch api POST: ', err)
+        return err.response
     }
 }
 
@@ -50,6 +62,7 @@ export const put = async (path, data = {}, config = {}) => {
         if (err === 'expireToken') return (window.location.href = '/')
 
         console.log('catch api PUT: ', err)
+        return err.response
     }
 }
 
@@ -61,6 +74,7 @@ export const deleted = async (path, data = {}, config = {}) => {
         return res.data
     } catch (err) {
         console.log('catch api DELETE: ', err)
+        return err.response
     }
 }
 
@@ -72,7 +86,7 @@ export const localEnUserStore = str => {
     if (!str) {
         return
     }
-    localStorage.setItem(KEY_USER_STORAGE, str)
+    localStorage.setItem(KEY_USER_STORAGE, JSON.stringify(str))
 }
 
 export const localDeUserStore = str => {
@@ -83,7 +97,7 @@ export const localDeUserStore = str => {
         return {}
     }
     try {
-        return JSON.parse(data)
+        return JSON.parse(str)
     } catch (error) {
         console.log('error string localDeUserStore', error)
         return {}
@@ -93,9 +107,9 @@ export const localDeUserStore = str => {
 const gtka = () => {
     let str = localStorage.getItem(KEY_USER_STORAGE)
     let jd = localDeUserStore(str)
-    if (!jd || !jd.token_id) {
+    if (!jd) {
         return false
     }
-    return jd.token
+    return jd
 }
 export default { get, post, put, deleted, gtka, endpointAccess }

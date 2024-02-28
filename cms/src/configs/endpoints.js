@@ -144,8 +144,21 @@ export default {
         method: 'get',
         url: '/episode/find-by-movie-id'
     },
+    GET_EPISODE_BY_ID_API: {
+        method: 'get',
+        url: '/episode'
+    },
+
     CREATE_EPISODE_API: {
         method: 'post',
+        url: '/episode'
+    },
+    EDIT_EPISODE_API: {
+        method: 'put',
+        url: '/episode'
+    },
+    DELETE_EPISODE_API: {
+        method: 'deleted',
         url: '/episode'
     }
 }

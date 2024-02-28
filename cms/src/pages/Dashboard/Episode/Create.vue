@@ -96,7 +96,7 @@ export default defineComponent({
                 setTimeout(() => {
                     success.value = false
                 }, 2000)
-                episode.server = ''
+                episode.server_name = ''
                 episode.episode = null
                 episode.link = ''
                 return

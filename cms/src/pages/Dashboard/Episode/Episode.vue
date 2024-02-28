@@ -36,7 +36,9 @@
                         <td>
                             <div class="flex items-center justify-center gap-3">
                                 <button class="text-white bg-orange-500 rounded font-bold hover:bg-orange-400 transition-all duration-300">
-                                    <a class="w-full h-full px-3 py-2 block"
+                                    <router-link
+                                        :to="{ name: 'dashboard-edit-movie-episode', params: { id: id, epId: ep.id } }"
+                                        class="w-full h-full px-3 py-2 block"
                                         ><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
                                             <path
                                                 fill-rule="evenodd"
@@ -45,7 +47,7 @@
                                                 fill="currentColor"
                                             />
                                         </svg>
-                                    </a>
+                                    </router-link>
                                 </button>
                                 <label
                                     :for="'modal_delete_' + ep.id"
@@ -66,6 +68,8 @@
                                         <p class="py-4">
                                             Xóa tập
                                             <span class="font-bold">{{ ep.episode }}</span>
+                                            -
+                                            <span class="font-bold">{{ ep.server_name }}</span>
                                         </p>
                                         <div class="modal-action">
                                             <label
@@ -90,10 +94,13 @@
 
 <script>
 import { defineComponent, ref, toRefs, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { findMovieById } from '../../../webServices/movieService'
-import { getAllEpisodeByMovieId } from '../../../webServices/episodeService'
+import { getAllEpisodeByMovieId, deleteEpisode } from '../../../webServices/episodeService'
 export default defineComponent({
     setup() {
+        const router = useRouter()
+
         const loading = ref(false)
         const movie = reactive({
             id: null,
@@ -102,7 +109,23 @@ export default defineComponent({
         })
         const eps = ref([])
 
-        const deleteEp = () => {}
+        const deleteEp = async id => {
+            console.log(id)
+            const data = await deleteEpisode(id)
+
+            if (data.status === 401) {
+                router.push({ name: 'auth-login' })
+                return
+            }
+
+            if (data.success) {
+                loading.value = true
+                const episodeData = await getAllEpisodeByMovieId(movie.id)
+
+                eps.value = episodeData.episodes.data
+                loading.value = false
+            }
+        }
 
         return { loading, deleteEp, ...toRefs(movie), eps }
     },

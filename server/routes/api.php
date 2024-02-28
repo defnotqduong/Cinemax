@@ -69,7 +69,10 @@ Route::group(['middleware' => 'api', 'prefix' => 'movie'], function ($routes) {
 
 Route::group(['middleware' => 'api', 'prefix' => 'episode'], function ($routes) {
     Route::post('', [EpisodeController::class, 'createEpisode']);
+    Route::get('/{id}', [EpisodeController::class, 'getEpisodeById']);
+    Route::put('/{id}', [EpisodeController::class, 'editEpisode']);
     Route::get('/find-by-movie-id/{id}', [EpisodeController::class, 'getAllEpisodeByMovieId']);
+    Route::delete('/{id}', [EpisodeController::class, 'deleteEpisode']);
 });
 
 Route::group(['middleware' => 'api'], function ($routes) {

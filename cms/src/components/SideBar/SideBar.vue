@@ -18,9 +18,27 @@
                     <summary>Phim</summary>
                     <ul>
                         <li>
-                            <router-link :to="{ name: 'dashboard-movie' }">Phim</router-link>
+                            <router-link :to="{ name: 'dashboard-movie' }">Danh sách phim</router-link>
                         </li>
-                        <li><a>Tập phim</a></li>
+                        <li>
+                            <router-link
+                                :to="{
+                                    name: 'dashboard-create-movie'
+                                }"
+                                >Thêm phim</router-link
+                            >
+                        </li>
+                        <li><a>Chỉnh sửa phim</a></li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details open>
+                    <summary>Tập phim</summary>
+                    <ul>
+                        <li>
+                            <a>Leech phim</a>
+                        </li>
                     </ul>
                 </details>
             </li>
