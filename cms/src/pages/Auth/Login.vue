@@ -86,9 +86,11 @@ export default defineComponent({
                 password: password.value
             })
 
-            localEnUserStore(data.access_token)
+            if (data.success) {
+                localEnUserStore(data.access_token)
 
-            router.push({ name: 'dashboard-homepage' })
+                router.push({ name: 'dashboard-homepage' })
+            }
         }
 
         return {

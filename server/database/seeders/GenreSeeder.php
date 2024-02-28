@@ -15,9 +15,9 @@ class GenreSeeder extends Seeder
     {
         DB::table('genres')->insert([
             [
-                'title' => 'Phiêu lưu',
-                'slug' => 'phieu-luu',
-                'description' => 'Phiêu lưu'
+                'title' => 'Hành động',
+                'slug' => 'hanh-dong',
+                'description' => 'Phim hành động'
             ]
         ]);
     }

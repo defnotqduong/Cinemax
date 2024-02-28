@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
             <h3 class="text-2xl font-bold text-white">Danh sách Tập Phim:</h3>
             <button class="px-3 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
-                <a class="w-full h-full block"> Thêm mới </a>
+                <router-link :to="{ name: 'dashboard-create-movie-episode', params: { id } }" class="w-full h-full block"> Thêm mới </router-link>
             </button>
         </div>
         <div class="w-full flex items-center justify-center min-h-[50vh]" v-if="loading">
@@ -28,7 +28,7 @@
                         </td>
 
                         <td>
-                            <p class="line-clamp-3">{{ ep.server }}</p>
+                            <p class="line-clamp-3">{{ ep.server_name }}</p>
                         </td>
                         <td>
                             <p class="line-clamp-3">{{ ep.link }}</p>

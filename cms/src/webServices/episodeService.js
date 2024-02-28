@@ -5,6 +5,11 @@ export const getAllEpisodeByMovieId = (param, dataPost) => {
     return connectServer[api.GET_EPISODE_BY_MOVIE_ID_API.method](api.GET_EPISODE_BY_MOVIE_ID_API.url + url, dataPost)
 }
 
+export const createEpisode = dataPost => {
+    return connectServer[api.CREATE_EPISODE_API.method](api.CREATE_EPISODE_API.url, dataPost)
+}
+
 export default {
-    getAllEpisodeByMovieId
+    getAllEpisodeByMovieId,
+    createEpisode
 }

@@ -143,5 +143,9 @@ export default {
     GET_EPISODE_BY_MOVIE_ID_API: {
         method: 'get',
         url: '/episode/find-by-movie-id'
+    },
+    CREATE_EPISODE_API: {
+        method: 'post',
+        url: '/episode'
     }
 }

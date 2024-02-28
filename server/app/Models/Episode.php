@@ -11,5 +11,5 @@ class Episode extends Model
 
     public $table = 'episodes';
 
-    protected $fillable = ['movie_id', 'link', 'episode'];
+    protected $fillable = ['movie_id', 'link', 'server_name', 'episode'];
 }

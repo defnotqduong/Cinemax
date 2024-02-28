@@ -37,6 +37,7 @@
                             <th>Độ P.Giải</th>
                             <th>Phụ đề</th>
                             <th>Trạng thái</th>
+                            <th>DS Phim</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -100,7 +101,7 @@
                                 </p>
                             </td>
                             <td>
-                                <div class="flex flex-col items-center justify-center gap-3">
+                                <div class="flex flex-col items-center justify-center">
                                     <button class="text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
                                         <router-link
                                             :to="{
@@ -122,6 +123,10 @@
                                             </svg>
                                         </router-link>
                                     </button>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="flex flex-col items-center justify-center gap-3">
                                     <button class="text-white bg-orange-500 rounded font-bold hover:bg-orange-400 transition-all duration-300">
                                         <router-link
                                             :to="{

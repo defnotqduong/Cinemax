@@ -21,8 +21,10 @@ class Movie extends Model
         'thumbnail',
         'status',
         'season',
+        'episode_current',
         'eps',
         'year',
+        'view',
         'duration',
         'resolution',
         'subtitle',
@@ -37,5 +39,10 @@ class Movie extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
+    }
+
+    public function episodes()
+    {
+        return $this->hasMany(Episode::class, 'movie_id', 'id');
     }
 }

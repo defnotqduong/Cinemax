@@ -38,7 +38,8 @@ class EpisodeController extends Controller
         $request->validate([
             'movie_id' => 'required|numeric',
             'episode' => 'required|numeric',
-            'link' => 'nullable|string'
+            'server_name' => 'required|string',
+            'link' => 'required|string'
         ]);
         try {
 
@@ -52,6 +53,7 @@ class EpisodeController extends Controller
             $ep = new Episode();
 
             $ep->movie_id = $request->movie_id;
+            $ep->server_name = $request->server_name;
             $ep->episode = $request->episode;
             $ep->link = $request->link;
 

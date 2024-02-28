@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Episode;
 use App\Models\Movie;
 use Exception;
 use Illuminate\Http\Request;
@@ -228,6 +229,8 @@ class MovieController extends Controller
                 'success' => false,
                 'message' => 'Movie not Found!'
             ], 404);
+
+            Episode::where('movie_id', $id)->delete();
 
             $movie->delete();
 

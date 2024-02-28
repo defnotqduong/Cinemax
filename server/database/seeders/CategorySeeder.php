@@ -15,9 +15,9 @@ class CategorySeeder extends Seeder
     {
         DB::table('categories')->insert([
             [
-                'title' => 'Phim bộ',
-                'slug' => 'phim-bo',
-                'description' => 'Phim bộ'
+                'title' => 'Phim hoạt hình',
+                'slug' => 'phim-hoat-hinh',
+                'description' => 'Phim hoạt hình mới nhất'
             ]
         ]);
     }
