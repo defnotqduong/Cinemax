@@ -157,7 +157,7 @@ export default defineComponent({
             isFilter
         }
     },
-    mounted() {
+    created() {
         window.scrollTo({ top: 0 })
     }
 })

@@ -64,7 +64,7 @@ import Review from '../../components/Review/Review.vue'
 export default defineComponent({
     components: { MovieDetails, Review, MovieListV2, MovieListV3 },
     setup() {},
-    mounted() {
+    created() {
         window.scrollTo({ top: 0 })
     }
 })

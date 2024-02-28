@@ -50,7 +50,7 @@ import MoviePlay from '../../components/Movie/MoviePlay.vue'
 import Review from '../../components/Review/Review.vue'
 export default defineComponent({
     components: { MoviePlay, Review },
-    mounted() {
+    created() {
         window.scrollTo({ top: 0 })
     }
 })

@@ -123,6 +123,7 @@ export default defineComponent({
     updated() {},
     created() {
         // console.log('created')
+        window.scrollTo({ top: 0 })
         this.getData()
     }
 })
