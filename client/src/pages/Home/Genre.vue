@@ -4,7 +4,7 @@
             <span class="loading loading-spinner text-white"></span>
         </div>
         <div v-if="!loading">
-            <div class="max-w-[1240px] mx-auto px-2 mb-10">
+            <div class="max-w-[1200px] mx-auto px-2 mb-10">
                 <div class="text-sm">
                     <ul class="flex items-center justify-start gap-1 font-medium">
                         <li>
@@ -37,34 +37,42 @@
                     </ul>
                 </div>
             </div>
-            <div class="max-w-[1240px] mx-auto px-2 pb-10 grid grid-cols-3 gap-10">
+            <div v-if="!error" class="max-w-[1200px] mx-auto px-2 pb-10 grid grid-cols-3 gap-12">
                 <div class="col-span-3">
                     <div class="mb-10">
-                        <div class="mb-7 flex items-center justify-between">
+                        <div class="mb-14 flex items-start justify-between">
                             <h4
                                 class="text-3xl font-bold uppercase text-white pl-3 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
                             >
-                                Xu hướng
+                                {{ genre.title }}
                             </h4>
-                            <div class="relative flex items-center justify-center gap-3 py-[2px]">
+                            <!-- <div class="relative flex items-center justify-center gap-3 py-[2px]">
                                 Sắp xếp theo :
                                 <select class="select select-bordered select-sm w-[90px] max-w-xs">
                                     <option class="line-clamp-1">A-Z</option>
                                     <option class="line-clamp-1">1-10</option>
                                     <option class="line-clamp-1">10-20</option>
                                 </select>
-                            </div>
+                            </div> -->
                         </div>
-                        <div class="grid grid-cols-4 items-center justify-start gap-7">
-                            <div v-for="i in 15" :key="i">
-                                <MovieCard />
+                        <div>
+                            <div v-if="movies.length === 0" class="min-h-[30vh]"></div>
+                            <div v-if="movies.length > 0">
+                                <div class="grid grid-cols-4 items-start justify-start gap-10">
+                                    <div v-for="movie in movies" :key="movie.id">
+                                        <MovieCard :movie="movie" />
+                                    </div>
+                                </div>
+                                <div class="mt-8">
+                                    <Pagination :meta="meta" :links="links" @getData="changePage" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="mt-4">
-                            <Pagination />
                         </div>
                     </div>
                 </div>
+            </div>
+            <div v-if="error" class="max-w-[1200px] min-h-[70vh] mx-auto flex items-center justify-center">
+                <Error />
             </div>
         </div>
     </div>
@@ -74,10 +82,12 @@
 import { defineComponent, ref, reactive, toRefs } from 'vue'
 import Pagination from '../../components/Pagination/Pagination.vue'
 import MovieCard from '../../components/Movie/MovieCard.vue'
+import Error from '../../components/Error/Error.vue'
 
 import { getGenre } from '../../webServices/genreService'
+import { getMovieByCategory, getMovieByCountry, getMovieByGenre } from '../../webServices/movieService'
 export default defineComponent({
-    components: { MovieCard, Pagination },
+    components: { MovieCard, Pagination, Error },
     setup() {
         const genre = ref({
             id: null,
@@ -85,44 +95,99 @@ export default defineComponent({
             slug: ''
         })
 
+        const meta = ref({
+            current_page: 1,
+            last_page: 1
+        })
+
+        const links = ref({
+            first_page_url: '',
+            last_page_url: '',
+            prev_page_url: '',
+            next_page_url: ''
+        })
+
         const movies = ref([])
-
         const loading = ref(false)
-
         const loadingPage = ref(false)
+        const error = ref(false)
 
         return {
             genre,
+            meta,
+            links,
             movies,
             loading,
-            loadingPage
+            loadingPage,
+            error
         }
     },
     watch: {
         '$route.params.slug'() {
-            // console.log('watch')
             this.getData()
+        },
+        '$route.query.page'() {
+            const page = this.$route.query.page || 1
+            this.getMoviesByPage(page)
         }
     },
     methods: {
         async getData() {
             this.loading = true
+            this.error = false
+
             const slug = this.$route.params.slug
+            const page = this.$route.query.page || 1
+
             const [genreData] = await Promise.all([getGenre(slug)])
 
-            console.log(genreData)
-
-            if (genreData.success) {
+            if (genreData && genreData.success) {
                 this.genre.id = genreData.genre.id
                 this.genre.title = genreData.genre.title
                 this.genre.slug = genreData.genre.slug
-                this.loading = false
+
+                const data = await getMovieByGenre({ genre_id: this.genre.id, page: page })
+
+                console.log(data)
+
+                if (data && data.success) {
+                    this.movies = data.movies.data
+
+                    this.meta.current_page = data.movies.current_page
+                    this.meta.last_page = data.movies.last_page
+
+                    this.links.first_page_url = data.movies.first_page_url
+                    this.links.last_page_url = data.movies.last_page_url
+                    this.links.prev_page_url = data.movies.prev_page_url
+                    this.links.next_page_url = data.movies.next_page_url
+                }
+            } else {
+                this.error = true
             }
+            this.loading = false
+        },
+
+        async getMoviesByPage(page) {
+            const data = await getMovieByGenre({ genre_id: this.genre.id, page: page })
+
+            if (data && data.success) {
+                this.movies = data.movies.data
+
+                this.meta.current_page = data.movies.current_page
+                this.meta.last_page = data.movies.last_page
+
+                this.links.first_page_url = data.movies.first_page_url
+                this.links.last_page_url = data.movies.last_page_url
+                this.links.prev_page_url = data.movies.prev_page_url
+                this.links.next_page_url = data.movies.next_page_url
+            }
+        },
+        async changePage(page) {
+            this.$router.push({ name: 'home-genre', query: { page: page || 1 } })
         }
     },
     updated() {},
     created() {
-        // console.log('created')
         window.scrollTo({ top: 0 })
         this.getData()
     }

@@ -1,7 +1,7 @@
 <template>
     <div class="pt-8">
         <div class="mb-20 flex items-center justify-center">
-            <iframe width="90%" height="500" src="https://www.youtube.com/embed/PsVEpKthrcg" frameborder="0" allowfullscreen></iframe>
+            <iframe width="90%" height="500" src="https://vip.opstream11.com/share/86bef77c5a59d7f1195cb2fbe242882d" frameborder="0" allowfullscreen></iframe>
         </div>
         <div>
             <div class="mb-7 flex items-center justify-between">
@@ -35,7 +35,11 @@
 
 <script>
 import { defineComponent } from 'vue'
-export default defineComponent({})
+export default defineComponent({
+    props: {
+        episodes: Array
+    }
+})
 </script>
 
 <style></style>

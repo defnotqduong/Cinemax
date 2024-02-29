@@ -40,6 +40,11 @@ const home = [
                 name: 'home-watching',
                 component: () => import('../pages/Home/WatchMovie.vue'),
                 props: {}
+            },
+            {
+                path: '/:catchAll(.*)',
+                name: 'error',
+                component: () => import('../pages/Error/Error.vue')
             }
         ]
     }

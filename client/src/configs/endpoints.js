@@ -116,6 +116,10 @@ export default {
         method: 'get',
         url: '/movie'
     },
+    GET_PUBLIC_MOVIE_API: {
+        method: 'get',
+        url: '/movie/public'
+    },
     GET_MOVIE_BY_CATEGORY_API: {
         method: 'get',
         url: '/movie/category'
@@ -157,6 +161,11 @@ export default {
         url: '/episode/find-by-movie-id'
     },
     GET_EPISODE_BY_ID_API: {
+        method: 'get',
+        url: '/episode'
+    },
+
+    GET_EPISODE_API: {
         method: 'get',
         url: '/episode'
     },

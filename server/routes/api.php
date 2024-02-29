@@ -66,6 +66,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'movie'], function ($routes) {
     Route::get('/genre', [MovieController::class, 'getMovieByGenre']);
     Route::get('/country', [MovieController::class, 'getMovieByCountry']);
     Route::get('/{slug}', [MovieController::class, 'getMovie']);
+    Route::get('/public/{slug}', [MovieController::class, 'getPublicMovie']);
     Route::get('/find/{id}', [MovieController::class, 'findMovieById']);
     Route::post('/{slug}', [MovieController::class, 'editMovie']);
     Route::delete('/{id}', [MovieController::class, 'deleteMovie']);
@@ -74,8 +75,9 @@ Route::group(['middleware' => 'api', 'prefix' => 'movie'], function ($routes) {
 Route::group(['middleware' => 'api', 'prefix' => 'episode'], function ($routes) {
     Route::post('', [EpisodeController::class, 'createEpisode']);
     Route::get('/{id}', [EpisodeController::class, 'getEpisodeById']);
-    Route::put('/{id}', [EpisodeController::class, 'editEpisode']);
     Route::get('/find-by-movie-id/{id}', [EpisodeController::class, 'getAllEpisodeByMovieId']);
+    Route::get('/{movie_id}/{ep}', [EpisodeController::class, 'getEpisode']);
+    Route::put('/{id}', [EpisodeController::class, 'editEpisode']);
     Route::delete('/{id}', [EpisodeController::class, 'deleteEpisode']);
 });
 

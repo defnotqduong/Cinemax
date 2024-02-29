@@ -2,74 +2,66 @@
     <div class="mx-14 grid grid-cols-4 gap-10">
         <div class="col-span-1">
             <div>
-                <img
-                    src="https://rare-gallery.com/uploads/posts/400745-animegirl-wallpaper.png"
-                    alt="thumb"
-                    class="w-full h-full object-cover object-center rounded-lg"
-                />
+                <img :src="movie.thumbnail" alt="thumb" class="w-full h-full object-cover object-center rounded-lg" />
             </div>
         </div>
         <div class="col-span-3">
             <div class="flex items-start justify-between mb-6">
                 <div>
-                    <h4 class="text-3xl font-bold mb-2">Fate Stay Night: Unlimited Blade</h4>
-                    <p class="text-secondary">フェイト／ステイナイト, Feito／sutei naito</p>
+                    <h4 class="text-3xl font-bold mb-2">{{ movie.title }}</h4>
+                    <p class="text-secondary">{{ movie.name_eng }}</p>
                 </div>
             </div>
             <div>
-                <p class="text-secondary text-lg tracking-wide">
-                    Every human inhabiting the world of Alcia is branded by a “Count” or a number written on their body. For Hina’s mother, her total drops to 0
-                    and she’s pulled into the Abyss, never to be seen again. But her mother’s last words send Hina on a quest to find a legendary hero from the
-                    Waste War - the fabled Ace!
-                </p>
+                <p class="text-secondary text-lg tracking-wide" v-html="movie.description"></p>
                 <ul class="mt-6 grid grid-cols-2 gap-x-14 gap-y-4 text-secondary">
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
                         <div class="w-[40%]">Trạng thái:</div>
-                        <div class="text-white font-semibold">7/12 Tập</div>
+                        <div class="text-white font-semibold">{{ movie.episode_current || '??' }} / {{ movie.eps || '??' }} Tập</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
                         <div class="w-[40%]">Thời lượng:</div>
-                        <div class="text-white font-semibold line-clamp-1">23 phút / Tập</div>
+                        <div class="text-white font-semibold line-clamp-1">{{ movie.duration }}</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
                         <div class="w-[40%]">Thể loại:</div>
-                        <div class="text-white font-semibold line-clamp-1">Hành động, phiêu lưu, giả tưởng</div>
+                        <div class="text-white font-semibold line-clamp-1">{{ movie.category_title }}, {{ movie.genre_title }}</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
                         <div class="w-[40%]">Độ phân giải:</div>
-                        <div class="text-white font-semibold line-clamp-1">HD</div>
+                        <div class="text-white font-semibold line-clamp-1">{{ this.getResolutionText(movie.resolution) }}</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
-                        <div class="w-[40%]">Số người theo dõi:</div>
-                        <div class="text-white font-semibold line-clamp-1">517</div>
+                        <div class="w-[40%]">Lượt xem:</div>
+                        <div class="text-white font-semibold line-clamp-1">{{ movie.view || 0 }} views</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
                         <div class="w-[40%]">Phụ đề:</div>
-                        <div class="text-white font-semibold line-clamp-1">Vietsub</div>
+                        <div v-if="movie.resolution !== 5" class="text-white font-semibold line-clamp-1">{{ this.getSubtitle(movie.subtitle) }}</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
                         <div class="w-[40%]">Quốc gia:</div>
-                        <div class="text-white font-semibold line-clamp-1">Nhật Bản</div>
+                        <div class="text-white font-semibold line-clamp-1">{{ movie.country_title }}</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
                         <div class="w-[40%]">Năm sản xuất:</div>
-                        <div class="text-white font-semibold line-clamp-1">2002</div>
+                        <div class="text-white font-semibold line-clamp-1">{{ movie.year }}</div>
                     </li>
                 </ul>
                 <div class="mt-10 flex items-center justify-start gap-4">
@@ -87,7 +79,7 @@
                         :to="{
                             name: 'home-watching',
                             params: {
-                                slug: 'fate-stay-night-unlimited-blade',
+                                slug: movie.slug,
                                 ep: '1'
                             }
                         }"
@@ -114,7 +106,39 @@
 
 <script>
 import { defineComponent } from 'vue'
-export default defineComponent({})
+export default defineComponent({
+    props: { movie: Object },
+    methods: {
+        getResolutionText(resolution) {
+            switch (resolution) {
+                case 0:
+                    return 'FullHD'
+                case 1:
+                    return 'HD'
+                case 2:
+                    return 'SD'
+                case 3:
+                    return 'HDCam'
+                case 4:
+                    return 'Cam'
+                case 5:
+                    return 'Trailer'
+                default:
+                    return ''
+            }
+        },
+        getSubtitle(subtitle) {
+            switch (subtitle) {
+                case 0:
+                    return 'Thuyết Minh'
+                case 1:
+                    return 'VietSub'
+                default:
+                    return ''
+            }
+        }
+    }
+})
 </script>
 
 <style></style>

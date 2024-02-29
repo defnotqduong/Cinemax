@@ -14,7 +14,7 @@ class MovieController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['getAllMovie', 'getInitialMovie', 'getMovieByCategory', 'getMovieByGenre', 'getMovieByCountry', 'getMovie', 'findMovieById']]);
+        $this->middleware('auth:api', ['except' => ['getAllMovie', 'getInitialMovie', 'getMovieByCategory', 'getMovieByGenre', 'getMovieByCountry', 'getMovie', 'getPublicMovie', 'findMovieById']]);
     }
 
     public function getAllMovie()
@@ -24,6 +24,7 @@ class MovieController extends Controller
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
                 ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->orderByDesc('movies.updated_at')
                 ->paginate(16);
 
             return response()->json([
@@ -46,6 +47,7 @@ class MovieController extends Controller
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
                 ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->orderByDesc('movies.updated_at')
                 ->paginate(16);
 
             return response()->json([
@@ -73,6 +75,7 @@ class MovieController extends Controller
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
                 ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->orderByDesc('movies.updated_at')
                 ->paginate(16);
             return response()->json([
                 'success' => true,
@@ -99,6 +102,7 @@ class MovieController extends Controller
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
                 ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->orderByDesc('movies.updated_at')
                 ->paginate(16);
 
             return response()->json([
@@ -125,6 +129,7 @@ class MovieController extends Controller
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
                 ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->orderByDesc('movies.updated_at')
                 ->paginate(16);
 
             return response()->json([
@@ -144,6 +149,35 @@ class MovieController extends Controller
     {
         try {
             $movie = Movie::where('movies.slug', $slug)
+                ->join('categories', 'movies.category_id', '=', 'categories.id')
+                ->join('genres', 'movies.genre_id', '=', 'genres.id')
+                ->join('countries', 'movies.country_id', '=', 'countries.id')
+                ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->first();
+
+            if (!$movie) return response()->json([
+                'success' => false,
+                'message' => 'Movie not Found!'
+            ], 404);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Movie Found',
+                'movie' => $movie
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getPublicMovie($slug)
+    {
+        try {
+            $movie = Movie::where('movies.slug', $slug)
+                ->where('movies.status', 1)
                 ->join('categories', 'movies.category_id', '=', 'categories.id')
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')

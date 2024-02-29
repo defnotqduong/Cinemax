@@ -55,7 +55,28 @@
 
 <script>
 import { defineComponent } from 'vue'
-export default defineComponent({})
+export default defineComponent({
+    methods: {
+        getResolutionText(resolution) {
+            switch (resolution) {
+                case 0:
+                    return 'FullHD'
+                case 1:
+                    return 'HD'
+                case 2:
+                    return 'SD'
+                case 3:
+                    return 'HDCam'
+                case 4:
+                    return 'Cam'
+                case 5:
+                    return 'Trailer'
+                default:
+                    return ''
+            }
+        }
+    }
+})
 </script>
 
 <style></style>

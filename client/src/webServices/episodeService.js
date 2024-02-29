@@ -5,6 +5,12 @@ export const getAllEpisodeByMovieId = (param, dataPost) => {
     return connectServer[api.GET_EPISODE_BY_MOVIE_ID_API.method](api.GET_EPISODE_BY_MOVIE_ID_API.url + url, dataPost)
 }
 
+export const getEpisode = (params, dataPost) => {
+    const { movie_id, ep } = params
+    const url = '/' + movie_id + '/' + ep
+    return connectServer[api.GET_EPISODE_API.method](api.GET_EPISODE_API.url + url, dataPost)
+}
+
 export const getEpisodeById = (param, dataPost) => {
     const url = param ? '/' + param : ''
     return connectServer[api.GET_EPISODE_BY_ID_API.method](api.GET_EPISODE_BY_ID_API.url + url, dataPost)
@@ -26,6 +32,7 @@ export const deleteEpisode = (param, dataPost) => {
 
 export default {
     getAllEpisodeByMovieId,
+    getEpisode,
     getEpisodeById,
     createEpisode,
     editEpisode,

@@ -12,13 +12,13 @@ class EpisodeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['getAllEpisodeByMovieId']]);
+        $this->middleware('auth:api', ['except' => ['getAllEpisodeByMovieId', 'getEpisodeById', 'getEpisode']]);
     }
 
     public function getAllEpisodeByMovieId($id)
     {
         try {
-            $eps = Episode::where('movie_id', $id)->orderBy('episode', 'asc')->paginate();
+            $eps = Episode::where('movie_id', $id)->orderBy('episode', 'asc')->get();
 
             return response()->json([
                 'success' => true,
@@ -37,6 +37,30 @@ class EpisodeController extends Controller
     {
         try {
             $ep = Episode::find($id);
+
+            if (!$ep) return response()->json([
+                'success' => false,
+                'message' => 'Episode not Found!'
+            ], 404);
+
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Episode Found!',
+                'episode' => $ep
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getEpisode($movie_id, $ep)
+    {
+        try {
+            $ep = Episode::where('movie_id', $movie_id)->where('episode', $ep)->first();
 
             if (!$ep) return response()->json([
                 'success' => false,

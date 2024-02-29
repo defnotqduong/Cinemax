@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-3 items-center justify-start gap-7">
+    <div class="grid grid-cols-3 items-start justify-start gap-8">
         <div v-for="i in 5" :key="i">
             <MovieCard />
         </div>

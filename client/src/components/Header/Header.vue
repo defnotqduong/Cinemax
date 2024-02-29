@@ -6,7 +6,7 @@
         }"
         class="fixed top-0 left-0 z-[9999] w-full transition-all duration-[400ms]"
     >
-        <div class="navbar h-full justify-between max-w-[1240px] mx-auto py-0 font-medium text-white">
+        <div class="navbar h-full justify-between max-w-[1220px] mx-auto py-0 font-medium text-white">
             <div class="navbar-start w-auto">
                 <div class="dropdown">
                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">

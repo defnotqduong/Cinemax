@@ -1,18 +1,20 @@
 <template>
-    <div class="mb-6">
+    <div class="mb-6 text-white">
         <router-link
             :to="{
                 name: 'home-details',
                 params: { slug: movie.slug }
             }"
         >
-            <div class="h-[400px] relative">
+            <div class="h-[340px] relative">
                 <img :src="movie.thumbnail" alt="thumb" class="w-full h-full object-cover object-center rounded-lg" />
-                <span class="absolute top-4 left-[10px] bg-primary rounded px-2 text-sm">
-                    <span>{{ movie.episode_current || '??' }}</span> /
-                    <span>{{ movie.eps || '??' }}</span>
+                <span
+                    class="absolute top-2 left-2 bg-badge-primary px-2 py-1 text-xs font-bold shadow-md shadow-[rgba(0,0,0,0.75)] after:absolute after:content after:top-[3.75px] after:-right-[8px] after:w-0 after:h-0 after:border-t-[16px] after:border-t-transparent after:border-r-[16px] after:border-r-badge-primary after:-rotate-45"
+                >
+                    <span class="pr-1">{{ this.getSubtitle(movie.subtitle) }}</span>
+                    <span>{{ this.getResolutionText(movie.resolution) }}</span>
                 </span>
-                <span class="absolute left-[10px] bottom-4 bg-gray rounded px-2 text-sm flex items-center justify-center gap-1">
+                <!-- <span class="absolute left-[10px] bottom-4 bg-gray rounded px-2 text-sm flex items-center justify-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
                         <path
                             d="M10.968 18.769C15.495 18.107 19 14.434 19 9.938a8.49 8.49 0 0 0-.216-1.912C20.718 9.178 22 11.188 22 13.475a6.1 6.1 0 0 1-1.113 3.506c.06.949.396 1.781 1.01 2.497a.43.43 0 0 1-.36.71c-1.367-.111-2.485-.426-3.354-.945A7.434 7.434 0 0 1 15 19.95a7.36 7.36 0 0 1-4.032-1.181z"
@@ -42,15 +44,15 @@
                         />
                     </svg>
                     {{ movie.view || '0' }}</span
-                >
+                > -->
             </div>
             <div class="pt-5">
-                <div class="mb-[10px] flex items-center justify-start gap-2">
+                <!-- <div class="mb-[10px] flex items-center justify-start gap-2">
                     <div class="badge bg-badge text-white text-xs font-semibold">{{ movie.category_title }}</div>
                     <div class="badge bg-badge text-white text-xs font-semibold">{{ movie.genre_title }}</div>
-                </div>
-                <h6 class="mb-1 text-sm line-clamp-1">{{ movie.name_eng }}</h6>
-                <h5 class="text-lg font-semibold text-white cursor-pointer hover:text-primary transitio-all duration-[400ms] line-clamp-1">
+                </div> -->
+                <h6 class="mb-1 text-sm line-clamp-1 text-secondary">{{ movie.name_eng }}</h6>
+                <h5 class="text-lg font-semibold text-white cursor-pointer hover:text-primary transitio-all duration-[400ms] line-clamp-2">
                     {{ movie.title }}
                 </h5>
             </div>
@@ -61,7 +63,37 @@
 <script>
 import { defineComponent } from 'vue'
 export default defineComponent({
-    props: { movie: Object }
+    props: { movie: Object },
+    methods: {
+        getResolutionText(resolution) {
+            switch (resolution) {
+                case 0:
+                    return 'FullHD'
+                case 1:
+                    return 'HD'
+                case 2:
+                    return 'SD'
+                case 3:
+                    return 'HDCam'
+                case 4:
+                    return 'Cam'
+                case 5:
+                    return 'Trailer'
+                default:
+                    return ''
+            }
+        },
+        getSubtitle(subtitle) {
+            switch (subtitle) {
+                case 0:
+                    return 'Thuyết Minh'
+                case 1:
+                    return 'VietSub'
+                default:
+                    return ''
+            }
+        }
+    }
 })
 </script>
 

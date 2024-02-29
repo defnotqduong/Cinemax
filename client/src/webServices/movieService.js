@@ -4,25 +4,32 @@ export const getAllMovie = dataPost => {
     return connectServer[api.GET_ALL_MOVIE_API.method](api.GET_ALL_MOVIE_API.url, dataPost)
 }
 
-export const getMovieByCategory = (param, dataPost) => {
-    const url = `?category_id=${param}`
+export const getMovieByCategory = (params, dataPost) => {
+    const { category_id, page } = params
+    const url = `?category_id=${category_id}&page=${page || 1}`
 
     return connectServer[api.GET_MOVIE_BY_CATEGORY_API.method](api.GET_MOVIE_BY_CATEGORY_API.url + url, dataPost)
 }
 
-export const getMovieByGenre = (param, dataPost) => {
-    const url = `?genre_id=${param}`
+export const getMovieByGenre = (params, dataPost) => {
+    const { genre_id, page } = params
+    const url = `?genre_id=${genre_id}&page=${page || 1}`
 
     return connectServer[api.GET_MOVIE_BY_GENRE_API.method](api.GET_MOVIE_BY_GENRE_API.url + url, dataPost)
 }
 
-export const getMovieByCountry = (param, dataPost) => {
-    const url = `?country_id=${param}`
+export const getMovieByCountry = (params, dataPost) => {
+    const { country_id, page } = params
+    const url = `?country_id=${country_id}&page=${page || 1}`
 
     return connectServer[api.GET_MOVIE_BY_COUNTRY_API.method](api.GET_MOVIE_BY_COUNTRY_API.url + url, dataPost)
 }
 
 export const getMovie = dataPost => {
+    return connectServer[api.GET_MOVIE_API.method](api.GET_MOVIE_API.url + '/' + dataPost, dataPost)
+}
+
+export const getPublicMovie = dataPost => {
     return connectServer[api.GET_MOVIE_API.method](api.GET_MOVIE_API.url + '/' + dataPost, dataPost)
 }
 
@@ -60,6 +67,7 @@ export default {
     getMovieByGenre,
     getMovieByCountry,
     getMovie,
+    getPublicMovie,
     findMovieById,
     createMovie,
     editMovie,
