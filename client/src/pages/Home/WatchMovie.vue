@@ -109,8 +109,8 @@ export default defineComponent({
                 const [episodes, episode] = await Promise.all([getAllEpisodeByMovieId(this.movie.id), getEpisode({ movie_id: this.movie.id, ep: ep })])
 
                 console.log(episodes, episode)
-                if (eps && eps.success) this.episodes = eps.episodes
-                if (ep && ep.success) this.episode = ep.episode
+                if (episodes && episodes.success) this.episodes = episodes.episodes
+                if (episode && episode.success) this.episode = episode.episode
             }
 
             this.loading = false
