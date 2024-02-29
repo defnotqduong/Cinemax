@@ -114,7 +114,7 @@ export default defineComponent({
         const getGenreList = async () => {
             loading.value = true
             const data = await getInitialGenre()
-            if (data.success) {
+            if (data && data.success) {
                 genres.value = data.genres
                 loading.value = false
             }
@@ -123,11 +123,11 @@ export default defineComponent({
         const deleteGen = async id => {
             const data = await deleteGenre(id)
 
-            if (data.status === 401) {
+            if (data && data.status === 401) {
                 router.push({ name: 'auth-login' })
                 return
             }
-            if (data.success) {
+            if (data && data.success) {
                 getGenreList()
             }
         }

@@ -216,19 +216,16 @@ export default defineComponent({
                 }
             }
 
-            console.log(file.value)
-            console.log(movie)
-
             if (file.value) formData.append('image', file.value)
 
             const data = await editMovie(movie.slug, formData)
 
-            if (data.status === 401) {
+            if (data && data.status === 401) {
                 router.push({ name: 'auth-login' })
                 return
             }
 
-            if (data.success) {
+            if (data && data.success) {
                 success.value = true
                 errors.value = []
                 loadingSubmit.value = false
@@ -239,7 +236,7 @@ export default defineComponent({
                 return
             }
 
-            errors.value = data.data.errors
+            errors.value = data && data.data.errors
             loadingSubmit.value = false
         }
 
@@ -271,11 +268,11 @@ export default defineComponent({
                 getMovie(slug)
             ])
 
-            this.categories = categoryData.categories
-            this.genres = genreData.genres
-            this.countries = countryData.countries
+            this.categories = categoryData && categoryData.categories
+            this.genres = genreData && genreData.genres
+            this.countries = countryData && countryData.countries
 
-            if (movieData.success) {
+            if (movieData && movieData.success) {
                 const movie = movieData.movie
                 this.title = movie.title
                 this.thumbnail = movie.thumbnail

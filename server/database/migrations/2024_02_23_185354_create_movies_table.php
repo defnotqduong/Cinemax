@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->boolean('status')->default(true); // published or unpublished
             $table->string('season')->default('0');
-            $table->integer('eps')->nullable(); // Số tập phim
-            $table->integer('episode_current')->nullable(); // Tập phim hiện tại
+            $table->string('eps')->nullable(); // Số tập phim
+            $table->string('episode_current')->nullable(); // Tập phim hiện tại
             $table->string('year')->nullable(); // năm sản xuất
-            $table->integer('view')->nullable();
+            $table->integer('view')->nullable()->default(0);
             $table->string('duration')->nullable(); // thời lượng phim
             $table->integer('resolution')->default(0); // 0 - FullHD, 1 - HD, 2 - SD, 3 - HDCam, 4 - Cam , 5 - Trailer
             $table->boolean('subtitle')->default(true); // true - vietsub, false - thuyet minh

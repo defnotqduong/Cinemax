@@ -118,7 +118,15 @@ export default {
     },
     GET_MOVIE_BY_CATEGORY_API: {
         method: 'get',
-        url: '/movie'
+        url: '/movie/category'
+    },
+    GET_MOVIE_BY_GENRE_API: {
+        method: 'get',
+        url: '/movie/genre'
+    },
+    GET_MOVIE_BY_COUNTRY_API: {
+        method: 'get',
+        url: '/movie/country'
     },
     FIND_MOVIE_API: {
         method: 'get',

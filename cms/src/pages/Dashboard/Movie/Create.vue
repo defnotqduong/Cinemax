@@ -170,18 +170,18 @@ export default defineComponent({
 
         const movie = reactive({
             title: '',
-            name_eng: '',
-            description: '',
-            season: '',
+            name_eng: null,
+            description: null,
+            season: null,
             eps: null,
-            year: '',
-            duration: '',
+            year: null,
+            duration: null,
             resolution: 0,
             subtitle: 1,
             category_id: null,
             genre_id: null,
             country_id: null,
-            tags: '',
+            tags: null,
             status: 1
         })
 
@@ -204,19 +204,19 @@ export default defineComponent({
         }
 
         const resetMovie = () => {
-            movie.title = ''
-            movie.name_eng = ''
-            movie.description = ''
-            movie.season = ''
+            movie.title = null
+            movie.name_eng = null
+            movie.description = null
+            movie.season = null
             movie.eps = null
-            movie.year = ''
-            movie.duration = ''
+            movie.year = null
+            movie.duration = null
             movie.resolution = 0
             movie.subtitle = 1
             movie.category_id = null
             movie.genre_id = null
             movie.country_id = null
-            movie.tags = ''
+            movie.tags = null
             movie.status = 1
         }
 
@@ -235,12 +235,12 @@ export default defineComponent({
 
             const data = await createMovie(formData)
 
-            if (data.status === 401) {
+            if (data && data.status === 401) {
                 router.push({ name: 'auth-login' })
                 return
             }
 
-            if (data.success) {
+            if (data && data.success) {
                 success.value = true
                 errors.value = []
                 loadingSubmit.value = false
@@ -253,7 +253,7 @@ export default defineComponent({
                 return
             }
 
-            errors.value = data.data.errors
+            errors.value = data && data.data.errors
             loadingSubmit.value = false
         }
 
@@ -276,9 +276,9 @@ export default defineComponent({
             this.loading = true
             const [categoryData, genreData, countryData] = await Promise.all([getInitialCategory(), getInitialGenre(), getInitialCountry()])
 
-            this.categories = categoryData.categories
-            this.genres = genreData.genres
-            this.countries = countryData.countries
+            this.categories = categoryData && categoryData.categories
+            this.genres = genreData && genreData.genres
+            this.countries = countryData && countryData.countries
 
             this.loading = false
         }

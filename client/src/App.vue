@@ -40,9 +40,9 @@ export default defineComponent({
             this.loading = true
             const [categoryData, genreData, countryData] = await Promise.all([getAllCategory(), getAllGenre(), getAllCountry()])
 
-            if (categoryData.success) this.categories = categoryData.categories
-            if (genreData.success) this.genres = genreData.genres
-            if (countryData.success) this.countries = countryData.countries
+            if (categoryData && categoryData.success) this.categories = categoryData.categories
+            if (genreData && genreData.success) this.genres = genreData.genres
+            if (countryData && countryData.success) this.countries = countryData.countries
 
             this.loading = false
         }

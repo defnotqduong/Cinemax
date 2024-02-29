@@ -55,9 +55,9 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="grid grid-cols-4 items-center justify-start gap-7">
-                            <div v-for="i in 15" :key="i">
-                                <MovieCard />
+                        <div class="grid grid-cols-4 items-center justify-start gap-8">
+                            <div v-for="movie in movies" :key="movie.id">
+                                <MovieCard :movie="movie" />
                             </div>
                         </div>
                         <div class="mt-4">
@@ -76,6 +76,7 @@ import Pagination from '../../components/Pagination/Pagination.vue'
 import MovieCard from '../../components/Movie/MovieCard.vue'
 
 import { getCategory } from '../../webServices/categoryService'
+import { getMovieByCategory } from '../../webServices/movieService'
 export default defineComponent({
     components: { MovieCard, Pagination },
     setup() {
@@ -99,7 +100,7 @@ export default defineComponent({
         }
     },
     watch: {
-        '$route.params.slug'() {
+        '$route.params'() {
             // console.log('watch')
             this.getData()
         }
@@ -107,15 +108,20 @@ export default defineComponent({
     methods: {
         async getData() {
             this.loading = true
+
             const slug = this.$route.params.slug
+
             const [categoryData] = await Promise.all([getCategory(slug)])
 
-            console.log(categoryData)
-
-            if (categoryData.success) {
+            if (categoryData && categoryData.success) {
                 this.category.id = categoryData.category.id
                 this.category.title = categoryData.category.title
                 this.category.slug = categoryData.category.slug
+
+                const data = await getMovieByCategory(categoryData.category.id)
+
+                this.movies = data.movies.data
+
                 this.loading = false
             }
         }

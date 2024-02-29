@@ -84,12 +84,12 @@ export default defineComponent({
 
             console.log(data)
 
-            if (data.status === 401) {
+            if (data && data.status === 401) {
                 router.push({ name: 'auth-login' })
                 return
             }
 
-            if (data.success) {
+            if (data && data.success) {
                 success.value = true
                 errors.value = []
                 loadingSubmit.value = false
@@ -102,7 +102,7 @@ export default defineComponent({
                 return
             }
 
-            errors.value = data.data.errors
+            errors.value = data && data.data.errors
             loadingSubmit.value = false
         }
 
@@ -124,7 +124,7 @@ export default defineComponent({
 
             const [movieData] = await Promise.all([findMovieById(id)])
 
-            if (movieData.success) {
+            if (data && movieData.success) {
                 const movie = movieData.movie
                 this.id = movie.id
                 this.movie_id = movie.id

@@ -14,13 +14,13 @@ class MovieController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['getAllMovie', 'getInitialMovie', 'getMovie', 'findMovieById']]);
+        $this->middleware('auth:api', ['except' => ['getAllMovie', 'getInitialMovie', 'getMovieByCategory', 'getMovieByGenre', 'getMovieByCountry', 'getMovie', 'findMovieById']]);
     }
 
     public function getAllMovie()
     {
         try {
-            $movies = Movie::where('status', 1)->join('categories', 'movies.category_id', '=', 'categories.id')
+            $movies = Movie::where('movies.status', 1)->join('categories', 'movies.category_id', '=', 'categories.id')
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
                 ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
@@ -43,6 +43,85 @@ class MovieController extends Controller
     {
         try {
             $movies = Movie::join('categories', 'movies.category_id', '=', 'categories.id')
+                ->join('genres', 'movies.genre_id', '=', 'genres.id')
+                ->join('countries', 'movies.country_id', '=', 'countries.id')
+                ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->paginate(16);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Movies Fetched Successfully',
+                'movies' => $movies
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function getMovieByCategory(Request $request)
+    {
+        try {
+            $category_id = $request->query('category_id');
+
+            $movies = Movie::where('movies.category_id', $category_id)
+                ->where('movies.status', 1)
+                ->join('categories', 'movies.category_id', '=', 'categories.id')
+                ->join('genres', 'movies.genre_id', '=', 'genres.id')
+                ->join('countries', 'movies.country_id', '=', 'countries.id')
+                ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->paginate(16);
+            return response()->json([
+                'success' => true,
+                'message' => 'Movies Fetched Successfully',
+                'movies' => $movies
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function getMovieByGenre(Request $request)
+    {
+        try {
+            $genre_id = $request->query('genre_id');
+
+            $movies = Movie::where('movies.genre_id', $genre_id)
+                ->where('movies.status', 1)
+                ->join('categories', 'movies.category_id', '=', 'categories.id')
+                ->join('genres', 'movies.genre_id', '=', 'genres.id')
+                ->join('countries', 'movies.country_id', '=', 'countries.id')
+                ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->paginate(16);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Movies Fetched Successfully',
+                'movies' => $movies
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getMovieByCountry(Request $request)
+    {
+        try {
+            $country_id = $request->query('country_id');
+
+            $movies = Movie::where('movies.country_id', $country_id)
+                ->where('movies.status', 1)
+                ->join('categories', 'movies.category_id', '=', 'categories.id')
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
                 ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
@@ -122,8 +201,9 @@ class MovieController extends Controller
             'status' => 'nullable|boolean',
             'resolution' => 'nullable|numeric',
             'season' => 'nullable|string',
-            'eps' => 'nullable|numeric',
+            'eps' => 'nullable',
             'year' => 'nullable|string',
+            'view' => 'nullable|numeric',
             'duration' => 'nullable|string',
             'tags' => 'nullable|string',
             'subtitle' => 'nullable|boolean',
@@ -141,20 +221,14 @@ class MovieController extends Controller
                 $movie->thumbnail = asset('storage/' . $path);
             }
 
-            $movie->title = $request->title;
-            $movie->name_eng = $request->name_eng;
-            $movie->description = $request->description;
-            $movie->status = $request->status;
-            $movie->resolution = $request->resolution;
-            $movie->season = $request->season;
-            $movie->eps = $request->eps;
-            $movie->year = $request->year;
-            $movie->subtitle = $request->subtitle;
-            $movie->duration = $request->duration;
-            $movie->tags = $request->tags;
-            $movie->category_id = $request->category_id;
-            $movie->country_id = $request->country_id;
-            $movie->genre_id = $request->genre_id;
+            $fields = ['title', 'name_eng', 'description', 'status', 'resolution', 'season', 'eps', 'year', 'view', 'duration', 'tags', 'subtitle', 'category_id', 'country_id', 'genre_id'];
+
+            foreach ($fields as $field) {
+                if ($request->has($field) && $request->$field !== null) {
+                    $movie->$field = $request->$field;
+                }
+            }
+
 
             $movie->save();
 

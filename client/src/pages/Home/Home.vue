@@ -1,7 +1,7 @@
 <template>
     <div>
         <HeroSlide />
-        <div class="max-w-[1240px] mx-auto px-2 pb-10 grid grid-cols-3 gap-10">
+        <!-- <div class="max-w-[1240px] mx-auto px-2 pb-10 grid grid-cols-3 gap-10">
             <div class="col-span-2">
                 <div class="mb-10">
                     <div class="mb-7 flex items-center justify-between">
@@ -137,7 +137,7 @@
                     <MovieListV2 :type="'update'" />
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 

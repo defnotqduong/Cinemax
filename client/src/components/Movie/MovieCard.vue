@@ -3,16 +3,15 @@
         <router-link
             :to="{
                 name: 'home-details',
-                params: { slug: 'the-seven-deadly-sins-wrath-of-the-gods' }
+                params: { slug: movie.slug }
             }"
         >
-            <div class="h-[325px] relative">
-                <img
-                    src="https://rare-gallery.com/uploads/posts/400745-animegirl-wallpaper.png"
-                    alt="thumb"
-                    class="w-full h-full object-cover object-center rounded-lg"
-                />
-                <span class="absolute top-4 left-[10px] bg-primary rounded px-2 text-sm">18 / 18</span>
+            <div class="h-[400px] relative">
+                <img :src="movie.thumbnail" alt="thumb" class="w-full h-full object-cover object-center rounded-lg" />
+                <span class="absolute top-4 left-[10px] bg-primary rounded px-2 text-sm">
+                    <span>{{ movie.episode_current || '??' }}</span> /
+                    <span>{{ movie.eps || '??' }}</span>
+                </span>
                 <span class="absolute left-[10px] bottom-4 bg-gray rounded px-2 text-sm flex items-center justify-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
                         <path
@@ -42,16 +41,17 @@
                             d="M0,226v32c128,192,384,192,512,0v-32C384,34,128,34,0,226z M256,370c-70.7,0-128-57.3-128-128s57.3-128,128-128  s128,57.3,128,128S326.7,370,256,370z M256,170c0-8.3,1.7-16.1,4.3-23.6c-1.5-0.1-2.8-0.4-4.3-0.4c-53,0-96,43-96,96s43,96,96,96  c53,0,96-43,96-96c0-1.5-0.4-2.8-0.4-4.3c-7.4,2.6-15.3,4.3-23.6,4.3C288.2,242,256,209.8,256,170z"
                         />
                     </svg>
-                    9141</span
+                    {{ movie.view || '0' }}</span
                 >
             </div>
             <div class="pt-5">
                 <div class="mb-[10px] flex items-center justify-start gap-2">
-                    <div class="badge bg-badge text-white text-xs font-semibold">Active</div>
-                    <div class="badge bg-badge text-white text-xs font-semibold">Movie</div>
+                    <div class="badge bg-badge text-white text-xs font-semibold">{{ movie.category_title }}</div>
+                    <div class="badge bg-badge text-white text-xs font-semibold">{{ movie.genre_title }}</div>
                 </div>
-                <h5 class="text-lg font-semibold cursor-pointer hover:text-primary transitio-all duration-[400ms] line-clamp-2">
-                    The Seven Deadly Sins: Wrath of the Gods
+                <h6 class="mb-1 text-sm line-clamp-1">{{ movie.name_eng }}</h6>
+                <h5 class="text-lg font-semibold text-white cursor-pointer hover:text-primary transitio-all duration-[400ms] line-clamp-1">
+                    {{ movie.title }}
                 </h5>
             </div>
         </router-link>
@@ -60,7 +60,9 @@
 
 <script>
 import { defineComponent } from 'vue'
-export default defineComponent({})
+export default defineComponent({
+    props: { movie: Object }
+})
 </script>
 
 <style></style>

@@ -113,7 +113,7 @@ export default defineComponent({
         const getCategoryList = async () => {
             loading.value = true
             const data = await getInitialCategory()
-            if (data.success) {
+            if (data && data.success) {
                 categories.value = data.categories
                 loading.value = false
             }
@@ -121,12 +121,12 @@ export default defineComponent({
 
         const deleteCat = async id => {
             const data = await deleteCategory(id)
-            if (data.status === 401) {
+            if (data && data.status === 401) {
                 router.push({ name: 'auth-login' })
                 return
             }
 
-            if (data.success) {
+            if (data && data.success) {
                 getCategoryList()
             }
         }

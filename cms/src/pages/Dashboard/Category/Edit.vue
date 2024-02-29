@@ -69,12 +69,12 @@ export default defineComponent({
             loadingSubmit.value = true
             const data = await editCategory(category)
 
-            if (data.status === 401) {
+            if (data && data.status === 401) {
                 router.push({ name: 'auth-login' })
                 return
             }
 
-            if (data.success) {
+            if (data && data.success) {
                 success.value = true
                 errors.value = []
                 loadingSubmit.value = false
@@ -85,7 +85,7 @@ export default defineComponent({
                 return
             }
 
-            errors.value = data.data.errors
+            errors.value = data && data.data.errors
             loadingSubmit.value = false
         }
 
@@ -104,7 +104,7 @@ export default defineComponent({
             this.loading = true
             const data = await getCategory(slug)
 
-            if (data.success) {
+            if (data && data.success) {
                 this.title = data.category.title
                 this.slug = data.category.slug
                 this.description = data.category.description

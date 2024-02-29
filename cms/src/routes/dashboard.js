@@ -3,6 +3,7 @@ const dashboard = [
         path: '/',
         name: 'dashboard',
         component: () => import('../layouts/Dashboard.vue'),
+        // meta: { requiresAuth: true },
         children: [
             {
                 path: '',

@@ -113,7 +113,7 @@ export default defineComponent({
         const getCountryList = async () => {
             loading.value = true
             const data = await getInitialCountry()
-            if (data.success) {
+            if (data && data.success) {
                 countries.value = data.countries
                 loading.value = false
             }
@@ -121,12 +121,12 @@ export default defineComponent({
 
         const deleteCoun = async id => {
             const data = await deleteCountry(id)
-            if (data.status === 401) {
+            if (data && data.status === 401) {
                 router.push({ name: 'auth-login' })
                 return
             }
 
-            if (data.success) {
+            if (data && data.success) {
                 getCountryList()
             }
         }

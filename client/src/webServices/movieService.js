@@ -4,6 +4,24 @@ export const getAllMovie = dataPost => {
     return connectServer[api.GET_ALL_MOVIE_API.method](api.GET_ALL_MOVIE_API.url, dataPost)
 }
 
+export const getMovieByCategory = (param, dataPost) => {
+    const url = `?category_id=${param}`
+
+    return connectServer[api.GET_MOVIE_BY_CATEGORY_API.method](api.GET_MOVIE_BY_CATEGORY_API.url + url, dataPost)
+}
+
+export const getMovieByGenre = (param, dataPost) => {
+    const url = `?genre_id=${param}`
+
+    return connectServer[api.GET_MOVIE_BY_GENRE_API.method](api.GET_MOVIE_BY_GENRE_API.url + url, dataPost)
+}
+
+export const getMovieByCountry = (param, dataPost) => {
+    const url = `?country_id=${param}`
+
+    return connectServer[api.GET_MOVIE_BY_COUNTRY_API.method](api.GET_MOVIE_BY_COUNTRY_API.url + url, dataPost)
+}
+
 export const getMovie = dataPost => {
     return connectServer[api.GET_MOVIE_API.method](api.GET_MOVIE_API.url + '/' + dataPost, dataPost)
 }
@@ -38,6 +56,9 @@ export const deleteMovie = dataPost => {
 
 export default {
     getAllMovie,
+    getMovieByCategory,
+    getMovieByGenre,
+    getMovieByCountry,
     getMovie,
     findMovieById,
     createMovie,

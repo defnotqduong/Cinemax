@@ -204,7 +204,7 @@ export default defineComponent({
         const getMovieList = async () => {
             loading.value = true
             const data = await getInitialMovie()
-            if (data.success) {
+            if (data && data.success) {
                 movies.value = data.movies.data
                 loading.value = false
             }
@@ -212,11 +212,11 @@ export default defineComponent({
 
         const deleteMov = async id => {
             const data = await deleteMovie(id)
-            if (data.status === 401) {
+            if (data && data.status === 401) {
                 router.push({ name: 'auth-login' })
                 return
             }
-            if (data.success) {
+            if (data && data.success) {
                 getMovieList()
             }
         }

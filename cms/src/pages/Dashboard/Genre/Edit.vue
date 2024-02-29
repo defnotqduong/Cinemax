@@ -67,12 +67,12 @@ export default defineComponent({
             loadingSubmit.value = true
             const data = await editGenre(genre)
 
-            if (data.status === 401) {
+            if (data && data.status === 401) {
                 router.push({ name: 'auth-login' })
                 return
             }
 
-            if (data.success) {
+            if (data && data.success) {
                 success.value = true
                 errors.value = []
                 loadingSubmit.value = false
@@ -83,7 +83,7 @@ export default defineComponent({
                 return
             }
 
-            errors.value = data.data.errors
+            errors.value = data && data.data.errors
             loadingSubmit.value = false
         }
 
@@ -102,7 +102,7 @@ export default defineComponent({
             this.loading = true
             const data = await getGenre(slug)
 
-            if (data.success) {
+            if (data && data.success) {
                 this.title = data.genre.title
                 this.slug = data.genre.slug
                 this.description = data.genre.description

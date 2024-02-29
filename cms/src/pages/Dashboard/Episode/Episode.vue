@@ -113,16 +113,16 @@ export default defineComponent({
             console.log(id)
             const data = await deleteEpisode(id)
 
-            if (data.status === 401) {
+            if (data && data.status === 401) {
                 router.push({ name: 'auth-login' })
                 return
             }
 
-            if (data.success) {
+            if (data && data.success) {
                 loading.value = true
                 const episodeData = await getAllEpisodeByMovieId(movie.id)
 
-                eps.value = episodeData.episodes.data
+                eps.value = episodeData && episodeData.episodes.data
                 loading.value = false
             }
         }
@@ -137,8 +137,8 @@ export default defineComponent({
 
             const [episodeData, movieData] = await Promise.all([getAllEpisodeByMovieId(id), findMovieById(id)])
 
-            if (episodeData.success) this.eps = episodeData.episodes.data
-            if (movieData.success) {
+            if (episodeData && episodeData.success) this.eps = episodeData.episodes.data
+            if (movieData && movieData.success) {
                 const movie = movieData.movie
                 this.id = movie.id
                 this.title = movie.title
