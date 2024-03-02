@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name_eng')->nullable();
             $table->longText('description')->nullable();
             $table->string('thumbnail')->nullable();
+            $table->string('poster')->nullable();
+            $table->string('trailer_url')->nullable();
             $table->boolean('status')->default(true); // published or unpublished
             $table->string('season')->default('0');
             $table->string('eps')->nullable(); // Số tập phim
@@ -27,6 +29,7 @@ return new class extends Migration
             $table->string('duration')->nullable(); // thời lượng phim
             $table->integer('resolution')->default(0); // 0 - FullHD, 1 - HD, 2 - SD, 3 - HDCam, 4 - Cam , 5 - Trailer
             $table->boolean('subtitle')->default(true); // true - vietsub, false - thuyet minh
+            $table->boolean('chieurap')->default(false);
             $table->longText('tags')->nullable(); // từ khóa
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('genre_id')->constrained('genres');

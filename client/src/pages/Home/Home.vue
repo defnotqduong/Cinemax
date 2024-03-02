@@ -1,16 +1,20 @@
 <template>
     <div>
         <HeroSlide />
-        <!-- <div class="max-w-[1200px] mx-auto px-2 pb-10 grid grid-cols-3 gap-10">
-            <div class="col-span-2">
+        <div class="max-w-[1200px] mx-auto px-2 pb-10 grid grid-cols-4 gap-10">
+            <div class="col-span-3">
                 <div class="mb-10">
                     <div class="mb-7 flex items-center justify-between">
                         <h4
                             class="text-3xl font-bold uppercase text-white pl-3 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
                         >
-                            Xu hướng
+                            Phim bộ mới
                         </h4>
-                        <a
+                        <router-link
+                            :to="{
+                                name: 'home-category',
+                                params: { slug: 'phim-bo' }
+                            }"
                             class="relative flex items-center justify-center gap-3 py-[2px] cursor-pointer hover:text-primary transition-colors duration-[700ms] after:absolute after:content after:bottom-0 after:left-auto after:right-0 after:w-0 after:h-[2px] after:bg-primary after:rounded hover:after:w-full hover:after:right-auto hover:after:left-0 after:transition-width after:duration-[400ms]"
                             >Xem thêm
                             <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
@@ -22,18 +26,22 @@
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                 /></svg
-                        ></a>
+                        ></router-link>
                     </div>
-                    <MovieList :type="'trending'" />
+                    <MovieListV3 :movies="homeStore.seriesMovies" />
                 </div>
                 <div class="mb-10">
                     <div class="mb-7 flex items-center justify-between">
                         <h4
                             class="text-3xl font-bold uppercase text-white pl-3 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
                         >
-                            Mới cập nhật
+                            Phim lẻ mới
                         </h4>
-                        <a
+                        <router-link
+                            :to="{
+                                name: 'home-category',
+                                params: { slug: 'phim-le' }
+                            }"
                             class="relative flex items-center justify-center gap-3 py-[2px] cursor-pointer hover:text-primary transition-colors duration-[700ms] after:absolute after:content after:bottom-0 after:left-auto after:right-0 after:w-0 after:h-[2px] after:bg-primary after:rounded hover:after:w-full hover:after:right-auto hover:after:left-0 after:transition-width after:duration-[400ms]"
                             >Xem thêm
                             <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
@@ -45,18 +53,22 @@
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                 /></svg
-                        ></a>
+                        ></router-link>
                     </div>
-                    <MovieList :type="'update'" />
+                    <MovieListV3 :movies="homeStore.singleMovies" />
                 </div>
                 <div class="mb-10">
                     <div class="mb-7 flex items-center justify-between">
                         <h4
                             class="text-3xl font-bold uppercase text-white pl-3 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
                         >
-                            Xem gần đây
+                            Phim hoạt hình mới
                         </h4>
-                        <a
+                        <router-link
+                            :to="{
+                                name: 'home-category',
+                                params: { slug: 'phim-hoat-hinh' }
+                            }"
                             class="relative flex items-center justify-center gap-3 py-[2px] cursor-pointer hover:text-primary transition-colors duration-[700ms] after:absolute after:content after:bottom-0 after:left-auto after:right-0 after:w-0 after:h-[2px] after:bg-primary after:rounded hover:after:w-full hover:after:right-auto hover:after:left-0 after:transition-width after:duration-[400ms]"
                             >Xem thêm
                             <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
@@ -68,13 +80,13 @@
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                 /></svg
-                        ></a>
+                        ></router-link>
                     </div>
-                    <MovieList :type="'recently '" />
+                    <MovieListV3 :movies="homeStore.cartoonMovies" />
                 </div>
             </div>
             <div class="col-span-1">
-                <div class="mb-16">
+                <!-- <div class="mb-16">
                     <div class="flex items-center justify-between mb-[30px]">
                         <h4
                             class="text-base font-bold uppercase text-white pl-3 mt-1 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
@@ -125,7 +137,7 @@
                         </ul>
                     </div>
                     <MovieListV3 :type="'mostviewed'" />
-                </div>
+                </div> -->
                 <div>
                     <div class="mb-[30px]">
                         <h4
@@ -134,10 +146,10 @@
                             Phim mới cập nhật
                         </h4>
                     </div>
-                    <MovieListV2 :type="'update'" />
+                    <MovieListV2 :movies="homeStore.newMovies" />
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -148,13 +160,17 @@ import MovieList from '../../components/Movie/MovieList.vue'
 import MovieListV2 from '../../components/Movie/MovieListV2.vue'
 import MovieListV3 from '../../components/Movie/MovieListV3.vue'
 
+import { useHomeStore } from '../../stores/modules/homeStore'
+
 export default defineComponent({
     components: { HeroSlide, MovieList, MovieListV2, MovieListV3 },
     setup() {
         const isFilter = ref('day')
+        const homeStore = useHomeStore()
 
         return {
-            isFilter
+            isFilter,
+            homeStore
         }
     },
     created() {

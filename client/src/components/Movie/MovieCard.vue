@@ -6,13 +6,13 @@
                 params: { slug: movie.slug }
             }"
         >
-            <div class="h-[340px] relative">
+            <div class="h-[320px] relative">
                 <img :src="movie.thumbnail" alt="thumb" class="w-full h-full object-cover object-center rounded-lg" />
                 <span
-                    class="absolute top-2 left-2 bg-badge-primary px-2 py-1 text-xs font-bold shadow-md shadow-[rgba(0,0,0,0.75)] after:absolute after:content after:top-[3.75px] after:-right-[8px] after:w-0 after:h-0 after:border-t-[16px] after:border-t-transparent after:border-r-[16px] after:border-r-badge-primary after:-rotate-45"
+                    class="absolute top-2 left-2 bg-badge-primary px-2 py-1 text-xs font-bold shadow-md shadow-[rgba(0,0,0,0.75)] after:absolute after:content after:top-[0.2rem] after:-right-[8px] after:w-0 after:h-0 after:border-t-[17.6px] after:border-t-transparent after:border-r-[17.6px] after:border-r-badge-primary after:-rotate-45"
                 >
+                    <span class="pr-1">{{ movie.episode_current }}</span>
                     <span class="pr-1">{{ this.getSubtitle(movie.subtitle) }}</span>
-                    <span>{{ this.getResolutionText(movie.resolution) }}</span>
                 </span>
                 <!-- <span class="absolute left-[10px] bottom-4 bg-gray rounded px-2 text-sm flex items-center justify-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">

@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <div v-for="i in 4" :key="i" class="mb-7">
-            <MovieCardV3 />
+    <div class="grid grid-cols-4 items-start justify-start gap-8">
+        <div v-for="movie in movies" :key="movie.id">
+            <MovieCardV3 :movie="movie" />
         </div>
     </div>
 </template>
@@ -11,7 +11,7 @@ import { defineComponent } from 'vue'
 import MovieCardV3 from './MovieCardV3.vue'
 export default defineComponent({
     components: { MovieCardV3 },
-    props: { type: String }
+    props: { movies: Array }
 })
 </script>
 

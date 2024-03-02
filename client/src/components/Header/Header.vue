@@ -7,7 +7,7 @@
         class="fixed top-0 left-0 z-[9999] w-full transition-all duration-[400ms]"
     >
         <div class="navbar h-full justify-between max-w-[1220px] mx-auto py-0 font-medium text-white">
-            <div class="navbar-start w-auto">
+            <div class="navbar-start w-auto mr-10">
                 <div class="dropdown">
                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -63,7 +63,7 @@
                                 tabindex="0"
                                 class="dropdown-content grid grid-cols-3 z-[1] menu p-2 shadow bg-base-200 rounded-box w-[460px] max-h-[200px] overflow-y-auto before:w-0 text-white"
                             >
-                                <li v-for="genre in genres" :key="genre.id">
+                                <li v-for="genre in homeStore.genres" :key="genre.id">
                                     <router-link
                                         :to="{
                                             name: 'home-genre',
@@ -77,44 +77,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li>
-                        <div class="dropdown dropdown-hover dropdown-bottom group hover:bg-transparent hover:text-primary">
-                            <div tabindex="0" role="button">
-                                Danh mục
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="18px"
-                                    height="18px"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    class="inline-block group-hover:rotate-180 transition-all duration-[350ms]"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        clip-rule="evenodd"
-                                        d="M4.29289 8.29289C4.68342 7.90237 5.31658 7.90237 5.70711 8.29289L12 14.5858L18.2929 8.29289C18.6834 7.90237 19.3166 7.90237 19.7071 8.29289C20.0976 8.68342 20.0976 9.31658 19.7071 9.70711L12.7071 16.7071C12.3166 17.0976 11.6834 17.0976 11.2929 16.7071L4.29289 9.70711C3.90237 9.31658 3.90237 8.68342 4.29289 8.29289Z"
-                                        fill="currentColor"
-                                    />
-                                </svg>
-                            </div>
-                            <ul
-                                tabindex="0"
-                                class="dropdown-content grid grid-cols-3 z-[1] menu p-2 shadow bg-base-200 rounded-box w-[460px] max-h-[200px] overflow-y-auto before:w-0 text-white"
-                            >
-                                <li v-for="category in categories" :key="category.id">
-                                    <router-link
-                                        :to="{
-                                            name: 'home-category',
-                                            params: { slug: category.slug }
-                                        }"
-                                        class="hover:bg-transparent hover:text-primary"
-                                    >
-                                        <p class="line-clamp-1">{{ category.title }}</p></router-link
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+
                     <li>
                         <div class="dropdown dropdown-hover dropdown-bottom group hover:bg-transparent hover:text-primary">
                             <div tabindex="0" role="button">
@@ -139,7 +102,7 @@
                                 tabindex="0"
                                 class="dropdown-content grid grid-cols-3 z-[1] menu p-2 shadow bg-base-200 rounded-box w-[460px] max-h-[200px] overflow-y-auto before:w-0 text-white"
                             >
-                                <li v-for="country in countries" :key="country.id">
+                                <li v-for="country in homeStore.countries" :key="country.id">
                                     <router-link
                                         :to="{
                                             name: 'home-country',
@@ -153,9 +116,20 @@
                             </ul>
                         </div>
                     </li>
+                    <li v-for="category in filteredCategories" :key="category.id">
+                        <router-link
+                            :to="{
+                                name: 'home-category',
+                                params: { slug: category.slug }
+                            }"
+                            class="hover:bg-transparent hover:text-primary"
+                        >
+                            <p class="line-clamp-1">{{ category.title }}</p></router-link
+                        >
+                    </li>
                 </ul>
             </div>
-            <div class="navbar-end w-auto flex items-center justify-center gap-5">
+            <div class="navbar-end flex items-center justify-end gap-5">
                 <label class="input bg-transparent input-bordered h-10 flex items-center gap-2 text-sm">
                     <input type="text" class="grow" placeholder="Tìm kiếm" />
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70">
@@ -166,11 +140,11 @@
                         />
                     </svg>
                 </label>
-                <router-link
+                <!-- <router-link
                     :to="{ name: 'auth-login' }"
                     class="h-10 px-3 flex items-center justify-center border-[1px] border-primary rounded-lg text-primary hover:text-white hover:bg-primary transition-all duration-[400ms]"
                     >Đăng nhập</router-link
-                >
+                > -->
             </div>
         </div>
     </div>
@@ -178,16 +152,15 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import { useHomeStore } from '../../stores/modules/homeStore'
 export default defineComponent({
-    props: {
-        categories: Array,
-        genres: Array,
-        countries: Array
-    },
+    props: {},
     setup() {
+        const homeStore = useHomeStore()
+
         const isScrolled = ref(false)
 
-        return { isScrolled }
+        return { isScrolled, homeStore }
     },
     mounted() {
         window.addEventListener('scroll', this.shrinkHeader)
@@ -202,6 +175,11 @@ export default defineComponent({
             } else {
                 this.isScrolled = false
             }
+        }
+    },
+    computed: {
+        filteredCategories() {
+            return this.homeStore.categories.filter(category => category.status === 1)
         }
     }
 })

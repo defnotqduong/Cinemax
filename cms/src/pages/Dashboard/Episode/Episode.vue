@@ -1,5 +1,5 @@
 <template>
-    <div class="py-20 mr-8">
+    <div class="py-20 mr-8 px-10">
         <div class="flex items-center justify-between">
             <h3 class="text-2xl font-bold text-white">Danh sách Tập Phim:</h3>
             <button class="px-3 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
@@ -137,14 +137,15 @@ export default defineComponent({
 
             const [episodeData, movieData] = await Promise.all([getAllEpisodeByMovieId(id), findMovieById(id)])
 
-            if (episodeData && episodeData.success) this.eps = episodeData.episodes.data
+            console.log(episodeData)
+            if (episodeData && episodeData.success) this.eps = episodeData.episodes
             if (movieData && movieData.success) {
                 const movie = movieData.movie
                 this.id = movie.id
                 this.title = movie.title
                 this.thumbnail = movie.thumbnail
-                this.loading = false
             }
+            this.loading = false
         }
     },
     created() {

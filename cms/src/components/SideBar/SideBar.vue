@@ -28,7 +28,6 @@
                                 >Thêm phim</router-link
                             >
                         </li>
-                        <li><a>Chỉnh sửa phim</a></li>
                     </ul>
                 </details>
             </li>
@@ -37,7 +36,7 @@
                     <summary>Tập phim</summary>
                     <ul class="menu gap-2">
                         <li>
-                            <a>Leech phim</a>
+                            <router-link :to="{ name: 'dashboard-crawl-movie' }">Crawl phim</router-link>
                         </li>
                     </ul>
                 </details>

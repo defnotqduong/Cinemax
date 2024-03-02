@@ -31,7 +31,7 @@ export const endpointAccess = path => {
 export const get = async (path, data = {}, config = {}) => {
     try {
         path = endpointAccess(path)
-        const res = await connectServer(config).get(path)
+        const res = await connectServer(config).get(path, data)
 
         return res.data
     } catch (err) {

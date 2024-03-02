@@ -6,6 +6,7 @@ use App\Models\Episode;
 use App\Models\Movie;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Component\HttpKernel\Exception\ResolverNotFoundException;
@@ -17,15 +18,17 @@ class MovieController extends Controller
         $this->middleware('auth:api', ['except' => ['getAllMovie', 'getInitialMovie', 'getMovieByCategory', 'getMovieByGenre', 'getMovieByCountry', 'getMovie', 'getPublicMovie', 'findMovieById']]);
     }
 
-    public function getAllMovie()
+    public function getAllMovie(Request $request)
     {
         try {
+            $limit = $request->query('limit');
+
             $movies = Movie::where('movies.status', 1)->join('categories', 'movies.category_id', '=', 'categories.id')
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
-                ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->select('movies.id', 'movies.title', 'movies.name_eng', 'movies.year', 'movies.thumbnail', 'movies.slug', 'movies.subtitle', 'movies.resolution', 'movies.status', 'movies.poster', 'movies.description', 'movies.episode_current')
                 ->orderByDesc('movies.updated_at')
-                ->paginate(16);
+                ->paginate($limit);
 
             return response()->json([
                 'success' => true,
@@ -40,15 +43,17 @@ class MovieController extends Controller
         }
     }
 
-    public function getInitialMovie()
+    public function getInitialMovie(Request $request)
     {
         try {
+            $limit = $request->query('limit') ?? 15;
+
             $movies = Movie::join('categories', 'movies.category_id', '=', 'categories.id')
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
-                ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->select('movies.id', 'movies.title', 'movies.name_eng', 'movies.year', 'movies.thumbnail', 'movies.slug', 'movies.subtitle', 'movies.resolution', 'movies.status', 'movies.poster', 'movies.description', 'movies.episode_current')
                 ->orderByDesc('movies.updated_at')
-                ->paginate(16);
+                ->paginate($limit);
 
             return response()->json([
                 'success' => true,
@@ -67,20 +72,23 @@ class MovieController extends Controller
     public function getMovieByCategory(Request $request)
     {
         try {
+
             $category_id = $request->query('category_id');
+            $limit = $request->query('limit') ?? 15;
 
             $movies = Movie::where('movies.category_id', $category_id)
                 ->where('movies.status', 1)
                 ->join('categories', 'movies.category_id', '=', 'categories.id')
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
-                ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->select('movies.id', 'movies.title', 'movies.name_eng', 'movies.year', 'movies.thumbnail', 'movies.slug', 'movies.subtitle', 'movies.resolution', 'movies.status', 'movies.poster', 'movies.description', 'movies.episode_current')
                 ->orderByDesc('movies.updated_at')
-                ->paginate(16);
+                ->paginate($limit);
             return response()->json([
                 'success' => true,
                 'message' => 'Movies Fetched Successfully',
-                'movies' => $movies
+                'movies' => $movies,
+
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -101,9 +109,9 @@ class MovieController extends Controller
                 ->join('categories', 'movies.category_id', '=', 'categories.id')
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
-                ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->select('movies.id', 'movies.title', 'movies.name_eng', 'movies.year', 'movies.thumbnail', 'movies.slug', 'movies.subtitle', 'movies.resolution', 'movies.status', 'movies.poster', 'movies.description', 'movies.episode_current')
                 ->orderByDesc('movies.updated_at')
-                ->paginate(16);
+                ->paginate(15);
 
             return response()->json([
                 'success' => true,
@@ -128,9 +136,9 @@ class MovieController extends Controller
                 ->join('categories', 'movies.category_id', '=', 'categories.id')
                 ->join('genres', 'movies.genre_id', '=', 'genres.id')
                 ->join('countries', 'movies.country_id', '=', 'countries.id')
-                ->select('movies.*', 'categories.title as category_title', 'categories.slug as category_slug', 'genres.title as genre_title', 'genres.slug as genre_slug', 'countries.title as country_title', 'countries.slug as country_slug')
+                ->select('movies.id', 'movies.title', 'movies.name_eng', 'movies.year', 'movies.thumbnail', 'movies.slug', 'movies.subtitle', 'movies.resolution', 'movies.status', 'movies.poster', 'movies.description', 'movies.episode_current')
                 ->orderByDesc('movies.updated_at')
-                ->paginate(16);
+                ->paginate(15);
 
             return response()->json([
                 'success' => true,
@@ -227,20 +235,25 @@ class MovieController extends Controller
 
     public function createMovie(Request $request)
     {
+
         $request->validate([
             'title' => 'required|string',
             'name_eng' => 'nullable|string',
-            'image' => 'nullable',
+            'thumb' => 'nullable',
+            'poster' => 'nullable',
             'description' => 'nullable|string',
+            'trailer_url' => 'nullable|string',
             'status' => 'nullable|boolean',
             'resolution' => 'nullable|numeric',
             'season' => 'nullable|string',
             'eps' => 'nullable',
+            'episode_current' => 'nullable',
             'year' => 'nullable|string',
             'view' => 'nullable|numeric',
             'duration' => 'nullable|string',
             'tags' => 'nullable|string',
             'subtitle' => 'nullable|boolean',
+            'chieurap' => 'nullable|boolean',
             'category_id' => 'required|numeric',
             'country_id' => 'required|numeric',
             'genre_id' => 'required|numeric',
@@ -249,13 +262,19 @@ class MovieController extends Controller
 
             $movie = new Movie();
 
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
+            if ($request->hasFile('thumb')) {
+                $image = $request->file('thumb');
                 $path = $image->store('uploads', 'public');
                 $movie->thumbnail = asset('storage/' . $path);
             }
 
-            $fields = ['title', 'name_eng', 'description', 'status', 'resolution', 'season', 'eps', 'year', 'view', 'duration', 'tags', 'subtitle', 'category_id', 'country_id', 'genre_id'];
+            if ($request->hasFile('poster')) {
+                $image = $request->file('poster');
+                $path = $image->store('uploads', 'public');
+                $movie->poster = asset('storage/' . $path);
+            }
+
+            $fields = ['title', 'name_eng', 'trailer_url', 'description', 'status', 'resolution', 'season', 'eps', 'episode_current', 'year', 'view', 'duration', 'tags', 'subtitle', 'chieurap', 'category_id', 'country_id', 'genre_id'];
 
             foreach ($fields as $field) {
                 if ($request->has($field) && $request->$field !== null) {
@@ -284,16 +303,21 @@ class MovieController extends Controller
         $request->validate([
             'title' => 'required|string',
             'name_eng' => 'nullable|string',
-            'image' => 'nullable',
+            'thumb' => 'nullable',
+            'poster' => 'nullable',
             'description' => 'nullable|string',
+            'trailer_url' => 'nullable|string',
             'status' => 'nullable|boolean',
             'resolution' => 'nullable|numeric',
             'season' => 'nullable|string',
-            'eps' => 'nullable|numeric',
+            'eps' => 'nullable',
+            'episode_current' => 'nullable',
             'year' => 'nullable|string',
+            'view' => 'nullable|numeric',
             'duration' => 'nullable|string',
             'tags' => 'nullable|string',
             'subtitle' => 'nullable|boolean',
+            'chieurap' => 'nullable|boolean',
             'category_id' => 'required|numeric',
             'country_id' => 'required|numeric',
             'genre_id' => 'required|numeric',
@@ -307,7 +331,7 @@ class MovieController extends Controller
                 'message' => 'Movie not Found!'
             ], 404);
 
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('thumb')) {
 
                 if ($movie->thumbnail) {
                     $filePath = str_replace(url('/storage'), 'public', $movie->thumbnail);
@@ -315,25 +339,31 @@ class MovieController extends Controller
                         Storage::disk('local')->delete($filePath);
                 }
 
-                $image = $request->file('image');
+                $image = $request->file('thumb');
                 $path = $image->store('uploads', 'public');
                 $movie->thumbnail = asset('storage/' . $path);
             }
 
-            $movie->title = $request->title;
-            $movie->name_eng = $request->name_eng;
-            $movie->description = $request->description;
-            $movie->status = $request->status;
-            $movie->resolution = $request->resolution;
-            $movie->season = $request->season;
-            $movie->eps = $request->eps;
-            $movie->year = $request->year;
-            $movie->subtitle = $request->subtitle;
-            $movie->duration = $request->duration;
-            $movie->tags = $request->tags;
-            $movie->category_id = $request->category_id;
-            $movie->country_id = $request->country_id;
-            $movie->genre_id = $request->genre_id;
+            if ($request->hasFile('poster')) {
+
+                if ($movie->poster) {
+                    $filePath = str_replace(url('/storage'), 'public', $movie->poster);
+                    if (Storage::disk('local')->exists($filePath))
+                        Storage::disk('local')->delete($filePath);
+                }
+
+                $image = $request->file('poster');
+                $path = $image->store('uploads', 'public');
+                $movie->poster = asset('storage/' . $path);
+            }
+
+            $fields = ['title', 'name_eng', 'trailer_url', 'description', 'status', 'resolution', 'season', 'eps', 'episode_current', 'year', 'view', 'duration', 'tags', 'subtitle', 'chieurap', 'category_id', 'country_id', 'genre_id'];
+
+            foreach ($fields as $field) {
+                if ($request->has($field) && $request->$field !== null) {
+                    $movie->$field = $request->$field;
+                }
+            }
 
             $movie->save();
 
@@ -361,6 +391,19 @@ class MovieController extends Controller
             ], 404);
 
             Episode::where('movie_id', $id)->delete();
+
+
+            if ($movie->thumbnail) {
+                $filePath = str_replace(url('/storage'), 'public', $movie->thumbnail);
+                if (Storage::disk('local')->exists($filePath))
+                    Storage::disk('local')->delete($filePath);
+            }
+
+            if ($movie->poster) {
+                $filePath = str_replace(url('/storage'), 'public', $movie->poster);
+                if (Storage::disk('local')->exists($filePath))
+                    Storage::disk('local')->delete($filePath);
+            }
 
             $movie->delete();
 

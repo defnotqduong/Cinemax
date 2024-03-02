@@ -4,7 +4,8 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: '#FF0000',
+                primary: '#f1b722',
+                red: '#ff0000',
                 purple: '#A958A5',
                 secondary: '#b7b7b7',
                 'primary-alpha': '#e53637',
@@ -13,7 +14,7 @@ export default {
                 'badge-primary': '#a21d0a'
             },
             backgroundColor: {
-                primary: '#FF0000',
+                primary: '#f1b722',
                 secondary: '#b7b7b7',
                 'primary-alpha': '#e53637',
                 overlay: 'rgba(15, 23, 42, 0.85)',

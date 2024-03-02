@@ -86,7 +86,7 @@ class EpisodeController extends Controller
     {
         $request->validate([
             'movie_id' => 'required|numeric',
-            'episode' => 'required|numeric',
+            'episode' => 'required|string',
             'server_name' => 'required|string',
             'link' => 'required|string'
         ]);
@@ -125,7 +125,7 @@ class EpisodeController extends Controller
     {
         $request->validate([
             'movie_id' => 'required|numeric',
-            'episode' => 'required|numeric',
+            'episode' => 'required|string',
             'server_name' => 'required|string',
             'link' => 'required|string'
         ]);

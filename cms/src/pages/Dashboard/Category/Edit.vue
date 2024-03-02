@@ -1,5 +1,5 @@
 <template>
-    <div class="py-20">
+    <div class="py-20 px-10">
         <div>
             <h3 class="text-2xl font-bold mb-10">Chỉnh sửa danh mục:</h3>
             <div v-if="loading" class="flex items-center justify-center min-h-[50vh]">

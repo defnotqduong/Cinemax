@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div v-for="i in 3" :key="i" class="mb-7">
-            <MovieCardV2 />
+        <div v-for="movie in movies" :key="movie.id" class="mb-7">
+            <MovieCardV2 :movie="movie" />
         </div>
     </div>
 </template>
@@ -13,7 +13,7 @@ import MovieCardV2 from './MovieCardV2.vue'
 export default defineComponent({
     components: { MovieCardV2 },
     props: {
-        type: String
+        movies: Array
     }
 })
 </script>

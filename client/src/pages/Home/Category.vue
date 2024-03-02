@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-[120px]">
+    <div class="mt-[160px]">
         <div v-if="loading" class="flex items-center justify-center min-h-[80vh]">
             <span class="loading loading-spinner text-white"></span>
         </div>
@@ -58,7 +58,7 @@
                         <div>
                             <div v-if="movies.length === 0" class="min-h-[30vh]"></div>
                             <div v-if="movies.length > 0">
-                                <div class="grid grid-cols-4 items-start justify-start gap-10">
+                                <div class="grid grid-cols-5 items-start justify-start gap-8">
                                     <div v-for="movie in movies" :key="movie.id">
                                         <MovieCard :movie="movie" />
                                     </div>

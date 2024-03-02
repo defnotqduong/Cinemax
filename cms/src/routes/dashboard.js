@@ -84,6 +84,11 @@ const dashboard = [
                 path: 'phim/:id/tap-phim/:epId',
                 name: 'dashboard-edit-movie-episode',
                 component: () => import('../pages/Dashboard/Episode/Edit.vue')
+            },
+            {
+                path: 'crawl-phim',
+                name: 'dashboard-crawl-movie',
+                component: () => import('../pages/Dashboard/Crawl/CrawlMovie.vue')
             }
         ]
     }

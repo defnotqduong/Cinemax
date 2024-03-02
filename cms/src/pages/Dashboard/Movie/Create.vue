@@ -1,5 +1,5 @@
 <template>
-    <div class="py-20">
+    <div class="py-20 px-10">
         <h3 class="text-2xl font-bold mb-10">Thêm Phim:</h3>
         <div v-if="success" role="alert" class="alert bg-green-400 text-white w-[20%] fixed top-10 right-10">
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
@@ -11,49 +11,89 @@
             <span class="loading loading-spinner text-white"></span>
         </div>
         <form v-if="!loading" class="w-[100%] mx-auto px-8 grid grid-cols-2 gap-x-6" @submit.prevent="create">
-            <div class="block mb-6">
-                <div class="text-lg font-semibold mb-3">Thumbnail:</div>
-                <label
-                    class="w-[50%] h-[300px] flex items-center justify-center relative mx-auto border-[1px] border-[#6793fa] rounded-md overflow-hidden cursor-pointer"
-                    for="thumbnail"
-                >
-                    <img ref="fileInput" :src="thumbUrl" alt="Thumbnail" class="w-full h-full object-cover object-center" />
-                </label>
-                <input @change="handleFileChange" id="thumbnail" type="file" placeholder="Hình ảnh" class="input input-bordered h-10 input-secondary hidden" />
-                <div v-if="errors && errors.thumbnail" class="mt-2 text-primary">
-                    {{ errors.thumbnail[0] }}
+            <div class="col-span-2 grid grid-cols-3">
+                <div class="block mb-6 col-span-1">
+                    <div class="text-lg font-semibold text-center mb-3">Thumbnail:</div>
+                    <label
+                        class="w-[75%] h-[300px] flex items-center justify-center relative mx-auto border-[1px] border-[#6793fa] rounded-md overflow-hidden cursor-pointer"
+                        for="thumbnail"
+                    >
+                        <img ref="fileInput" :src="thumbUrl" alt="Thumbnail" class="w-full h-full object-cover object-center" />
+                    </label>
+                    <input
+                        @change="handleFileThumbnail"
+                        id="thumbnail"
+                        type="file"
+                        placeholder="Hình ảnh"
+                        class="input input-bordered h-10 input-secondary hidden"
+                    />
+                    <div v-if="errors && errors.thumbnail" class="mt-2 text-primary">
+                        {{ errors.thumbnail[0] }}
+                    </div>
+                </div>
+                <div class="block mb-6 col-span-2">
+                    <div class="text-lg font-semibold text-center mb-3">Poster:</div>
+                    <label
+                        class="w-[80%] h-[300px] flex items-center justify-center relative mx-auto border-[1px] border-[#6793fa] rounded-md overflow-hidden cursor-pointer"
+                        for="poster"
+                    >
+                        <img ref="fileInput" :src="posterUrl" alt="Poster" class="w-full h-full object-cover object-center" />
+                    </label>
+                    <input @change="handleFilePoster" id="poster" type="file" placeholder="Hình ảnh" class="input input-bordered h-10 input-secondary hidden" />
+                    <div v-if="errors && errors.poster" class="mt-2 text-primary">
+                        {{ errors.poster[0] }}
+                    </div>
                 </div>
             </div>
-            <div>
-                <label for="title" class="block mb-6">
-                    <div class="text-lg font-semibold mb-3">Tiều đề:</div>
-                    <input id="title" type="text" v-model="title" placeholder="Tiêu đề" class="input input-bordered h-10 input-secondary w-full" />
-                    <div v-if="errors && errors.title" class="mt-2 text-primary">
-                        {{ errors.title[0] }}
-                    </div>
-                </label>
-                <label for="name_eng" class="block mb-6">
-                    <div class="text-lg font-semibold mb-3">Tên tiếng anh:</div>
-                    <input id="name_eng" type="text" v-model="name_eng" placeholder="Tên tiếng anh" class="input input-bordered h-10 input-secondary w-full" />
-                    <div v-if="errors && errors.name_eng" class="mt-2 text-primary">
-                        {{ errors.name_eng[0] }}
-                    </div>
-                </label>
-                <label for="season" class="block mb-6">
-                    <div class="text-lg font-semibold mb-3">Season:</div>
-                    <input id="season" type="text" v-model="season" placeholder="Season" class="input input-bordered h-10 input-secondary w-full" />
-                    <div v-if="errors && errors.season" class="mt-2 text-primary">
-                        {{ errors.season[0] }}
-                    </div>
-                </label>
-                <label for="eps" class="block mb-6">
-                    <div class="text-lg font-semibold mb-3">Số tập phim:</div>
-                    <input id="eps" type="text" v-model="eps" placeholder="Số tập phim" class="input input-bordered h-10 input-secondary w-full" />
-                    <div v-if="errors && errors.eps" class="mt-2 text-primary">
-                        {{ errors.eps[0] }}
-                    </div>
-                </label>
-            </div>
+            <label for="title" class="block mb-6">
+                <div class="text-lg font-semibold mb-3">Tiều đề:</div>
+                <input id="title" type="text" v-model="title" placeholder="Tiêu đề" class="input input-bordered h-10 input-secondary w-full" />
+                <div v-if="errors && errors.title" class="mt-2 text-primary">
+                    {{ errors.title[0] }}
+                </div>
+            </label>
+            <label for="name_eng" class="block mb-6">
+                <div class="text-lg font-semibold mb-3">Tên tiếng anh:</div>
+                <input id="name_eng" type="text" v-model="name_eng" placeholder="Tên tiếng anh" class="input input-bordered h-10 input-secondary w-full" />
+                <div v-if="errors && errors.name_eng" class="mt-2 text-primary">
+                    {{ errors.name_eng[0] }}
+                </div>
+            </label>
+            <label for="name_eng" class="block mb-6">
+                <div class="text-lg font-semibold mb-3">Trailer:</div>
+                <input id="name_eng" type="text" v-model="trailer_url" placeholder="Link trailer" class="input input-bordered h-10 input-secondary w-full" />
+                <div v-if="errors && errors.trailer_url" class="mt-2 text-primary">
+                    {{ errors.trailer_url[0] }}
+                </div>
+            </label>
+            <label for="season" class="block mb-6">
+                <div class="text-lg font-semibold mb-3">Season:</div>
+                <input id="season" type="text" v-model="season" placeholder="Season" class="input input-bordered h-10 input-secondary w-full" />
+                <div v-if="errors && errors.season" class="mt-2 text-primary">
+                    {{ errors.season[0] }}
+                </div>
+            </label>
+            <label for="eps" class="block mb-6">
+                <div class="text-lg font-semibold mb-3">Số tập phim:</div>
+                <input id="eps" type="text" v-model="eps" placeholder="Số tập phim" class="input input-bordered h-10 input-secondary w-full" />
+                <div v-if="errors && errors.eps" class="mt-2 text-primary">
+                    {{ errors.eps[0] }}
+                </div>
+            </label>
+            <label for="eps" class="block mb-6">
+                <div class="text-lg font-semibold mb-3">Tập hiện tại:</div>
+                <input id="eps" type="text" v-model="episode_current" placeholder="Tập hiện tại" class="input input-bordered h-10 input-secondary w-full" />
+                <div v-if="errors && errors.episode_current" class="mt-2 text-primary">
+                    {{ errors.episode_current[0] }}
+                </div>
+            </label>
+            <label for="year" class="block mb-6">
+                <div class="text-lg font-semibold mb-3">Lượt xem:</div>
+                <input id="year" type="text" v-model="view" placeholder="Năm sản xuất" class="input input-bordered h-10 input-secondary w-full" />
+                <div v-if="errors && errors.view" class="mt-2 text-primary">
+                    {{ errors.view[0] }}
+                </div>
+            </label>
             <label for="year" class="block mb-6">
                 <div class="text-lg font-semibold mb-3">Năm sản xuất:</div>
                 <input id="year" type="text" v-model="year" placeholder="Năm sản xuất" class="input input-bordered h-10 input-secondary w-full" />
@@ -61,6 +101,7 @@
                     {{ errors.year[0] }}
                 </div>
             </label>
+
             <label for="duration" class="block mb-6">
                 <div class="text-lg font-semibold mb-3">Thời lượng phim:</div>
                 <input id="duration" type="text" v-model="duration" placeholder="Thời lượng phim" class="input input-bordered h-10 input-secondary w-full" />
@@ -90,6 +131,16 @@
                 </select>
                 <div v-if="errors && errors.subtitle" class="mt-2 text-primary">
                     {{ errors.subtitle[0] }}
+                </div>
+            </label>
+            <label for="subtitle" class="block mb-6">
+                <div class="text-lg font-semibold mb-3">Phim chiếu rạp:</div>
+                <select class="select select-secondary w-full h-10" id="subtitle" v-model="chieurap">
+                    <option value="1">Có</option>
+                    <option value="0">Không</option>
+                </select>
+                <div v-if="errors && errors.chieurap" class="mt-2 text-primary">
+                    {{ errors.chieurap[0] }}
                 </div>
             </label>
             <label for="category_id" class="block mb-6">
@@ -172,12 +223,16 @@ export default defineComponent({
             title: '',
             name_eng: null,
             description: null,
+            trailer_url: null,
             season: null,
             eps: null,
+            episode_current: null,
             year: null,
+            view: 0,
             duration: null,
             resolution: 0,
             subtitle: 1,
+            chieurap: 0,
             category_id: null,
             genre_id: null,
             country_id: null,
@@ -185,8 +240,11 @@ export default defineComponent({
             status: 1
         })
 
-        const file = ref(null)
+        const fileThumbnail = ref(null)
         const thumbUrl = ref(null)
+
+        const filePoster = ref(null)
+        const posterUrl = ref(null)
 
         const errors = ref([])
         const success = ref(false)
@@ -197,22 +255,32 @@ export default defineComponent({
         const genres = ref([])
         const countries = ref([])
 
-        const handleFileChange = async e => {
-            file.value = e.target.files[0]
+        const handleFilePoster = async e => {
+            filePoster.value = e.target.files[0]
 
-            thumbUrl.value = URL.createObjectURL(file.value)
+            posterUrl.value = URL.createObjectURL(filePoster.value)
+        }
+
+        const handleFileThumbnail = async e => {
+            fileThumbnail.value = e.target.files[0]
+
+            thumbUrl.value = URL.createObjectURL(fileThumbnail.value)
         }
 
         const resetMovie = () => {
-            movie.title = null
+            movie.title = ''
             movie.name_eng = null
             movie.description = null
+            movie.trailer_url = null
             movie.season = null
             movie.eps = null
+            movie.episode_current = null
             movie.year = null
+            movie.view = 0
             movie.duration = null
             movie.resolution = 0
             movie.subtitle = 1
+            movie.chieurap = 0
             movie.category_id = null
             movie.genre_id = null
             movie.country_id = null
@@ -231,7 +299,8 @@ export default defineComponent({
                 }
             }
 
-            formData.append('image', file.value)
+            formData.append('thumb', fileThumbnail.value)
+            formData.append('poster', filePoster.value)
 
             const data = await createMovie(formData)
 
@@ -263,8 +332,10 @@ export default defineComponent({
             countries,
             ...toRefs(movie),
             thumbUrl,
+            posterUrl,
             create,
-            handleFileChange,
+            handleFilePoster,
+            handleFileThumbnail,
             success,
             errors,
             loading,

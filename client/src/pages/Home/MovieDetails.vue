@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-[120px]">
+    <div class="mt-[160px]">
         <div v-if="loading" class="flex items-center justify-center min-h-[80vh]">
             <span class="loading loading-spinner text-white"></span>
         </div>
@@ -8,7 +8,7 @@
                 <Error />
             </div>
             <div v-if="!error">
-                <div class="max-w-[1200px] mx-auto px-2 mb-10">
+                <div class="max-w-[1200px] mx-auto px-2 mb-16">
                     <div class="text-sm">
                         <ul class="flex items-center justify-start gap-1 font-medium">
                             <li>
@@ -44,18 +44,19 @@
                 <div class="max-w-[1200px] mx-auto px-2 mb-10">
                     <MovieDetails :movie="movie" />
                     <div class="grid grid-cols-3 gap-10 mt-16">
-                        <div class="col-span-2">
-                            <Review />
-                        </div>
-                        <div class="col-span-1">
+                        <div class="col-span-3">
                             <div class="mb-[30px]">
                                 <h4
-                                    class="text-base font-bold uppercase text-white pl-3 mt-1 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
+                                    class="text-2xl font-bold uppercase text-white pl-3 mt-1 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
                                 >
-                                    Có thể bạn muốn xem...
+                                    Xem gì hôm nay...
                                 </h4>
                             </div>
-                            <MovieListV3 :type="'update'" />
+                            <div class="grid grid-cols-5 items-start justify-start gap-8">
+                                <div v-for="movie in homeStore.suggetMovies" :key="movie.id">
+                                    <MovieCard :movie="movie" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,16 +68,21 @@
 <script>
 import { defineComponent, ref, toRefs, reactive } from 'vue'
 import MovieDetails from '../../components/Movie/MovieDetails.vue'
+import MovieList from '../../components/Movie/MovieList.vue'
 import MovieListV2 from '../../components/Movie/MovieListV2.vue'
 import MovieListV3 from '../../components/Movie/MovieListV3.vue'
+import MovieCard from '../../components/Movie/MovieCard.vue'
 import Review from '../../components/Review/Review.vue'
 import Error from '../../components/Error/Error.vue'
 
 import { getPublicMovie } from '../../webServices/movieService'
+import { useHomeStore } from '../../stores/modules/homeStore'
 
 export default defineComponent({
-    components: { MovieDetails, Review, MovieListV2, MovieListV3, Error },
+    components: { MovieDetails, Review, MovieList, MovieListV2, MovieListV3, MovieCard, Error },
     setup() {
+        const homeStore = useHomeStore()
+
         const loading = ref(false)
 
         const movie = ref({
@@ -111,7 +117,7 @@ export default defineComponent({
 
         const error = ref(false)
 
-        return { loading, movie, error }
+        return { loading, movie, error, homeStore }
     },
     watch: {
         '$route.params.slug'() {

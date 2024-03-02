@@ -1,37 +1,33 @@
 <template>
     <div class="flex items-center justify-start">
-        <div class="mr-4 w-[90px]">
+        <div class="mr-4 w-[60px]">
             <router-link
                 :to="{
                     name: 'home-details',
-                    params: { slug: 'the-seven-deadly-sins-wrath-of-the-gods' }
+                    params: { slug: movie.slug }
                 }"
             >
-                <img
-                    src="https://w0.peakpx.com/wallpaper/73/146/HD-wallpaper-pretty-anime-girl-hand-gesture-posing-anime.jpg"
-                    alt="thumb"
-                    class="w-full h-full object-cover object-center"
-                />
+                <img :src="movie.thumbnail" alt="thumb" class="w-full h-full object-cover object-center rounded-md" />
             </router-link>
         </div>
         <div class="flex-1">
-            <div class="mb-[10px] flex items-center justify-start gap-2">
+            <!-- <div class="mb-[10px] flex items-center justify-start gap-2">
                 <div class="badge bg-badge text-white text-xs font-semibold">Active</div>
                 <div class="badge bg-badge text-white text-xs font-semibold">Movie</div>
-            </div>
-            <h5 class="mr-4 text-lg font-semibold cursor-pointer line-clamp-2">
+            </div> -->
+            <h5 class="mr-4 text-base font-semibold cursor-pointer line-clamp-2">
                 <router-link
                     :to="{
                         name: 'home-details',
                         params: {
-                            slug: 'the-seven-deadly-sins-wrath-of-the-gods'
+                            slug: movie.slug
                         }
                     }"
                 >
-                    The Seven Deadly Sins: Wrath of the Gods
+                    {{ movie.title }}
                 </router-link>
             </h5>
-            <div class="flex items-center justify-start gap-2 text-xs text-secondary mt-1">
+            <!-- <div class="flex items-center justify-start gap-2 text-xs text-secondary mt-1">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"
@@ -48,7 +44,7 @@
                     />
                 </svg>
                 <span>19.141</span> Viewes
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -56,6 +52,7 @@
 <script>
 import { defineComponent } from 'vue'
 export default defineComponent({
+    props: { movie: Object },
     methods: {
         getResolutionText(resolution) {
             switch (resolution) {

@@ -1,5 +1,5 @@
 <template>
-    <div class="py-20 mr-8">
+    <div class="py-20 mr-8 px-10">
         <div class="flex items-center justify-between">
             <h3 class="text-2xl font-bold text-white">Danh sách Phim:</h3>
             <button class="px-3 py-2 text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
@@ -17,7 +17,7 @@
             <span class="loading loading-spinner text-white"></span>
         </div>
         <div class="max-w-[100vw] overflow-x-auto">
-            <div v-if="!loading" class="overflow-x-auto mt-10 w-[120vw]">
+            <div v-if="!loading" class="overflow-x-auto mt-10">
                 <table class="table">
                     <!-- head -->
                     <thead>
@@ -27,15 +27,6 @@
                             <th>Tên phim</th>
                             <th>Tên T.Anh</th>
                             <th>Năm SX</th>
-                            <th>Slug</th>
-                            <th>Danh mục</th>
-                            <th>Thể loại</th>
-                            <th>Quốc gia</th>
-                            <th>Mô tả phim</th>
-                            <th>Thời lượng</th>
-                            <th>Số tập</th>
-                            <th>Độ P.Giải</th>
-                            <th>Phụ đề</th>
                             <th>Trạng thái</th>
                             <th>DS Phim</th>
                             <th></th>
@@ -57,51 +48,12 @@
                                 <p class="line-clamp-3">{{ movie.year }}</p>
                             </td>
                             <td>
-                                <p class="line-clamp-3">{{ movie.slug }}</p>
-                            </td>
-                            <td>
-                                <p class="line-clamp-3">
-                                    {{ movie.category_title }}
-                                </p>
-                            </td>
-                            <td>
-                                <p class="line-clamp-3">
-                                    {{ movie.genre_title }}
-                                </p>
-                            </td>
-                            <td>
-                                <p class="line-clamp-3">
-                                    {{ movie.country_title }}
-                                </p>
-                            </td>
-                            <td>
-                                <p class="line-clamp-3">
-                                    {{ movie.description }}
-                                </p>
-                            </td>
-                            <td>
-                                <p class="line-clamp-3">{{ movie.duration }}</p>
-                            </td>
-                            <td>
-                                <p class="line-clamp-3">{{ movie.eps }}</p>
-                            </td>
-                            <td>
-                                <p class="line-clamp-3">
-                                    {{ getResolutionText(movie.resolution) }}
-                                </p>
-                            </td>
-                            <td>
-                                <p class="line-clamp-3">
-                                    {{ movie.subtitle == 1 ? 'Vietsub' : 'Thuyết minh' }}
-                                </p>
-                            </td>
-                            <td>
                                 <p class="line-clamp-3">
                                     {{ movie.status == 1 ? 'Hiển thị' : 'Ẩn' }}
                                 </p>
                             </td>
                             <td>
-                                <div class="flex flex-col items-center justify-center">
+                                <div class="flex flex-col items-center justify-center gap-3">
                                     <button class="text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
                                         <router-link
                                             :to="{
@@ -122,6 +74,43 @@
                                                 />
                                             </svg>
                                         </router-link>
+                                    </button>
+                                    <button class="text-white bg-green-500 rounded font-bold hover:bg-green-400 transition-all duration-300">
+                                        <router-link
+                                            :to="{ name: 'dashboard-create-movie-episode', params: { id: movie.id } }"
+                                            class="w-full h-full px-3 py-2 block"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24">
+                                                <g id="Complete">
+                                                    <g data-name="add" id="add-2">
+                                                        <g>
+                                                            <line
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                x1="12"
+                                                                x2="12"
+                                                                y1="19"
+                                                                y2="5"
+                                                            />
+
+                                                            <line
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                x1="5"
+                                                                x2="19"
+                                                                y1="12"
+                                                                y2="12"
+                                                            />
+                                                        </g>
+                                                    </g>
+                                                </g></svg
+                                        ></router-link>
                                     </button>
                                 </div>
                             </td>
@@ -184,6 +173,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="mt-8">
+                    <Pagination :meta="meta" :links="links" @getData="changePage" />
+                </div>
             </div>
         </div>
     </div>
@@ -192,22 +184,45 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import Pagination from '../../../../../client/src/components/Pagination/Pagination.vue'
 import { getInitialMovie, deleteMovie } from '../../../webServices/movieService'
 
 export default defineComponent({
+    components: { Pagination },
     setup() {
+        const meta = ref({
+            current_page: 1,
+            last_page: 1
+        })
+
+        const links = ref({
+            first_page_url: '',
+            last_page_url: '',
+            prev_page_url: '',
+            next_page_url: ''
+        })
         const movies = ref([])
         const loading = ref(false)
 
         const router = useRouter()
 
-        const getMovieList = async () => {
+        const getMovieList = async (page = 1, limit = 15) => {
             loading.value = true
-            const data = await getInitialMovie()
+            const data = await getInitialMovie({ page, limit })
+
             if (data && data.success) {
                 movies.value = data.movies.data
-                loading.value = false
+
+                meta.value.current_page = data.movies.current_page
+                meta.value.last_page = data.movies.last_page
+
+                links.value.first_page_url = data.movies.first_page_url
+                links.value.last_page_url = data.movies.last_page_url
+                links.value.prev_page_url = data.movies.prev_page_url
+                links.value.next_page_url = data.movies.next_page_url
             }
+
+            loading.value = false
         }
 
         const deleteMov = async id => {
@@ -221,9 +236,13 @@ export default defineComponent({
             }
         }
 
+        const changePage = async page => {
+            getMovieList(page)
+        }
+
         getMovieList()
 
-        return { loading, movies, deleteMov }
+        return { loading, movies, deleteMov, meta, links, changePage }
     },
     methods: {
         getResolutionText(resolution) {

@@ -1,5 +1,5 @@
 <template>
-    <div class="py-20">
+    <div class="py-20 px-10">
         <h3 class="text-2xl font-bold mb-10">Thêm danh mục:</h3>
         <div v-if="success" role="alert" class="alert bg-green-400 text-white w-[20%] fixed top-10 right-10">
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
@@ -81,7 +81,7 @@ export default defineComponent({
             }
 
             errors.value = data && data.data.errors
-            loadingSubmit.value = false
+            loading.value = false
         }
 
         return {

@@ -16,8 +16,11 @@ return new class extends Migration
             $table->foreignId('movie_id')->constrained('movies');
             $table->string('server_name');
             $table->string('link');
-            $table->integer('episode');
+            $table->string('episode');
+            $table->string('slug');
             $table->timestamps();
+
+            $table->index('slug');
         });
     }
 

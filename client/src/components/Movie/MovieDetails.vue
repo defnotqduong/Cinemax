@@ -1,6 +1,6 @@
 <template>
-    <div class="mx-14 grid grid-cols-4 gap-10">
-        <div class="col-span-1">
+    <div class="mx-20 grid grid-cols-5 gap-20">
+        <div class="col-span-2">
             <div>
                 <img :src="movie.thumbnail" alt="thumb" class="w-full h-full object-cover object-center rounded-lg" />
             </div>
@@ -8,59 +8,57 @@
         <div class="col-span-3">
             <div class="flex items-start justify-between mb-6">
                 <div>
-                    <h4 class="text-3xl font-bold mb-2">{{ movie.title }}</h4>
-                    <p class="text-secondary">{{ movie.name_eng }}</p>
+                    <h4 class="text-3xl font-bold mb-2 text-white">{{ movie.title }}, {{ movie.name_eng }}</h4>
                 </div>
             </div>
             <div>
-                <p class="text-secondary text-lg tracking-wide" v-html="movie.description"></p>
-                <ul class="mt-6 grid grid-cols-2 gap-x-14 gap-y-4 text-secondary">
+                <ul class="mt-6 grid grid-cols-1 gap-x-14 gap-y-4 text-secondary">
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
-                        <div class="w-[40%]">Trạng thái:</div>
-                        <div class="text-white font-semibold">{{ movie.episode_current || '??' }} / {{ movie.eps || '??' }} Tập</div>
+                        <div class="pr-4">Trạng thái:</div>
+                        <div class="text-white font-semibold">{{ movie.episode_current || '??' }}</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
-                        <div class="w-[40%]">Thời lượng:</div>
+                        <div class="pr-4">Thời lượng:</div>
                         <div class="text-white font-semibold line-clamp-1">{{ movie.duration }}</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
-                        <div class="w-[40%]">Thể loại:</div>
-                        <div class="text-white font-semibold line-clamp-1">{{ movie.category_title }}, {{ movie.genre_title }}</div>
-                    </li>
-                    <li
-                        class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
-                    >
-                        <div class="w-[40%]">Độ phân giải:</div>
+                        <div class="pr-4">Độ phân giải:</div>
                         <div class="text-white font-semibold line-clamp-1">{{ this.getResolutionText(movie.resolution) }}</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
-                        <div class="w-[40%]">Lượt xem:</div>
+                        <div class="pr-4">Lượt xem:</div>
                         <div class="text-white font-semibold line-clamp-1">{{ movie.view || 0 }} views</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
-                        <div class="w-[40%]">Phụ đề:</div>
+                        <div class="pr-4">Phụ đề:</div>
                         <div v-if="movie.resolution !== 5" class="text-white font-semibold line-clamp-1">{{ this.getSubtitle(movie.subtitle) }}</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
-                        <div class="w-[40%]">Quốc gia:</div>
+                        <div class="pr-4">Thể loại:</div>
+                        <div class="text-white font-semibold line-clamp-1">{{ movie.genre_title }}</div>
+                    </li>
+                    <li
+                        class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
+                    >
+                        <div class="pr-4">Quốc gia:</div>
                         <div class="text-white font-semibold line-clamp-1">{{ movie.country_title }}</div>
                     </li>
                     <li
                         class="flex items-center justify-start pl-4 relative after:absolute after:content after:top-1/2 after:left-0 after:-translate-y-1/2 after:w-[6px] after:h-[6px] after:bg-secondary"
                     >
-                        <div class="w-[40%]">Năm sản xuất:</div>
+                        <div class="pr-4">Năm sản xuất:</div>
                         <div class="text-white font-semibold line-clamp-1">{{ movie.year }}</div>
                     </li>
                 </ul>
@@ -100,6 +98,10 @@
                     </router-link>
                 </div>
             </div>
+        </div>
+        <div class="col-span-5">
+            <h2 class="text-center text-3xl font-bold text-primary mb-8">{{ movie.title }}</h2>
+            <div v-html="movie.description" class="flex flex-col items-start justify-start gap-8 text-secondary tracking-wide"></div>
         </div>
     </div>
 </template>

@@ -1,12 +1,14 @@
 import api from '../configs/endpoints'
 import connectServer from '../configs/connectServer'
-export const getAllMovie = dataPost => {
-    return connectServer[api.GET_ALL_MOVIE_API.method](api.GET_ALL_MOVIE_API.url, dataPost)
+export const getAllMovie = (params, dataPost) => {
+    const { page, limit } = params
+    const url = `?page=${page || 1}&limit=${limit || 15}`
+    return connectServer[api.GET_ALL_MOVIE_API.method](api.GET_ALL_MOVIE_API.url + url, dataPost)
 }
 
 export const getMovieByCategory = (params, dataPost) => {
-    const { category_id, page } = params
-    const url = `?category_id=${category_id}&page=${page || 1}`
+    const { category_id, page, limit } = params
+    const url = `?category_id=${category_id}&page=${page || 1}&limit=${limit || 15}`
 
     return connectServer[api.GET_MOVIE_BY_CATEGORY_API.method](api.GET_MOVIE_BY_CATEGORY_API.url + url, dataPost)
 }
