@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('countries', function (Blueprint $table) {
+        Schema::create('directors', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
-            $table->longText('description')->nullable();
-            $table->boolean('status')->default(true);
+            $table->string('name')->unique();
+            $table->string('slug')->index();
+            $table->enum('gender', ['male', 'female', 'other'])->nullable();
+            $table->string('des')->nullable();
+            $table->string('thumb_url', 2048)->nullable();
             $table->timestamps();
-
-            $table->index('slug');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('directors');
     }
 };

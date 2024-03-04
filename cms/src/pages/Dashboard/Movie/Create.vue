@@ -10,7 +10,7 @@
         <div v-if="loading" class="flex items-center justify-center min-h-[50vh]">
             <span class="loading loading-spinner text-white"></span>
         </div>
-        <form v-if="!loading" class="w-[100%] mx-auto px-8 grid grid-cols-2 gap-x-6" @submit.prevent="create">
+        <form v-if="!loading" class="w-[100%] mx-auto px-8 grid grid-cols-2 gap-x-6 gap-y-4" @submit.prevent="create">
             <div class="col-span-2 grid grid-cols-3">
                 <div class="block mb-6 col-span-1">
                     <div class="text-lg font-semibold text-center mb-3">Thumbnail:</div>
@@ -154,17 +154,18 @@
                     {{ errors.category_id[0] }}
                 </div>
             </label>
-            <label for="genre_id" class="block mb-6">
+            <div class="form-control">
                 <div class="text-lg font-semibold mb-3">Thể loại:</div>
-                <select class="select select-secondary w-full h-10" id="genre_id" v-model="genre_id">
-                    <option v-for="genre in genres" :key="genre.id" :value="genre.id">
-                        {{ genre.title }}
-                    </option>
-                </select>
+                <div class="grid grid-cols-3">
+                    <label class="cursor-pointer label justify-start gap-3" v-for="genre in genres" :key="genre.id" :value="genre.id">
+                        <span class="label-text">{{ genre.title }}</span>
+                        <input type="checkbox" :value="genre.id" @change="toggleGenre(genre.id)" class="checkbox checkbox-secondary" />
+                    </label>
+                </div>
                 <div v-if="errors && errors.genre_id" class="mt-2 text-primary">
                     {{ errors.genre_id[0] }}
                 </div>
-            </label>
+            </div>
             <label for="country_id" class="block mb-6">
                 <div class="text-lg font-semibold mb-3">Quốc gia:</div>
                 <select class="select select-secondary w-full h-10" id="country_id" v-model="country_id">
@@ -234,7 +235,7 @@ export default defineComponent({
             subtitle: 1,
             chieurap: 0,
             category_id: null,
-            genre_id: null,
+            genre_ids: [],
             country_id: null,
             tags: null,
             status: 1
@@ -282,7 +283,7 @@ export default defineComponent({
             movie.subtitle = 1
             movie.chieurap = 0
             movie.category_id = null
-            movie.genre_id = null
+            movie.genre_ids = []
             movie.country_id = null
             movie.tags = null
             movie.status = 1
@@ -352,6 +353,16 @@ export default defineComponent({
             this.countries = countryData && countryData.countries
 
             this.loading = false
+        },
+        toggleGenre(genreId) {
+            const index = this.genre_ids.indexOf(genreId)
+            if (index === -1) {
+                this.genre_ids.push(genreId)
+            } else {
+                this.genre_ids.splice(index, 1)
+            }
+
+            console.log(this.genre_ids)
         }
     },
     created() {

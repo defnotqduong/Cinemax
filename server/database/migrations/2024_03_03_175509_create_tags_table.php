@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('episodes', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('movie_id')->constrained('movies');
-            $table->string('server_name');
-            $table->string('link');
-            $table->string('episode');
-            $table->string('slug');
+            $table->string('name')->unique();
+            $table->string('slug')->unique()->index();
+            $table->longText('des')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable()->index();
+            $table->string('user_name')->nullable();
             $table->timestamps();
-
-            $table->index('slug');
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('episodes');
+        Schema::dropIfExists('tags');
     }
 };

@@ -15,10 +15,93 @@ class CategorySeeder extends Seeder
     {
         DB::table('categories')->insert([
             [
-                'title' => 'Phim hoạt hình',
-                'slug' => 'phim-hoat-hinh',
-                'description' => 'Phim hoạt hình mới nhất'
-            ]
+                "name" => "Hành Động",
+                "slug" => "hanh-dong",
+            ],
+            [
+                "name" => "Tình Cảm",
+                "slug" => "tinh-cam",
+            ],
+            [
+                "name" => "Hài Hước",
+                "slug" => "hai-huoc",
+            ],
+            [
+                "name" => "Cổ Trang",
+                "slug" => "co-trang",
+            ],
+            [
+                "name" => "Tâm Lý",
+                "slug" => "tam-ly",
+            ],
+            [
+                "name" => "Hình Sự",
+                "slug" => "hinh-su",
+            ],
+            [
+                "name" => "Chiến Tranh",
+                "slug" => "chien-tranh",
+            ],
+            [
+                "name" => "Thể Thao",
+                "slug" => "the-thao",
+            ],
+            [
+                "name" => "Võ Thuật",
+                "slug" => "vo-thuat",
+            ],
+            [
+                "name" => "Viễn Tưởng",
+                "slug" => "vien-tuong",
+            ],
+            [
+                "name" => "Phiêu Lưu",
+                "slug" => "phieu-luu",
+            ],
+            [
+                "name" => "Khoa Học",
+                "slug" => "khoa-hoc",
+            ],
+            [
+                "name" => "Kinh Dị",
+                "slug" => "kinh-di",
+            ],
+            [
+                "name" => "Âm Nhạc",
+                "slug" => "am-nhac",
+            ],
+            [
+                "name" => "Thần Thoại",
+                "slug" => "than-thoai",
+            ],
+            [
+                "name" => "Tài Liệu",
+                "slug" => "tai-lieu",
+            ],
+            [
+                "name" => "Gia Đình",
+                "slug" => "gia-dinh",
+            ],
+            [
+                "name" => "Chính kịch",
+                "slug" => "chinh-kich",
+            ],
+            [
+                "name" => "Bí ẩn",
+                "slug" => "bi-an",
+            ],
+            [
+                "name" => "Học Đường",
+                "slug" => "hoc-duong",
+            ],
+            [
+                "name" => "Kinh Điển",
+                "slug" => "kinh-dien",
+            ],
+            [
+                "name" => "Phim 18+",
+                "slug" => "phim-18",
+            ],
         ]);
     }
 }

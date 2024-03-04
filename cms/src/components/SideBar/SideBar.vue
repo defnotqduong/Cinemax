@@ -2,23 +2,55 @@
     <div class="fixed top-0 left-0 h-[100vh] overflow-y-auto">
         <ul class="menu bg-base-200 w-[200px] min-h-[100vh] font-bold rounded-box py-8 gap-2">
             <div class="w-[140px] mb-4">
-                <img src="../../assets/images/logo.png" alt="Logo" class="w-full object-cover object-center" />
+                <router-link :to="{ name: 'dashboard-homepage' }" class="w-full h-full block">
+                    <img src="../../assets/images/logo.png" alt="Logo" class="w-full object-cover object-center" />
+                </router-link>
             </div>
             <li>
-                <router-link :to="{ name: 'dashboard-category' }">Danh mục</router-link>
+                <details close>
+                    <summary>Danh mục phim</summary>
+                    <ul class="menu gap-2">
+                        <li>
+                            <router-link :to="{ name: 'dashboard-category' }">DS danh mục</router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'dashboard-create-category' }">Thêm danh mục</router-link>
+                        </li>
+                    </ul>
+                </details>
             </li>
             <li>
-                <router-link :to="{ name: 'dashboard-genre' }">Thể loại</router-link>
+                <details close>
+                    <summary>Thể loại phim</summary>
+                    <ul class="menu gap-2">
+                        <li>
+                            <router-link :to="{ name: 'dashboard-genre' }">DS thể loại</router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'dashboard-create-genre' }">Thêm thể loại</router-link>
+                        </li>
+                    </ul>
+                </details>
             </li>
             <li>
-                <router-link :to="{ name: 'dashboard-country' }">Quốc gia</router-link>
+                <details close>
+                    <summary>Quốc gia phim</summary>
+                    <ul class="menu gap-2">
+                        <li>
+                            <router-link :to="{ name: 'dashboard-country' }">DS quốc gia</router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'dashboard-create-country' }">Thêm quốc gia</router-link>
+                        </li>
+                    </ul>
+                </details>
             </li>
             <li>
                 <details open>
                     <summary>Phim</summary>
                     <ul class="menu gap-2">
                         <li>
-                            <router-link :to="{ name: 'dashboard-movie' }">Danh sách phim</router-link>
+                            <router-link :to="{ name: 'dashboard-movie' }">DS phim</router-link>
                         </li>
                         <li>
                             <router-link
@@ -28,15 +60,21 @@
                                 >Thêm phim</router-link
                             >
                         </li>
+                        <li>
+                            <router-link :to="{ name: 'dashboard-leech-movie' }">Leech phim</router-link>
+                        </li>
                     </ul>
                 </details>
             </li>
             <li>
-                <details open>
-                    <summary>Tập phim</summary>
+                <details close>
+                    <summary>Link phim</summary>
                     <ul class="menu gap-2">
                         <li>
-                            <router-link :to="{ name: 'dashboard-crawl-movie' }">Crawl phim</router-link>
+                            <router-link :to="{ name: 'dashboard-link-movie' }">DS link phim</router-link>
+                        </li>
+                        <li>
+                            <a>Thêm link phim</a>
                         </li>
                     </ul>
                 </details>

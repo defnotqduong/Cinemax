@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('genres', function (Blueprint $table) {
+        Schema::create('studios', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
-            $table->longText('description')->nullable();
-            $table->boolean('status')->default(true);
+            $table->string('name')->unique();
+            $table->string('slug')->unique()->index();
+            $table->longText('des')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable()->index();
+            $table->string('user_name')->nullable();
             $table->timestamps();
-
-            $table->index('slug');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('genres');
+        Schema::dropIfExists('studios');
     }
 };

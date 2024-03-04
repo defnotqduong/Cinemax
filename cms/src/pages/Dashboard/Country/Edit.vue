@@ -12,7 +12,7 @@
         </div>
         <form v-if="!loading" class="w-[50%] mx-auto" @submit.prevent="edit">
             <label for="title" class="block mb-6">
-                <div class="text-lg font-semibold mb-3">Tiều đề:</div>
+                <div class="text-lg font-semibold mb-3">Tên quốc gia:</div>
                 <input id="title" type="text" v-model="title" placeholder="Tiêu đề" class="input input-bordered h-10 input-secondary w-full" />
                 <div v-if="errors && errors.title" class="mt-2 text-primary">
                     {{ errors.title[0] }}

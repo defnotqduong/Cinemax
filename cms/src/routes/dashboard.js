@@ -86,9 +86,14 @@ const dashboard = [
                 component: () => import('../pages/Dashboard/Episode/Edit.vue')
             },
             {
-                path: 'crawl-phim',
-                name: 'dashboard-crawl-movie',
-                component: () => import('../pages/Dashboard/Crawl/CrawlMovie.vue')
+                path: 'phim/leech-phim',
+                name: 'dashboard-leech-movie',
+                component: () => import('../pages/Dashboard/Leech/Leech.vue')
+            },
+            {
+                path: 'link-phim',
+                name: 'dashboard-link-movie',
+                component: () => import('../pages/Dashboard/LinkMovie/LinkMovie.vue')
             }
         ]
     }

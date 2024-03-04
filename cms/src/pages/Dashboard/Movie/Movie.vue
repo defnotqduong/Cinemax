@@ -80,7 +80,7 @@
                                             :to="{ name: 'dashboard-create-movie-episode', params: { id: movie.id } }"
                                             class="w-full h-full px-3 py-2 block"
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1px" height="16px" viewBox="0 0 24 24">
                                                 <g id="Complete">
                                                     <g data-name="add" id="add-2">
                                                         <g>

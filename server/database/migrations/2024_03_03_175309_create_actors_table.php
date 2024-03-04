@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('actors', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('slug')->unique()->index();
-            $table->longText('des')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable()->index();
-            $table->string('user_name')->nullable();
+            $table->string('slug')->index();
+            $table->enum('gender', ['male', 'female', 'other'])->nullable();
+            $table->string('des')->nullable();
+            $table->string('thumb_url', 2048)->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('actors');
     }
 };

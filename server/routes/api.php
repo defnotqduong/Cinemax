@@ -1,12 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CountryController;
-use App\Http\Controllers\EpisodeController;
-use App\Http\Controllers\GenreController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\MovieController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,67 +17,42 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($routes) {
+
+// Auth
+
+Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::post('/profile', [AuthController::class, 'profile']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    // Route::get('/send-verify-mail/{email}', [AuthController::class, 'sendVerifyMail']);
-    // Route::post('/forget-password', [AuthController::class, 'forgetPassword']);
+    Route::get('/send-verify-mail/{email}', [AuthController::class, 'sendVerifyMail']);
+    Route::post('/forget-password', [AuthController::class, 'forgetPassword']);
 });
 
-Route::group(['middleware' => 'api', 'prefix' => 'category'], function ($routes) {
-    Route::get('', [CategoryController::class, 'getAllCategory']);
-    Route::post('', [CategoryController::class, 'createCategory']);
-    Route::get('/initial', [CategoryController::class, 'getInitialCategory']);
-    Route::get('/{slug}', [CategoryController::class, 'getCategory']);
-    Route::put('/{slug}', [CategoryController::class, 'editCategory']);
-    Route::delete('/{id}', [CategoryController::class, 'deleteCategory']);
-});
 
-Route::group(['middleware' => 'api', 'prefix' => 'genre'], function ($routes) {
-    Route::get('', [GenreController::class, 'getAllGenre']);
-    Route::post('', [GenreController::class, 'createGenre']);
-    Route::get('/initial', [GenreController::class, 'getInitialGenre']);
-    Route::get('/{slug}', [GenreController::class, 'getGenre']);
-    Route::put('/{slug}', [GenreController::class, 'editGenre']);
-    Route::delete('/{id}', [GenreController::class, 'deleteGenre']);
-});
+// Admin
 
-Route::group(['middleware' => 'api', 'prefix' => 'country'], function ($routes) {
-    Route::get('', [CountryController::class, 'getAllCountry']);
-    Route::post('', [CountryController::class, 'createCountry']);
-    Route::get('/initial', [CountryController::class, 'getInitialCountry']);
-    Route::get('/{slug}', [CountryController::class, 'getCountry']);
-    Route::put('/{slug}', [CountryController::class, 'editCountry']);
-    Route::delete('/{id}', [CountryController::class, 'deleteCountry']);
-});
+Route::group(['middleware' => 'api', 'prefix' => 'admin'], function () {
+    Route::group(['prefix' => 'category'], function () {
+        Route::get('', [CategoryController::class, 'getAllCategory']);
+        Route::post('', [CategoryController::class, 'createCategory']);
+        Route::put('/{id}', [CategoryController::class, 'editCategory']);
+        Route::get('/{id}', [CategoryController::class, 'getCategory']);
+        Route::delete('/{id}', [CategoryController::class, 'deleteCategory']);
+    });
 
-Route::group(['middleware' => 'api', 'prefix' => 'movie'], function ($routes) {
-    Route::get('', [MovieController::class, 'getAllMovie']);
-    Route::post('', [MovieController::class, 'createMovie']);
-    Route::get('/initial', [MovieController::class, 'getInitialMovie']);
-    Route::get('/category', [MovieController::class, 'getMovieByCategory']);
-    Route::get('/genre', [MovieController::class, 'getMovieByGenre']);
-    Route::get('/country', [MovieController::class, 'getMovieByCountry']);
-    Route::get('/{slug}', [MovieController::class, 'getMovie']);
-    Route::get('/public/{slug}', [MovieController::class, 'getPublicMovie']);
-    Route::get('/find/{id}', [MovieController::class, 'findMovieById']);
-    Route::post('/{slug}', [MovieController::class, 'editMovie']);
-    Route::delete('/{id}', [MovieController::class, 'deleteMovie']);
-});
+    Route::group(['prefix' => 'region'], function () {
+        Route::get('', [RegionController::class, 'getAllRegion']);
+        Route::post('', [RegionController::class, 'createRegion']);
+        Route::put('/{id}', [RegionController::class, 'editRegion']);
+        Route::get('/{id}', [RegionController::class, 'getRegion']);
+        Route::delete('/{id}', [RegionController::class, 'deleteRegion']);
+    });
 
-Route::group(['middleware' => 'api', 'prefix' => 'episode'], function ($routes) {
-    Route::post('', [EpisodeController::class, 'createEpisode']);
-    Route::get('/{id}', [EpisodeController::class, 'getEpisodeById']);
-    Route::get('/find-by-movie-id/{id}', [EpisodeController::class, 'getAllEpisodeByMovieId']);
-    Route::get('/{movie_id}/{ep}', [EpisodeController::class, 'getEpisode']);
-    Route::put('/{id}', [EpisodeController::class, 'editEpisode']);
-    Route::delete('/{id}', [EpisodeController::class, 'deleteEpisode']);
-});
+    Route::group(['prefix' => 'movie'], function () {
+    });
 
-Route::group(['middleware' => 'api'], function ($routes) {
-    Route::post('/upload-image', [ImageController::class, 'upload']);
-    Route::delete('/delete-image', [ImageController::class, 'delete']);
+    Route::group(['prefix' => 'episode'], function () {
+    });
 });

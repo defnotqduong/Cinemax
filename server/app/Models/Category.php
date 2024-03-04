@@ -13,12 +13,17 @@ class Category extends Model
 
     public $table = 'categories';
 
-    protected $fillable = ['title', 'slug', 'description', 'status'];
+    protected $fillable = [];
 
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('title')
+            ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+
+    public function movies()
+    {
+        return $this->belongsToMany(Movie::class);
     }
 }

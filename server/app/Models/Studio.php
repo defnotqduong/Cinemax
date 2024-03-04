@@ -7,18 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Country extends Model
+class Studio extends Model
 {
     use HasFactory, HasSlug;
 
-    public $table = 'countries';
+    public $table = 'studios';
 
-    protected $fillable = ['title', 'slug', 'description', 'status'];
+    protected $fillable = [];
 
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('title')
+            ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+
+    public function movies()
+    {
+        return $this->belongsToMany(Movie::class);
     }
 }

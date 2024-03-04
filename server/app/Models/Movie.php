@@ -13,39 +13,59 @@ class Movie extends Model
 
     public $table = 'movies';
 
-    protected $fillable = [
-        'title',
-        'slug',
-        'name_eng',
-        'description',
-        'thumbnail',
-        'poster',
-        'trailer_url',
-        'status',
-        'season',
-        'episode_current',
-        'eps',
-        'year',
-        'view',
-        'duration',
-        'resolution',
-        'subtitle',
-        'chieurap',
-        'tags',
-        'category_id',
-        'genre_id',
-        'country_id'
-    ];
+    protected $fillable = [];
 
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('title')
+            ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
+    public function regions()
+    {
+        return $this->belongsToMany(Region::class);
+    }
+
+    public function directors()
+    {
+        return $this->belongsToMany(Director::class);
+    }
+
+    public function actors()
+    {
+        return $this->belongsToMany(Actor::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 
     public function episodes()
     {
-        return $this->hasMany(Episode::class, 'movie_id', 'id');
+        return $this->hasMany(Episode::class);
+    }
+
+    public function studios()
+    {
+        return $this->belongsToMany(Studio::class);
+    }
+
+
+    public function getStatus()
+    {
+        $statuses = [
+            'trailer' => __('Sắp chiếu'),
+            'ongoing' => __('Đang chiếu'),
+            'completed' => __('Hoàn thành')
+        ];
+        return $statuses[$this->status];
     }
 }

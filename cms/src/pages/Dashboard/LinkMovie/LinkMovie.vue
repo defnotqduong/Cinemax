@@ -1,5 +1,5 @@
 <template>
-    <div class="py-20 px-10">Dasboard</div>
+    <div class="py-20 px-10">Link movie</div>
 </template>
 
 <script>

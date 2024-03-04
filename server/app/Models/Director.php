@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Episode extends Model
+class Director extends Model
 {
     use HasFactory, HasSlug;
 
-    public $table = 'episodes';
+    public $table = 'directors';
 
     protected $fillable = [];
 
@@ -22,8 +22,8 @@ class Episode extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function movie()
+    public function movies()
     {
-        return $this->belongsTo(Movie::class);
+        return $this->belongsToMany(Movie::class);
     }
 }

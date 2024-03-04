@@ -49,7 +49,7 @@
                                 <h4
                                     class="text-2xl font-bold uppercase text-white pl-3 mt-1 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
                                 >
-                                    Xem gì hôm nay...
+                                    Có thể bạn muốn xem...
                                 </h4>
                             </div>
                             <div class="grid grid-cols-5 items-start justify-start gap-8">
