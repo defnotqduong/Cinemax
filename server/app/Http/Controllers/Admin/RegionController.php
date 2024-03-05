@@ -30,9 +30,9 @@ class RegionController extends Controller
         return response()->json(['success' => true, 'message' => 'Region created successfully'], 200);
     }
 
-    public function getAllRegion()
+    public function getAllRegion(Request $request)
     {
-        $regions = Region::paginate();
+        $regions = Region::paginate($request->limit ?? 16);
 
         return response()->json(['success' => true, 'regions' => $regions], 200);
     }

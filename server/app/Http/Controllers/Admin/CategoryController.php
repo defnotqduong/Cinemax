@@ -30,9 +30,9 @@ class CategoryController extends Controller
         return response()->json(['success' => true, 'message' => 'Category created successfully'], 200);
     }
 
-    public function getAllCategory()
+    public function getAllCategory(Request $request)
     {
-        $categories = Category::paginate();
+        $categories = Category::paginate($request->limit ?? 16);
 
         return response()->json(['success' => true, 'categories' => $categories], 200);
     }

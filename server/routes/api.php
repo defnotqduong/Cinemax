@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
@@ -51,6 +52,13 @@ Route::group(['middleware' => 'api', 'prefix' => 'admin'], function () {
     });
 
     Route::group(['prefix' => 'movie'], function () {
+        Route::post('', [MovieController::class, 'createMovie']);
+        Route::get('', [MovieController::class, 'getAllMovie']);
+        Route::get('/filter', [MovieController::class, 'filterMovie']);
+        Route::get('/{id}', [MovieController::class, 'getMovieOverview']);
+        Route::put('/{id}', [MovieController::class, 'editMovie']);
+        Route::get('/findByCategoryId/{id}', [MovieController::class, 'getMovieOfCategory']);
+        Route::get('/findByRegionId/{id}', [MovieController::class, 'getMovieOfRegion']);
     });
 
     Route::group(['prefix' => 'episode'], function () {
