@@ -3,15 +3,15 @@
         <div class="text-sm breadcrumbs">
             <ul class="justify-start">
                 <li><router-link :to="{ name: 'dashboard-homepage' }" class="text-primary">Quản trị</router-link></li>
-                <li><router-link :to="{ name: 'dashboard-movie' }" class="text-primary">Phim</router-link></li>
+                <li><router-link :to="{ name: 'dashboard-catalog' }" class="text-primary">Catalogs</router-link></li>
                 <li>Danh sách</li>
             </ul>
         </div>
         <div class="my-2 flex items-start justify-between">
             <div class="flex items-end justify-start gap-4">
-                <h3 class="text-4xl font-bold">Phim</h3>
+                <h3 class="text-4xl font-bold">Danh mục</h3>
                 <p v-if="overview.total > 0" class="text-[15px] mb-[2px]">
-                    Hiển thị từ {{ overview.from }} đến {{ overview.to }} trong tổng số {{ overview.total }} phim
+                    Hiển thị từ {{ overview.from }} đến {{ overview.to }} trong tổng số {{ overview.total }} danh mục
                 </p>
                 <p v-if="overview.total == 0" class="text-[15px] mb-[2px]">Không có bản ghi nào</p>
             </div>
@@ -32,7 +32,7 @@
                             stroke-linejoin="round"
                         />
                     </g></svg
-                >Thêm phim
+                >Thêm danh mục
             </router-link>
             <input
                 type="text"
@@ -52,31 +52,16 @@
                     <thead>
                         <tr class="border-gray-300">
                             <th class="text-base font-bold text-gray-500">Thông tin</th>
-                            <th class="text-base font-bold text-gray-500">Thumbnail</th>
+                            <th class="text-base font-bold text-gray-500">Item mỗi trang</th>
                             <th class="text-base font-bold text-gray-500">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="movie in movies" :key="movie.id" class="hover:bg-[rgba(124,105,239,0.1)] border-none">
+                        <tr v-for="i in 5" :key="i" class="hover:bg-[rgba(124,105,239,0.1)] border-none">
                             <td>
-                                <div class="flex flex-col items-start justify-start">
-                                    <div class="text-[15px]">
-                                        <span class="font-semibold text-primary">{{ movie.name }}</span> <span class="text-green">[{{ movie.year }}]</span>
-                                    </div>
-                                    <div class="my-2">
-                                        <small class="text-gray-500 text-sm">
-                                            ({{ movie.origin_name }}) <span class="text-red-500">[{{ movie.episode_current }}]</span></small
-                                        >
-                                    </div>
-                                    <div class="text-xs flex items-center justify-center gap-2">
-                                        <span class="bg-red-500 px-2 rounded text-white">{{ getType(movie.type) }}</span>
-                                        <span class="bg-green px-2 rounded text-white">{{ getStatus(movie.status) }}</span>
-                                    </div>
-                                </div>
+                                <div class="flex flex-col items-start justify-start"></div>
                             </td>
-                            <td>
-                                <img :src="movie.thumb_url" alt="thumb" class="w-16 h-24 object-cover object-center rounded" />
-                            </td>
+                            <td></td>
                             <td>
                                 <div class="flex items-center justify-start gap-2">
                                     <div>
@@ -113,7 +98,7 @@
                                                             >
                                                         </div>
                                                         <div class="text-xs flex items-center justify-center gap-2">
-                                                            <span class="bg-red-500 px-2 rounded text-white">{{ getType(movie.type) }}</span>
+                                                            <span class="bg-gray-200 px-2 rounded">{{ getType(movie.type) }}</span>
                                                             <span class="bg-green px-2 rounded text-white">{{ getStatus(movie.status) }}</span>
                                                         </div>
                                                     </div>
@@ -122,12 +107,6 @@
                                                     <div class="w-[35%] text-lg font-extrabold">Ảnh thumnail:</div>
                                                     <div class="flex-1">
                                                         <img :src="movie.thumb_url" alt="thumb" class="w-16 h-24 object-cover object-center rounded" />
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start justify-start">
-                                                    <div class="w-[35%] text-lg font-extrabold">Nội dung:</div>
-                                                    <div class="flex-1">
-                                                        <p v-html="movie.content"></p>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-start justify-start">
@@ -197,117 +176,22 @@
                     <tfoot class="border-t-[1px] border-gray-300">
                         <tr class="border-gray-300">
                             <th class="text-base font-bold text-gray-500">Thông tin</th>
-                            <th class="text-base font-bold text-gray-500">Thumbnail</th>
-                            <th class="text-base font-bold text-gray-500">Hành động</th>
+                            <th class="text-base font-bold text-gray-500">Ảnh Thumbnail</th>
+                            <th class="text-base font-bold text-gray-500">Action</th>
                         </tr>
                     </tfoot>
                 </table>
             </div>
             <div>
-                <Pagination :meta="meta" :links="links" @getData="getData" />
+                <Pagination :meta="meta" :links="links" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import Pagination from '@/components/Pagination/Pagination.vue'
-
-import { getAllMovie } from '../../../webServices/movieService'
-export default defineComponent({
-    components: { Pagination },
-    setup() {
-        const meta = ref({
-            current_page: 1,
-            last_page: 1
-        })
-
-        const overview = ref({
-            from: null,
-            to: null,
-            total: null
-        })
-
-        const loading = ref(false)
-
-        const links = ref({
-            first_page_url: '',
-            last_page_url: '',
-            prev_page_url: '',
-            next_page_url: ''
-        })
-
-        const filter = ref({
-            category_id: null,
-            region_id: null,
-            year: null,
-            type: null,
-            sort: null,
-            search: null,
-            page: 1,
-            limit: 10
-        })
-
-        const movies = ref([])
-
-        return { loading, overview, meta, links, filter, movies }
-    },
-    methods: {
-        async getData(page) {
-            this.loading = true
-
-            this.filter.page = page || 1
-
-            const data = await getAllMovie(this.filter)
-
-            if (data && data.success) {
-                this.movies = data.movies.data
-
-                this.overview.from = data.movies.from
-                this.overview.to = data.movies.to
-                this.overview.total = data.movies.total
-
-                this.meta.current_page = data.movies.current_page
-                this.meta.last_page = data.movies.last_page
-
-                this.links.first_page_url = data.movies.first_page_url
-                this.links.last_page_url = data.movies.last_page_url
-                this.links.prev_page_url = data.movies.prev_page_url
-                this.links.next_page_url = data.movies.next_page_url
-            }
-
-            this.loading = false
-        },
-        getType(type) {
-            switch (type) {
-                case 'single':
-                    return 'Phim lẻ'
-                case 'series':
-                    return 'Phim bộ'
-                case 'cartoon':
-                    return 'Phim hoạt hình'
-                default:
-                    return ''
-            }
-        },
-        getStatus(status) {
-            switch (status) {
-                case 'trailer':
-                    return 'Sắp chiếu'
-                case 'ongoing':
-                    return 'Đang chiếu'
-                case 'completed':
-                    return 'Hoàn thành'
-                default:
-                    return ''
-            }
-        }
-    },
-    created() {
-        this.getData()
-    }
-})
+import { defineComponent } from 'vue'
+export default defineComponent({})
 </script>
 
 <style></style>

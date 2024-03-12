@@ -1,5 +1,5 @@
 <template>
-    <div class="py-20 px-10">Leech Phim</div>
+    <div>Error</div>
 </template>
 
 <script>

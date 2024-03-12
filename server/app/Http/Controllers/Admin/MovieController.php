@@ -16,15 +16,45 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class MovieController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => []]);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api', ['except' => []]);
+    // }
 
 
     public function getAllMovie(Request $request)
     {
-        $movies = Movie::with('categories', 'regions')->orderBy('created_at', 'desc')->paginate($request->limit ?? 16);
+        $movies = Movie::with('categories', 'regions')->when(!empty($request['category_id']), function ($movie) {
+            return $movie->whereHas('categories', function ($categories) {
+                $categories->where('id', request('category_id'));
+            });
+        })->when(!empty($request['region_id']), function ($movie) {
+            return $movie->whereHas('regions', function ($regions) {
+                $regions->where('id', request('region_id'));
+            });
+        })->when(!empty($request['year']), function ($movie) {
+            return $movie->where('year', request('year'));
+        })->when(!empty($reques['type']), function ($movie) {
+            return $movie->where('type', request('type'));
+        })->when(!empty($request['search']), function ($query) {
+            return $query->where(function ($query) {
+                $query->where('name', 'like', '%' . request('search') . '%')
+                    ->orWhere('origin_name', 'like', '%' . request('search')  . '%');
+            })->orderBy('name', 'desc');
+        })->when(!empty($request['sort']), function ($movie) {
+            if (request('sort') == 'create') {
+                return $movie->orderBy('created_at', 'desc');
+            }
+            if (request('sort') == 'update') {
+                return $movie->orderBy('updated_at', 'desc');
+            }
+            if (request('sort') == 'year') {
+                return $movie->orderBy('publish_year', 'desc');
+            }
+            if (request('sort') == 'view') {
+                return $movie->orderBy('view_total', 'desc');
+            }
+        })->paginate($request->limit ?? 16);
 
         return response()->json(['success' => true, 'movies' => $movies], 200);
     }
@@ -37,9 +67,9 @@ class MovieController extends Controller
 
         $movie['name'] = $request['name'];
         $movie['origin_name'] = $request['origin_name'];
+        $movie['thumb_url'] =  $request['thumb_url'];
+        $movie['poster_url'] =  $request['poster_url'];
         $movie['content'] = $request['content'];
-        $movie['thumb_url'] = $request['thumb_url'];
-        $movie['poster_url'] = $request['poster_url'];
         $movie['type'] = $request['type'];
         $movie['status'] = $request['status'];
         $movie['trailer_url'] = $request['trailer_url'];
@@ -165,42 +195,6 @@ class MovieController extends Controller
         return response()->json(['success' => true, 'movie' => $movie], 200);
     }
 
-    public function filterMovie(Request $request)
-    {
-        $movies = Movie::when(!empty($request['filter']['category']), function ($movie) {
-            return $movie->whereHas('categories', function ($categories) {
-                $categories->where('id', request('filter')['category']);
-            });
-        })->when(!empty($request['filter']['region']), function ($movie) {
-            return $movie->whereHas('regions', function ($regions) {
-                $regions->where('id', request('filter')['region']);
-            });
-        })->when(!empty($request['filter']['year']), function ($movie) {
-            return $movie->where('publish_year', request('filter')['year']);
-        })->when(!empty($request['filter']['type']), function ($movie) {
-            return $movie->where('type', request('filter')['type']);
-        })->when(!empty($request['search']), function ($query) {
-            return $query->where(function ($query) {
-                $query->where('name', 'like', '%' . request('search') . '%')
-                    ->orWhere('origin_name', 'like', '%' . request('search')  . '%');
-            })->orderBy('name', 'desc');
-        })->when(!empty($request['filter']['sort']), function ($movie) {
-            if (request('filter')['sort'] == 'create') {
-                return $movie->orderBy('created_at', 'desc');
-            }
-            if (request('filter')['sort'] == 'update') {
-                return $movie->orderBy('updated_at', 'desc');
-            }
-            if (request('filter')['sort'] == 'year') {
-                return $movie->orderBy('publish_year', 'desc');
-            }
-            if (request('filter')['sort'] == 'view') {
-                return $movie->orderBy('view_total', 'desc');
-            }
-        })->paginate($request->limit ?? 16);
-
-        return response()->json(['success' => true, 'movies' => $movies], 200);
-    }
 
     public function getMovieOfCategory(Request $request, $id)
     {

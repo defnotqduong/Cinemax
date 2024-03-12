@@ -11,7 +11,8 @@ class MovieRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check();
+        // return auth()->check();
+        return true;
     }
 
     /**
@@ -26,7 +27,7 @@ class MovieRequest extends FormRequest
             'name' => 'required|max:512',
             'origin_name' => 'required|max:512',
             'slug' => 'max:255|unique:movies,slug,' . $this->id . ',id',
-            'type' => 'required|in:single,series',
+            'type' => 'required|in:single,series,cartoon',
             'status' => 'required|in:trailer,ongoing,completed',
         ];
     }

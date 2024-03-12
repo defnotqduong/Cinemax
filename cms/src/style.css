@@ -1,3 +1,5 @@
+@import 'ckeditor-tailwind-reset/ckeditor-tailwind-reset';
+
 @font-face {
     font-family: 'Nunito';
     src: url('./assets/fonts/Nunito-ExtraLight.ttf') format('truetype');
@@ -110,7 +112,9 @@
 
 body {
     font-family: 'Nunito', sans-serif;
-    background-color: transparent;
+    font-weight: 500;
+    /* background-color: #e9eaef; */
+    background-color: #e9f1fa;
 }
 
 html,
@@ -139,3 +143,35 @@ html *::-webkit-scrollbar-track {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:where(.menu li:not(.menu-title):not(.disabled) > *:not(ul):not(details):not(.menu-title)),
+:where(.menu li:not(.menu-title):not(.disabled) > details > summary:not(.menu-title)) {
+    &:not(summary):not(.active).focus,
+    &:not(summary):not(.active):focus,
+    &:is(summary):not(.active):focus-visible {
+        @apply bg-primary/15 cursor-pointer outline-none;
+    }
+    @media (hover: hover) {
+        &:not(.active):hover {
+            @apply cursor-pointer outline-none;
+            @apply bg-primary/15;
+        }
+    }
+}
+
+.menu li > *:not(ul):not(.menu-title):not(details):active,
+.menu li > *:not(ul):not(.menu-title):not(details).active,
+.menu li > details > summary:active {
+    @apply bg-white text-black [@media(hover:hover)]:bg-white [@media(hover:hover)]:text-black;
+}
+
+.tabs-lifted > .tab.tab-active:not(.tab-disabled):not([disabled]),
+.tabs-lifted > .tab:is(input:checked) {
+    background-color: white;
+    opacity: 1;
+}
+
+.ck-editor__editable {
+    height: 300px;
+    overflow-y: auto;
+}

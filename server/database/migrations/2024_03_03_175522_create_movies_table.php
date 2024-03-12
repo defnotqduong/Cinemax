@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->string('thumb_url', 2048)->nullable();
             $table->string('poster_url', 2048)->nullable();
-            $table->enum('type', ['single', 'series']);
+            $table->enum('type', ['single', 'series', 'cartoon']);
             $table->enum('status', ['trailer', 'ongoing', 'completed']);
             $table->string('trailer_url', 2048)->nullable();
             $table->string('episode_time')->nullable();
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('language')->nullable()->default('Vietsub');
             $table->string('notify', 512)->nullable();
             $table->string('showtimes', 512)->nullable();
-            $table->integer('year')->index()->nullable();
+            $table->string('year')->index()->nullable();
             $table->boolean('is_show_in_theater')->default(false);
             $table->boolean('is_recommended')->default(false);
             $table->boolean('is_copyright')->default(false);

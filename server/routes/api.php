@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 // Auth
 
-Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
+Route::group(['prefix' => 'auth', 'middleware' => 'api'], function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
@@ -34,7 +34,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
 
 // Admin
 
-Route::group(['middleware' => 'api', 'prefix' => 'admin'], function () {
+Route::group(['prefix' => 'cms'], function () {
     Route::group(['prefix' => 'category'], function () {
         Route::get('', [CategoryController::class, 'getAllCategory']);
         Route::post('', [CategoryController::class, 'createCategory']);
@@ -54,7 +54,6 @@ Route::group(['middleware' => 'api', 'prefix' => 'admin'], function () {
     Route::group(['prefix' => 'movie'], function () {
         Route::post('', [MovieController::class, 'createMovie']);
         Route::get('', [MovieController::class, 'getAllMovie']);
-        Route::get('/filter', [MovieController::class, 'filterMovie']);
         Route::get('/{id}', [MovieController::class, 'getMovieOverview']);
         Route::put('/{id}', [MovieController::class, 'editMovie']);
         Route::get('/findByCategoryId/{id}', [MovieController::class, 'getMovieOfCategory']);

@@ -3,7 +3,6 @@ const dashboard = [
         path: '/',
         name: 'dashboard',
         component: () => import('../layouts/Dashboard.vue'),
-        // meta: { requiresAuth: true },
         children: [
             {
                 path: '',
@@ -11,89 +10,49 @@ const dashboard = [
                 component: () => import('../pages/Dashboard/Dashboard.vue')
             },
             {
-                path: 'danh-muc',
-                name: 'dashboard-category',
-                component: () => import('../pages/Dashboard/Category/Category.vue')
-            },
-            {
-                path: 'danh-muc/tao-moi',
-                name: 'dashboard-create-category',
-                component: () => import('../pages/Dashboard/Category/Create.vue')
-            },
-            {
-                path: 'danh-muc/:slug',
-                name: 'dashboard-edit-category',
-                component: () => import('../pages/Dashboard/Category/Edit.vue')
-            },
-            {
-                path: 'the-loai',
-                name: 'dashboard-genre',
-                component: () => import('../pages/Dashboard/Genre/Genre.vue')
-            },
-            {
-                path: 'the-loai/tao-moi',
-                name: 'dashboard-create-genre',
-                component: () => import('../pages/Dashboard/Genre/Create.vue')
-            },
-            {
-                path: 'the-loai/:slug',
-                name: 'dashboard-edit-genre',
-                component: () => import('../pages/Dashboard/Genre/Edit.vue')
-            },
-            {
-                path: 'quoc-gia',
-                name: 'dashboard-country',
-                component: () => import('../pages/Dashboard/Country/Country.vue')
-            },
-            {
-                path: 'quoc-gia/tao-moi',
-                name: 'dashboard-create-country',
-                component: () => import('../pages/Dashboard/Country/Create.vue')
-            },
-            {
-                path: 'quoc-gia/:slug',
-                name: 'dashboard-edit-country',
-                component: () => import('../pages/Dashboard/Country/Edit.vue')
-            },
-            {
-                path: 'phim',
+                path: 'movie',
                 name: 'dashboard-movie',
                 component: () => import('../pages/Dashboard/Movie/Movie.vue')
             },
             {
-                path: 'phim/tao-moi',
-                name: 'dashboard-create-movie',
-                component: () => import('../pages/Dashboard/Movie/Create.vue')
+                path: 'movie/create',
+                name: 'dashboard-movie-create',
+                component: () => import('../pages/Dashboard/Movie/CreateMovie.vue')
             },
             {
-                path: 'phim/:slug',
-                name: 'dashboard-edit-movie',
-                component: () => import('../pages/Dashboard/Movie/Edit.vue')
+                path: 'movie/:id/edit',
+                name: 'dashboard-movie-edit',
+                component: () => import('../pages/Dashboard/Movie/EditMovie.vue')
             },
             {
-                path: 'phim/:id/danh-sach-tap-phim',
-                name: 'dashboard-movie-episode',
-                component: () => import('../pages/Dashboard/Episode/Episode.vue')
+                path: 'category',
+                name: 'dashboard-category',
+                component: () => import('../pages/Dashboard/Category/Category.vue')
             },
             {
-                path: 'phim/:id/tap-phim/tao-moi',
-                name: 'dashboard-create-movie-episode',
-                component: () => import('../pages/Dashboard/Episode/Create.vue')
+                path: 'category/create',
+                name: 'dashboard-category-create',
+                component: () => import('../pages/Dashboard/Category/CreateCategory.vue')
             },
             {
-                path: 'phim/:id/tap-phim/:epId',
-                name: 'dashboard-edit-movie-episode',
-                component: () => import('../pages/Dashboard/Episode/Edit.vue')
+                path: 'category/:id/edit',
+                name: 'dashboard-category-edit',
+                component: () => import('../pages/Dashboard/Category/EditCategory.vue')
             },
             {
-                path: 'phim/leech-phim',
-                name: 'dashboard-leech-movie',
-                component: () => import('../pages/Dashboard/Leech/Leech.vue')
+                path: 'region',
+                name: 'dashboard-region',
+                component: () => import('../pages/Dashboard/Region/Region.vue')
             },
             {
-                path: 'link-phim',
-                name: 'dashboard-link-movie',
-                component: () => import('../pages/Dashboard/LinkMovie/LinkMovie.vue')
+                path: 'region/create',
+                name: 'dashboard-region-create',
+                component: () => import('../pages/Dashboard/Region/CreateRegion.vue')
+            },
+            {
+                path: 'region/:id/edit',
+                name: 'dashboard-region-edit',
+                component: () => import('../pages/Dashboard/Region/EditRegion.vue')
             }
         ]
     }

@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 
 class RegionController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => []]);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api', ['except' => []]);
+    // }
 
     public function createRegion(RegionRequest $request)
     {
@@ -32,7 +32,7 @@ class RegionController extends Controller
 
     public function getAllRegion(Request $request)
     {
-        $regions = Region::paginate($request->limit ?? 16);
+        $regions = Region::all();
 
         return response()->json(['success' => true, 'regions' => $regions], 200);
     }

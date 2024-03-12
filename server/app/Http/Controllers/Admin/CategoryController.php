@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => []]);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api', ['except' => []]);
+    // }
 
     public function createCategory(CategoryRequest $request)
     {
@@ -32,10 +32,17 @@ class CategoryController extends Controller
 
     public function getAllCategory(Request $request)
     {
-        $categories = Category::paginate($request->limit ?? 16);
+        if (!empty($request['limit'])) {
+            $limit = $request->input('limit');
+            $categories = Category::paginate($limit ?? 16);
+        } else {
+            $categories = Category::all();
+        }
 
         return response()->json(['success' => true, 'categories' => $categories], 200);
     }
+
+
 
     public function editCategory(CategoryRequest $request, $id)
     {
