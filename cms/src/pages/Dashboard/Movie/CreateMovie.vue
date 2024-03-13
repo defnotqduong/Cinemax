@@ -270,11 +270,12 @@
                             class="tab text-gray-400 font-bold opacity-60"
                             :class="tapActiveServer === server && 'tab-active'"
                             @click="tapActiveServer = server"
-                            >{{ server }}</a
                         >
+                            {{ server }}
+                        </a>
                         <a v-if="servers.length > 0" role="tab" class="tab text-gray-400 opacity-60 flex-1"></a>
                     </div>
-                    <div class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
+                    <div v-if="servers.length > 0" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
                         <div class="overflow-x-auto mb-10">
                             <table class="table">
                                 <thead>
@@ -420,8 +421,6 @@ export default defineComponent({
 
         const tapActive = ref(1)
 
-        const tapActiveServer = ref('Vietsub #1')
-
         const loading = ref(false)
 
         const loadingSubmit = ref(false)
@@ -468,11 +467,13 @@ export default defineComponent({
             is_sensitive_content: false
         })
 
+        const tapActiveServer = ref('Vietsub #1')
+
         const server_name = ref('Thuyết minh #1')
 
         const servers = ref(['Vietsub #1'])
 
-        const episodes = ref([{ name: 'Tập 1', server: 'Vietsub #1', type: 'Embed', link: 'https://vip.opstream17.com/share/77369e37b2aa1404f416275183ab055f' }])
+        const episodes = ref([])
 
         const handleFileThumbnail = async e => {
             fileThumbnail.value = e.target.files[0]
@@ -514,6 +515,8 @@ export default defineComponent({
 
         const deleteServer = e => {
             e.preventDefault()
+
+            episodes.value = episodes.value.filter(episode => episode.server !== tapActiveServer.value)
 
             const index = servers.value.indexOf(tapActiveServer.value)
 
