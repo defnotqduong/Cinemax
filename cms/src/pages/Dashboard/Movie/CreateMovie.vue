@@ -244,11 +244,11 @@
                 </div>
                 <div v-if="tapActive === 3" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
                     <div class="grid grid-cols-2 mb-6">
-                        <label for="server" class="flex items-center justify-start">
+                        <label for="server_name" class="flex items-center justify-start">
                             <input
                                 type="text"
-                                id="server"
-                                v-model="server"
+                                id="server_name"
+                                v-model="server_name"
                                 placeholder=""
                                 class="input rounded-l-md rounded-r-none border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
                             />
@@ -264,22 +264,17 @@
                     </div>
                     <div role="tablist" class="tabs tabs-lifted flex items-center justify-start">
                         <a
-                            v-for="data in episodes"
-                            :key="data.server_name"
+                            v-for="(server, i) in servers"
+                            :key="i"
                             role="tab"
                             class="tab text-gray-400 font-bold opacity-60"
-                            :class="tapActiveServer === data.server_name && 'tab-active'"
-                            @click="tapActiveServer = data.server_name"
-                            >{{ data.server_name }}</a
+                            :class="tapActiveServer === server && 'tab-active'"
+                            @click="tapActiveServer = server"
+                            >{{ server }}</a
                         >
-                        <a v-if="episodes.length > 0" role="tab" class="tab text-gray-400 opacity-60 flex-1"></a>
+                        <a v-if="servers.length > 0" role="tab" class="tab text-gray-400 opacity-60 flex-1"></a>
                     </div>
-                    <div
-                        v-for="(data, index) in episodes"
-                        :key="index"
-                        class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg"
-                        :class="tapActiveServer !== data.server_name && 'hidden'"
-                    >
+                    <div class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
                         <div class="overflow-x-auto mb-10">
                             <table class="table">
                                 <thead>
@@ -291,18 +286,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(episode, i) in data.server_data" :key="i" class="border-b-gray-300 text-gray-500">
+                                    <tr v-for="(data, index) in episodes" :key="index" class="border-b-gray-300 text-gray-500" :class="{ hidden: data.server !== tapActiveServer }">
                                         <td class="w-[20%]">
                                             <input
                                                 type="text"
-                                                v-model="episodes[index].server_data[i].name"
+                                                v-model="episodes[index].name"
                                                 placeholder=""
                                                 class="input rounded border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
                                             />
                                         </td>
                                         <td>
                                             <select
-                                                v-model="episodes[index].server_data[i].type"
+                                                v-model="episodes[index].type"
                                                 class="select rounded border-gray-300 outline-none bg-white h-10 min-h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
                                             >
                                                 <option>Embed</option>
@@ -311,13 +306,13 @@
                                         <td>
                                             <input
                                                 type="text"
-                                                v-model="episodes[index].server_data[i].link"
+                                                v-model="episodes[index].link"
                                                 placeholder=""
                                                 class="input rounded border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
                                             />
                                         </td>
                                         <td>
-                                            <button @click="episodes[index].server_data.splice(i, 1)" class="btn h-10 min-h-10 rounded bg-red-500 text-white hover:bg-red-600">
+                                            <button @click.prevent="deleteEpisode(index)" class="btn h-10 min-h-10 rounded bg-red-500 text-white hover:bg-red-600">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="-3 0 32 32">
                                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                         <g id="Icon-Set-Filled" transform="translate(-261.000000, -205.000000)" fill="currentColor">
@@ -334,14 +329,14 @@
                             </table>
                         </div>
                         <div class="flex items-center justify-start gap-4">
-                            <button @click.prevent="episodes[index].server_data.push({})" class="btn gap-1 h-10 min-h-10 rounded-md border-none bg-green hover:bg-green hover:opacity-80 text-white">
+                            <button @click.prevent="addEpisode()" class="btn gap-1 h-10 min-h-10 rounded-md border-none bg-green hover:bg-green hover:opacity-80 text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
                                     <g>
                                         <path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </g></svg
                                 >Thêm tập mới
                             </button>
-                            <button @click.prevent="deleteServer(index)" class="btn gap-1 h-10 min-h-10 rounded-md border-none bg-red-500 hover:bg-red-600 text-white">
+                            <button @click="deleteServer" class="btn gap-1 h-10 min-h-10 rounded-md border-none bg-red-500 hover:bg-red-600 text-white">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="-3 0 32 32">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <g id="Icon-Set-Filled" transform="translate(-261.000000, -205.000000)" fill="currentColor">
@@ -473,14 +468,11 @@ export default defineComponent({
             is_sensitive_content: false
         })
 
-        const server = ref('Thuyết minh #1')
+        const server_name = ref('Thuyết minh #1')
 
-        const episodes = ref([
-            {
-                server_name: 'Vietsub #1',
-                server_data: [{ name: 'Tập 1', type: 'Embed', link: 'https://vip.opstream17.com/share/77369e37b2aa1404f416275183ab055f' }]
-            }
-        ])
+        const servers = ref(['Vietsub #1'])
+
+        const episodes = ref([{ name: 'Tập 1', server: 'Vietsub #1', type: 'Embed', link: 'https://vip.opstream17.com/share/77369e37b2aa1404f416275183ab055f' }])
 
         const handleFileThumbnail = async e => {
             fileThumbnail.value = e.target.files[0]
@@ -515,22 +507,33 @@ export default defineComponent({
         const addServer = e => {
             e.preventDefault()
 
-            episodes.value.push({
-                server_name: server.value,
-                server_data: [{}]
-            })
+            servers.value.push(server_name.value)
 
-            if (episodes.value.length === 1) tapActiveServer.value = episodes.value[0].server_name
+            if (servers.value.length === 1) tapActiveServer.value = servers.value[0]
         }
 
-        const deleteServer = index => {
-            episodes.value.splice(index, 1)
+        const deleteServer = e => {
+            e.preventDefault()
 
-            if (episodes.value.length > 0) {
-                tapActiveServer.value = episodes.value[0].server_name
-            } else {
-                tapActiveServer.value = null
-            }
+            const index = servers.value.indexOf(tapActiveServer.value)
+
+            servers.value.splice(index, 1)
+
+            if (servers.value.length > 0) tapActiveServer.value = servers.value[0]
+            else tapActiveServer.value = null
+        }
+
+        const addEpisode = () => {
+            episodes.value.push({
+                name: '',
+                server: tapActiveServer.value,
+                type: '',
+                link: ''
+            })
+        }
+
+        const deleteEpisode = i => {
+            episodes.value.splice(i, 1)
         }
 
         return {
@@ -545,7 +548,8 @@ export default defineComponent({
             filePoster,
             posterUrl,
             ...toRefs(movie),
-            server,
+            server_name,
+            servers,
             episodes,
             handleFileThumbnail,
             handleFilePoster,
