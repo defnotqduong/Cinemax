@@ -12,18 +12,13 @@
                 <span class="loading loading-spinner text-primary"></span>
             </div>
             <div v-if="!loading" class="w-[75%] mt-5 text-[15px]">
-                <div role="tablist" class="tabs tabs-lifted">
-                    <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 1 && 'tab-active'" @click="tapActive = 1"
-                        >Thông tin phim</a
-                    >
+                <div role="tablist" class="tabs tabs-lifted flex items-center justify-start">
+                    <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 1 && 'tab-active'" @click="tapActive = 1">Thông tin phim</a>
                     <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 2 && 'tab-active'" @click="tapActive = 2">Phân loại</a>
-                    <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 3 && 'tab-active'" @click="tapActive = 3"
-                        >Danh sách tập phim</a
-                    >
-                    <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 4 && 'tab-active'" @click="tapActive = 4"
-                        >Cập nhật phim</a
-                    >
+                    <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 3 && 'tab-active'" @click="tapActive = 3">Danh sách tập phim</a>
+                    <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 4 && 'tab-active'" @click="tapActive = 4">Cập nhật phim</a>
                     <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 5 && 'tab-active'" @click="tapActive = 5">Khác</a>
+                    <a role="tab" class="tab text-gray-400 opacity-60 flex-1"></a>
                 </div>
                 <div v-if="tapActive === 1" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
                     <div class="grid grid-cols-2 gap-x-6 gap-y-4">
@@ -247,7 +242,119 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="tapActive === 3" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">DS tập phim</div>
+                <div v-if="tapActive === 3" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
+                    <div class="grid grid-cols-2 mb-6">
+                        <label for="server" class="flex items-center justify-start">
+                            <input
+                                type="text"
+                                id="server"
+                                v-model="server"
+                                placeholder=""
+                                class="input rounded-l-md rounded-r-none border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                            />
+                            <button @click="addServer" class="btn h-10 min-h-10 px-3 gap-1 rounded-l-none rounded-r-md border-none bg-green hover:bg-green hover:opacity-80 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
+                                    <g>
+                                        <path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </g>
+                                </svg>
+                                Thêm
+                            </button>
+                        </label>
+                    </div>
+                    <div role="tablist" class="tabs tabs-lifted flex items-center justify-start">
+                        <a
+                            v-for="data in episodes"
+                            :key="data.server_name"
+                            role="tab"
+                            class="tab text-gray-400 font-bold opacity-60"
+                            :class="tapActiveServer === data.server_name && 'tab-active'"
+                            @click="tapActiveServer = data.server_name"
+                            >{{ data.server_name }}</a
+                        >
+                        <a v-if="episodes.length > 0" role="tab" class="tab text-gray-400 opacity-60 flex-1"></a>
+                    </div>
+                    <div
+                        v-for="(data, index) in episodes"
+                        :key="index"
+                        class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg"
+                        :class="tapActiveServer !== data.server_name && 'hidden'"
+                    >
+                        <div class="overflow-x-auto mb-10">
+                            <table class="table">
+                                <thead>
+                                    <tr class="border-b-gray-300">
+                                        <th class="text-sm opacity-80">Name</th>
+                                        <th class="text-sm opacity-80">Type</th>
+                                        <th class="text-sm opacity-80">Link tập phim</th>
+                                        <th class="text-sm opacity-80">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(episode, i) in data.server_data" :key="i" class="border-b-gray-300 text-gray-500">
+                                        <td class="w-[20%]">
+                                            <input
+                                                type="text"
+                                                v-model="episodes[index].server_data[i].name"
+                                                placeholder=""
+                                                class="input rounded border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                            />
+                                        </td>
+                                        <td>
+                                            <select
+                                                v-model="episodes[index].server_data[i].type"
+                                                class="select rounded border-gray-300 outline-none bg-white h-10 min-h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                            >
+                                                <option>Embed</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                v-model="episodes[index].server_data[i].link"
+                                                placeholder=""
+                                                class="input rounded border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                            />
+                                        </td>
+                                        <td>
+                                            <button @click="episodes[index].server_data.splice(i, 1)" class="btn h-10 min-h-10 rounded bg-red-500 text-white hover:bg-red-600">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="-3 0 32 32">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <g id="Icon-Set-Filled" transform="translate(-261.000000, -205.000000)" fill="currentColor">
+                                                            <path
+                                                                d="M268,220 C268,219.448 268.448,219 269,219 C269.552,219 270,219.448 270,220 L270,232 C270,232.553 269.552,233 269,233 C268.448,233 268,232.553 268,232 L268,220 L268,220 Z M273,220 C273,219.448 273.448,219 274,219 C274.552,219 275,219.448 275,220 L275,232 C275,232.553 274.552,233 274,233 C273.448,233 273,232.553 273,232 L273,220 L273,220 Z M278,220 C278,219.448 278.448,219 279,219 C279.552,219 280,219.448 280,220 L280,232 C280,232.553 279.552,233 279,233 C278.448,233 278,232.553 278,232 L278,220 L278,220 Z M263,233 C263,235.209 264.791,237 267,237 L281,237 C283.209,237 285,235.209 285,233 L285,217 L263,217 L263,233 L263,233 Z M277,209 L271,209 L271,208 C271,207.447 271.448,207 272,207 L276,207 C276.552,207 277,207.447 277,208 L277,209 L277,209 Z M285,209 L279,209 L279,207 C279,205.896 278.104,205 277,205 L271,205 C269.896,205 269,205.896 269,207 L269,209 L263,209 C261.896,209 261,209.896 261,211 L261,213 C261,214.104 261.895,214.999 262.999,215 L285.002,215 C286.105,214.999 287,214.104 287,213 L287,211 C287,209.896 286.104,209 285,209 L285,209 Z"
+                                                            ></path>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="flex items-center justify-start gap-4">
+                            <button @click.prevent="episodes[index].server_data.push({})" class="btn gap-1 h-10 min-h-10 rounded-md border-none bg-green hover:bg-green hover:opacity-80 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
+                                    <g>
+                                        <path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </g></svg
+                                >Thêm tập mới
+                            </button>
+                            <button @click.prevent="deleteServer(index)" class="btn gap-1 h-10 min-h-10 rounded-md border-none bg-red-500 hover:bg-red-600 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="-3 0 32 32">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="Icon-Set-Filled" transform="translate(-261.000000, -205.000000)" fill="currentColor">
+                                            <path
+                                                d="M268,220 C268,219.448 268.448,219 269,219 C269.552,219 270,219.448 270,220 L270,232 C270,232.553 269.552,233 269,233 C268.448,233 268,232.553 268,232 L268,220 L268,220 Z M273,220 C273,219.448 273.448,219 274,219 C274.552,219 275,219.448 275,220 L275,232 C275,232.553 274.552,233 274,233 C273.448,233 273,232.553 273,232 L273,220 L273,220 Z M278,220 C278,219.448 278.448,219 279,219 C279.552,219 280,219.448 280,220 L280,232 C280,232.553 279.552,233 279,233 C278.448,233 278,232.553 278,232 L278,220 L278,220 Z M263,233 C263,235.209 264.791,237 267,237 L281,237 C283.209,237 285,235.209 285,233 L285,217 L263,217 L263,233 L263,233 Z M277,209 L271,209 L271,208 C271,207.447 271.448,207 272,207 L276,207 C276.552,207 277,207.447 277,208 L277,209 L277,209 Z M285,209 L279,209 L279,207 C279,205.896 278.104,205 277,205 L271,205 C269.896,205 269,205.896 269,207 L269,209 L263,209 C261.896,209 261,209.896 261,211 L261,213 C261,214.104 261.895,214.999 262.999,215 L285.002,215 C286.105,214.999 287,214.104 287,213 L287,211 C287,209.896 286.104,209 285,209 L285,209 Z"
+                                            ></path>
+                                        </g>
+                                    </g></svg
+                                >Xóa server
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div v-if="tapActive === 4" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">Cập nhật phim</div>
                 <div v-if="tapActive === 5" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
                     <div class="flex flex-col gap-2">
@@ -318,6 +425,8 @@ export default defineComponent({
 
         const tapActive = ref(1)
 
+        const tapActiveServer = ref('Vietsub #1')
+
         const loading = ref(false)
 
         const loadingSubmit = ref(false)
@@ -364,6 +473,15 @@ export default defineComponent({
             is_sensitive_content: false
         })
 
+        const server = ref('Thuyết minh #1')
+
+        const episodes = ref([
+            {
+                server_name: 'Vietsub #1',
+                server_data: [{ name: 'Tập 1', type: 'Embed', link: 'https://vip.opstream17.com/share/77369e37b2aa1404f416275183ab055f' }]
+            }
+        ])
+
         const handleFileThumbnail = async e => {
             fileThumbnail.value = e.target.files[0]
 
@@ -394,8 +512,30 @@ export default defineComponent({
             router.push({ name: 'dashboard-movie' })
         }
 
+        const addServer = e => {
+            e.preventDefault()
+
+            episodes.value.push({
+                server_name: server.value,
+                server_data: [{}]
+            })
+
+            if (episodes.value.length === 1) tapActiveServer.value = episodes.value[0].server_name
+        }
+
+        const deleteServer = index => {
+            episodes.value.splice(index, 1)
+
+            if (episodes.value.length > 0) {
+                tapActiveServer.value = episodes.value[0].server_name
+            } else {
+                tapActiveServer.value = null
+            }
+        }
+
         return {
             tapActive,
+            tapActiveServer,
             loading,
             loadingSubmit,
             categories,
@@ -405,10 +545,16 @@ export default defineComponent({
             filePoster,
             posterUrl,
             ...toRefs(movie),
+            server,
+            episodes,
             handleFileThumbnail,
             handleFilePoster,
             create,
             cancel,
+            addServer,
+            deleteServer,
+            addEpisode,
+            deleteEpisode,
             editor: ClassicEditor,
             editorConfig: {}
         }

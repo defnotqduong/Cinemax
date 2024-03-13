@@ -171,6 +171,10 @@ html *::-webkit-scrollbar-track {
     opacity: 1;
 }
 
+.table tbody tr:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+}
+
 .ck-editor__editable {
     height: 300px;
     overflow-y: auto;

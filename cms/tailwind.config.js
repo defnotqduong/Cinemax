@@ -5,7 +5,9 @@ export default {
         extend: {
             colors: {
                 primary: '#7a00ff',
-                green: '#00b67a'
+                green: '#00b67a',
+                blue: 'rgb(70, 127, 208)',
+                yellow: 'rgb(255, 193, 7)'
             },
             backgroundColor: {},
             backgroundImage: {

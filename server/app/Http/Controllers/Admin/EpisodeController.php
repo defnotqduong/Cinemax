@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class EpisodeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => []]);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api', ['except' => []]);
+    // }
 }

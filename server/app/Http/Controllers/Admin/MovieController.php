@@ -102,28 +102,28 @@ class MovieController extends Controller
 
         $movie_id = $movie->id;
 
-        $actor_ids = request('actors', []);
-        $director_ids = request('directors', []);
-        $tag_ids = request('tags', []);
-        $studio_ids = request('studios', []);
+        // $actor_ids = request('actors', []);
+        // $director_ids = request('directors', []);
+        // $tag_ids = request('tags', []);
+        // $studio_ids = request('studios', []);
         $category_ids = request('category_ids', []);
         $region_ids = request('region_ids', []);
 
-        $movie->actors()->attach(array_map(function ($actor_id) use ($movie_id) {
-            return ['movie_id' => $movie_id, 'actor_id' => $actor_id];
-        }, $actor_ids));
+        // $movie->actors()->attach(array_map(function ($actor_id) use ($movie_id) {
+        //     return ['movie_id' => $movie_id, 'actor_id' => $actor_id];
+        // }, $actor_ids));
 
-        $movie->directors()->attach(array_map(function ($director_id) use ($movie_id) {
-            return ['movie_id' => $movie_id, 'director_id' => $director_id];
-        }, $director_ids));
+        // $movie->directors()->attach(array_map(function ($director_id) use ($movie_id) {
+        //     return ['movie_id' => $movie_id, 'director_id' => $director_id];
+        // }, $director_ids));
 
-        $movie->tags()->attach(array_map(function ($tag_id) use ($movie_id) {
-            return ['movie_id' => $movie_id, 'tag_id' => $tag_id];
-        }, $tag_ids));
+        // $movie->tags()->attach(array_map(function ($tag_id) use ($movie_id) {
+        //     return ['movie_id' => $movie_id, 'tag_id' => $tag_id];
+        // }, $tag_ids));
 
-        $movie->studios()->attach(array_map(function ($studio_id) use ($movie_id) {
-            return ['movie_id' => $movie_id, 'studio_id' => $studio_id];
-        }, $studio_ids));
+        // $movie->studios()->attach(array_map(function ($studio_id) use ($movie_id) {
+        //     return ['movie_id' => $movie_id, 'studio_id' => $studio_id];
+        // }, $studio_ids));
 
         $movie->categories()->attach(array_map(function ($category_id) use ($movie_id) {
             return ['movie_id' => $movie_id, 'category_id' => $category_id];
@@ -258,5 +258,9 @@ class MovieController extends Controller
         $request['directors'] = $director_ids;
         $request['tags'] = $tag_ids;
         $request['studios'] = $studio_ids;
+    }
+
+    protected function createEpisode(Request $request)
+    {
     }
 }

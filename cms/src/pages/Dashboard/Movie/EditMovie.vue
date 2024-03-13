@@ -12,18 +12,13 @@
                 <span class="loading loading-spinner text-primary"></span>
             </div>
             <div v-if="!loading" class="w-[75%] mt-5 text-[15px]">
-                <div role="tablist" class="tabs tabs-lifted">
-                    <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 1 && 'tab-active'" @click="tapActive = 1"
-                        >Thông tin phim</a
-                    >
+                <div role="tablist" class="tabs tabs-lifted flex items-center justify-start">
+                    <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 1 && 'tab-active'" @click="tapActive = 1">Thông tin phim</a>
                     <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 2 && 'tab-active'" @click="tapActive = 2">Phân loại</a>
-                    <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 3 && 'tab-active'" @click="tapActive = 3"
-                        >Danh sách tập phim</a
-                    >
-                    <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 4 && 'tab-active'" @click="tapActive = 4"
-                        >Cập nhật phim</a
-                    >
+                    <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 3 && 'tab-active'" @click="tapActive = 3">Danh sách tập phim</a>
+                    <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 4 && 'tab-active'" @click="tapActive = 4">Cập nhật phim</a>
                     <a role="tab" class="tab text-gray-400 font-bold opacity-60" :class="tapActive === 5 && 'tab-active'" @click="tapActive = 5">Khác</a>
+                    <a role="tab" class="tab text-gray-400 opacity-60 flex-1"></a>
                 </div>
                 <div v-if="tapActive === 1" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
                     <div class="grid grid-cols-2 gap-x-6 gap-y-4">

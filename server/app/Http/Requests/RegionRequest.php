@@ -11,7 +11,8 @@ class RegionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check();
+        // return auth()->check();
+        return true;
     }
 
     /**
@@ -24,7 +25,7 @@ class RegionRequest extends FormRequest
         return [
             'name' => 'required|min:5|max:255',
             'slug' => 'max:255|unique:regions,slug,' . $this->id . ',id',
-            'des' => 'string|max:255',
+            'des' => 'nullable|string|max:255',
         ];
     }
 

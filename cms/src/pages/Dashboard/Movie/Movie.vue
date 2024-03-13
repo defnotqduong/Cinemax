@@ -10,27 +10,15 @@
         <div class="my-2 flex items-start justify-between">
             <div class="flex items-end justify-start gap-4">
                 <h3 class="text-4xl font-bold">Phim</h3>
-                <p v-if="overview.total > 0" class="text-[15px] mb-[2px]">
-                    Hiển thị từ {{ overview.from }} đến {{ overview.to }} trong tổng số {{ overview.total }} phim
-                </p>
+                <p v-if="overview.total > 0" class="text-[15px] mb-[2px]">Hiển thị từ {{ overview.from }} đến {{ overview.to }} trong tổng số {{ overview.total }} phim</p>
                 <p v-if="overview.total == 0" class="text-[15px] mb-[2px]">Không có bản ghi nào</p>
             </div>
         </div>
         <div class="mb-3 flex items-center justify-between">
-            <router-link
-                :to="{ name: 'dashboard-movie-create' }"
-                class="btn px-2 h-10 min-h-10 gap-1 text-sm text-white bg-green hover:bg-green hover:opacity-80"
-            >
+            <router-link :to="{ name: 'dashboard-movie-create' }" class="btn px-2 h-10 min-h-10 gap-1 text-sm text-white bg-green hover:bg-green hover:opacity-80">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
                     <g>
-                        <path
-                            id="Vector"
-                            d="M6 12H12M12 12H18M12 12V18M12 12V6"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
+                        <path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </g></svg
                 >Thêm phim
             </router-link>
@@ -69,8 +57,25 @@
                                         >
                                     </div>
                                     <div class="text-xs flex items-center justify-center gap-2">
-                                        <span class="bg-red-500 px-2 rounded text-white">{{ getType(movie.type) }}</span>
-                                        <span class="bg-green px-2 rounded text-white">{{ getStatus(movie.status) }}</span>
+                                        <span
+                                            class="px-2 rounded text-white"
+                                            :class="{
+                                                'bg-red-500': movie.type === 'cartoon',
+                                                'bg-gray-400': movie.type === 'single',
+                                                'bg-purple-600': movie.type === 'series'
+                                            }"
+                                            >{{ getType(movie.type) }}</span
+                                        >
+                                        <span
+                                            class="px-2 rounded text-white"
+                                            :class="{
+                                                'bg-yellow': movie.status === 'trailer',
+                                                'bg-blue': movie.status === 'ongoing',
+                                                'bg-green': movie.status === 'completed'
+                                            }"
+                                        >
+                                            {{ getStatus(movie.status) }}
+                                        </span>
                                     </div>
                                 </div>
                             </td>
@@ -84,14 +89,7 @@
                                             :for="'my_modal_' + movie.id"
                                             class="btn px-2 my-2 flex items-center gap-1 justify-center bg-transparent border-none outline-none shadow-none text-primary hover:text-[#495057] hover:bg-transparent"
                                         >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="currentColor"
-                                                width="14px"
-                                                height="14px"
-                                                viewBox="0 0 32 32"
-                                                version="1.1"
-                                            >
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="14px" height="14px" viewBox="0 0 32 32" version="1.1">
                                                 <path
                                                     d="M0 16q0.064 0.128 0.16 0.352t0.48 0.928 0.832 1.344 1.248 1.536 1.664 1.696 2.144 1.568 2.624 1.344 3.136 0.896 3.712 0.352 3.712-0.352 3.168-0.928 2.592-1.312 2.144-1.6 1.664-1.632 1.248-1.6 0.832-1.312 0.48-0.928l0.16-0.352q-0.032-0.128-0.16-0.352t-0.48-0.896-0.832-1.344-1.248-1.568-1.664-1.664-2.144-1.568-2.624-1.344-3.136-0.896-3.712-0.352-3.712 0.352-3.168 0.896-2.592 1.344-2.144 1.568-1.664 1.664-1.248 1.568-0.832 1.344-0.48 0.928zM10.016 16q0-2.464 1.728-4.224t4.256-1.76 4.256 1.76 1.76 4.224-1.76 4.256-4.256 1.76-4.256-1.76-1.728-4.256zM12 16q0 1.664 1.184 2.848t2.816 1.152 2.816-1.152 1.184-2.848-1.184-2.816-2.816-1.184-2.816 1.184l2.816 2.816h-4z"
                                                 /></svg
@@ -113,8 +111,25 @@
                                                             >
                                                         </div>
                                                         <div class="text-xs flex items-center justify-center gap-2">
-                                                            <span class="bg-red-500 px-2 rounded text-white">{{ getType(movie.type) }}</span>
-                                                            <span class="bg-green px-2 rounded text-white">{{ getStatus(movie.status) }}</span>
+                                                            <span
+                                                                class="px-2 rounded text-white"
+                                                                :class="{
+                                                                    'bg-red-500': movie.type === 'cartoon',
+                                                                    'bg-gray-400': movie.type === 'single',
+                                                                    'bg-purple-600': movie.type === 'series'
+                                                                }"
+                                                                >{{ getType(movie.type) }}</span
+                                                            >
+                                                            <span
+                                                                class="px-2 rounded text-white"
+                                                                :class="{
+                                                                    'bg-yellow': movie.status === 'trailer',
+                                                                    'bg-blue': movie.status === 'ongoing',
+                                                                    'bg-green': movie.status === 'completed'
+                                                                }"
+                                                            >
+                                                                {{ getStatus(movie.status) }}
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -127,32 +142,23 @@
                                                 <div class="flex items-start justify-start">
                                                     <div class="w-[35%] text-lg font-extrabold">Nội dung:</div>
                                                     <div class="flex-1">
-                                                        <p v-html="movie.content"></p>
+                                                        <p v-html="movie.content || '-'"></p>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-start justify-start">
                                                     <div class="w-[35%] text-lg font-extrabold">Thể loại:</div>
                                                     <div class="flex-1 grid grid-cols-3 gap-3">
-                                                        <span
-                                                            class="bg-gray-200 px-2 rounded text-center"
-                                                            v-for="category in movie.categories"
-                                                            :key="category.id"
-                                                            >{{ category.name }}</span
-                                                        >
+                                                        <span class="bg-gray-200 px-2 rounded text-center" v-for="category in movie.categories" :key="category.id">{{ category.name }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-start justify-start">
                                                     <div class="w-[35%] text-lg font-extrabold">Khu vực:</div>
                                                     <div class="flex-1 grid grid-cols-3 gap-3">
-                                                        <span class="bg-gray-200 px-2 rounded text-center" v-for="region in movie.regions" :key="region.id">{{
-                                                            region.name
-                                                        }}</span>
+                                                        <span class="bg-gray-200 px-2 rounded text-center" v-for="region in movie.regions" :key="region.id">{{ region.name }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="modal-action">
-                                                    <label :for="'my_modal_' + movie.id" class="btn px-3 h-10 min-h-10 bg-gray-400 text-white hover:bg-gray-500"
-                                                        >Đóng</label
-                                                    >
+                                                    <label :for="'my_modal_' + movie.id" class="btn px-3 h-10 min-h-10 bg-gray-400 text-white hover:bg-gray-500">Đóng</label>
                                                 </div>
                                             </div>
                                             <label class="modal-backdrop" :for="'my_modal_' + movie.id">Close</label>

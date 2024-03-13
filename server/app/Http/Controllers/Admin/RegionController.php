@@ -32,7 +32,12 @@ class RegionController extends Controller
 
     public function getAllRegion(Request $request)
     {
-        $regions = Region::all();
+
+        if (!empty($request['limit'])) {
+            $regions = Region::orderBy('created_at', 'desc')->paginate($request['limit'] ?? 16);
+        } else {
+            $regions = Region::all();
+        }
 
         return response()->json(['success' => true, 'regions' => $regions], 200);
     }

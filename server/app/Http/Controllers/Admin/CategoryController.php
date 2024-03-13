@@ -33,8 +33,7 @@ class CategoryController extends Controller
     public function getAllCategory(Request $request)
     {
         if (!empty($request['limit'])) {
-            $limit = $request->input('limit');
-            $categories = Category::paginate($limit ?? 16);
+            $categories = Category::orderBy('created_at', 'desc')->paginate($request['limit'] ?? 16);
         } else {
             $categories = Category::all();
         }

@@ -12,6 +12,30 @@
                 <span class="loading loading-spinner text-primary"></span>
             </div>
             <div v-if="!loading" class="w-[75%] mt-5 text-[15px]">
+                <div class="p-6 bg-white border-[1px] border-gray-400 rounded-lg">
+                    <div class="grid grid-cols-1 gap-x-6 gap-y-4">
+                        <label for="name">
+                            <div class="mb-2 text-gray-700 font-bold">Tên thể loại <span class="text-red-500">*</span></div>
+                            <input
+                                type="text"
+                                id="name"
+                                v-model="name"
+                                placeholder="Tên thể loại"
+                                class="input rounded-md border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                            />
+                        </label>
+                        <label for="des">
+                            <div class="mb-2 text-gray-700 font-bold">Description</div>
+                            <input
+                                type="text"
+                                id="des"
+                                v-model="des"
+                                placeholder=""
+                                class="input rounded-md border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                            />
+                        </label>
+                    </div>
+                </div>
                 <div class="mt-2 flex items-center justify-start gap-3">
                     <button @click="create" class="btn h-10 min-h-10 px-6 bg-green hover:bg-green hover:opacity-80 text-white text-base">
                         <span v-if="!loadingSubmit" class="flex-1 flex items-center justify-center gap-3">
@@ -41,12 +65,31 @@
 <script>
 import { defineComponent, ref, toRefs, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { createCategory } from '../../../webServices/categoryService'
 export default defineComponent({
     setup() {
         const router = useRouter()
 
+        const category = reactive({
+            name: '',
+            des: ''
+        })
+
+        const loading = ref(false)
+
+        const loadingSubmit = ref(false)
+
         const create = async e => {
             e.preventDefault()
+            loadingSubmit.value = true
+
+            const data = await createCategory(category)
+
+            if (data && data.success) {
+                router.push({ name: 'dashboard-category' })
+            }
+
+            loadingSubmit.value = false
         }
         const cancel = e => {
             e.preventDefault()
@@ -54,6 +97,9 @@ export default defineComponent({
         }
 
         return {
+            ...toRefs(category),
+            loading,
+            loadingSubmit,
             create,
             cancel
         }

@@ -29,7 +29,7 @@
                 >
             </li>
             <li>
-                <details>
+                <details open>
                     <summary>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
                             <path
@@ -41,19 +41,10 @@
                             /></svg
                         >Phân loại
                     </summary>
-                    <ul class="mt-1 flex flex-col gap-1">
+                    <ul class="mt-1 flex flex-col gap-2">
                         <li>
                             <a :class="{ active: isActive === 'catalog' }"
-                                ><svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor"
-                                    width="20px"
-                                    height="20px"
-                                    viewBox="0 0 14 14"
-                                    role="img"
-                                    focusable="false"
-                                    aria-hidden="true"
-                                >
+                                ><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="20px" height="20px" viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true">
                                     <path
                                         d="M 11.692971,8.38725 C 10.346057,11.72887 7.1193304,9.70727 7.1193304,9.70727 6.1293121,11.70686 4.4939485,12.99267 2.6068024,13 c -0.3935629,0 -0.4057853,-0.59646 0,-0.59646 1.5742514,-0.007 2.9456101,-1.04379 3.8427378,-2.69138 C 5.444855,10.10084 3.5503754,10.39417 2.4992448,7.70279 5.1637386,6.60521 6.388428,7.97657 6.85777,8.81503 7.0997745,8.21858 7.2733333,7.57079 7.3857798,6.86678 c 0,0 -3.4149521,0.53534 -3.6545121,-2.39805 C 6.6426549,3.29782 7.461559,6.34365 7.461559,6.34365 7.500671,5.93542 7.542227,5.05785 7.542227,5.0383 c 0,0 -2.5984925,-1.80159 -0.9313505,-4.0383 3.0458341,1.05113 1.5009166,3.96985 1.5009166,3.96985 0.012223,0.0391 0.012223,0.58179 0,0.81646 0,0 1.1049094,-2.17559 3.3342839,-1.40558 C 11.343408,7.65635 7.9773462,6.98167 7.9773462,6.98167 7.8697887,7.65146 7.7035634,8.28702 7.4884483,8.87615 c 0,0 2.0289264,-2.24405 4.2045227,-0.4889 z"
                                     /></svg
@@ -134,20 +125,26 @@
             <li>
                 <details>
                     <summary>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
-                            width="20px"
-                            height="20px"
-                            viewBox="0 0 52 52"
-                            enable-background="new 0 0 52 52"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="20px" height="20px" viewBox="0 0 52 52" enable-background="new 0 0 52 52">
                             <path
                                 d="M49.4,12.2c-0.2-0.6-0.9-0.7-1.4-0.3L39.9,20c-0.6,0.6-1.6,0.6-2.2,0L32,14.3c-0.6-0.6-0.6-1.6,0-2.2L40.2,4  c0.4-0.4,0.2-1.1-0.3-1.4C38.5,2.2,37,2,35.6,2c-8.5,0-15.3,7.3-14.3,16c0.2,1.4,0.5,2.6,1,3.8L3.6,40.4c-2.2,2.2-2.2,5.8,0,7.9  c1.1,1.1,2.6,1.7,4,1.7s2.9-0.6,4-1.7l18.6-18.6c1.2,0.5,2.5,0.8,3.8,1c8.7,1,16-5.8,16-14.3C50,14.9,49.8,13.5,49.4,12.2z"
                             /></svg
                         >Tùy chỉnh
                     </summary>
-                    <ul class="mt-1 flex flex-col gap-1">
+                    <ul class="mt-1 flex flex-col gap-2">
+                        <li>
+                            <a :class="{ active: isActive === 'menu' }">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M8 6.00067L21 6.00139M8 12.0007L21 12.0015M8 18.0007L21 18.0015M3.5 6H3.51M3.5 12H3.51M3.5 18H3.51M4 6C4 6.27614 3.77614 6.5 3.5 6.5C3.22386 6.5 3 6.27614 3 6C3 5.72386 3.22386 5.5 3.5 5.5C3.77614 5.5 4 5.72386 4 6ZM4 12C4 12.2761 3.77614 12.5 3.5 12.5C3.22386 12.5 3 12.2761 3 12C3 11.7239 3.22386 11.5 3.5 11.5C3.77614 11.5 4 11.7239 4 12ZM4 18C4 18.2761 3.77614 18.5 3.5 18.5C3.22386 18.5 3 18.2761 3 18C3 17.7239 3.22386 17.5 3.5 17.5C3.77614 17.5 4 17.7239 4 18Z"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    /></svg
+                                >Menu</a
+                            >
+                        </li>
                         <li>
                             <a :class="{ active: isActive === 'settings' }"
                                 ><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 1024 1024">
@@ -175,7 +172,7 @@
                             /></svg
                         >Mở rộng
                     </summary>
-                    <ul class="mt-1 flex flex-col gap-1">
+                    <ul class="mt-1 flex flex-col gap-2">
                         <li>
                             <a :class="{ active: isActive === 'crawler' }"
                                 ><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
@@ -207,8 +204,14 @@ export default defineComponent({
     },
     watch: {
         $route(to, from) {
-            const path = to.path
-
+            this.setActiveRoute(to.path)
+        }
+    },
+    created() {
+        this.setActiveRoute(this.$route.path)
+    },
+    methods: {
+        setActiveRoute(path) {
             switch (true) {
                 case path.startsWith('/movie'):
                     this.isActive = 'movie'
@@ -234,8 +237,8 @@ export default defineComponent({
                 case path.startsWith('/studio'):
                     this.isActive = 'studio'
                     break
-                case path.startsWith('/actor'):
-                    this.isActive = 'actor'
+                case path.startsWith('/menu'):
+                    this.isActive = 'menu'
                     break
                 case path.startsWith('/settings'):
                     this.isActive = 'settings'
