@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Actor;
 use App\Models\Category;
 use App\Models\Director;
+use App\Models\Episode;
 use App\Models\Movie;
 use App\Models\Region;
 use App\Models\Studio;
@@ -84,8 +85,6 @@ class MovieController extends Controller
         $movie['is_show_in_theater'] = $request['is_show_in_theater'];
         $movie['is_recommended'] = $request['is_recommended'];
         $movie['is_copyright'] = $request['is_copyright'];
-        $movie['is_sensitive_content'] = $request['is_sensitive_content'];
-        $movie['episode_server_count'] = $request['episode_server_count'];
         $movie['episode_data_count'] = $request['episode_data_count'];
         $movie['view_total'] = $request['view_total'];
         $movie['view_day'] = $request['view_day'];
@@ -133,6 +132,8 @@ class MovieController extends Controller
             return ['movie_id' => $movie_id, 'region_id' => $region_id];
         }, $region_ids));
 
+        $this->createEpisode($request, $movie_id);
+
         return response()->json(['success' => true, 'message' => 'Movie created successfully'], 200);
     }
 
@@ -164,8 +165,6 @@ class MovieController extends Controller
         $movie['is_recommended'] = $request['is_recommended'];
         $movie['is_copyright'] = $request['is_copyright'];
         $movie['is_sensitive_content'] = $request['is_sensitive_content'];
-        $movie['episode_server_count'] = $request['episode_server_count'];
-        $movie['episode_data_count'] = $request['episode_data_count'];
         $movie['view_total'] = $request['view_total'];
         $movie['view_day'] = $request['view_day'];
         $movie['view_week'] = $request['view_week'];
@@ -183,16 +182,47 @@ class MovieController extends Controller
         $region_ids = $request->input('region_ids', []);
         $movie->regions()->sync($region_ids);
 
+        // Update episodes
+        // Lấy danh sách các tập phim hiện có của bộ phim
+        $existingEpisodes = $movie->episodes()->pluck('id')->toArray();
+
+        // Lấy danh sách các tập phim gửi trong yêu cầu
+        $receivedEpisodes = $request->input('episodes', []);
+
+        // Lặp qua các tập phim gửi trong yêu cầu
+        foreach ($receivedEpisodes as $episodeData) {
+            if (!empty($episodeData['server']) && !empty($episodeData['name']) && !empty($episodeData['type'])) {
+                $episodeId = $episodeData['id'] ?? null;
+
+                if ($episodeId) {
+                    // Nếu tập phim tồn tại trong danh sách hiện tại, cập nhật thông tin
+                    if (in_array($episodeId, $existingEpisodes)) {
+                        $episode = Episode::find($episodeId);
+                        $episode->update($episodeData);
+                    }
+                } else {
+                    // Nếu tập phim không tồn tại trong danh sách hiện tại, tạo mới
+                    $movie->episodes()->create($episodeData);
+                }
+            }
+        }
+
+        // Xóa các tập phim không còn trong danh sách gửi
+        $deletedEpisodes = array_diff($existingEpisodes, array_column($receivedEpisodes, 'id'));
+        Episode::whereIn('id', $deletedEpisodes)->delete();
+
         return response()->json(['success' => true, 'message' => 'Movie updated successfully'], 200);
     }
 
     public function getMovieOverview(Request $request, $id)
     {
-        $movie = Movie::with('categories', 'regions')->find($id);
+        $movie = Movie::with('categories', 'regions', 'episodes')->find($id);
 
         if (!$movie) return response()->json(['success' => false, 'message' => 'Movie not found'], 404);
 
-        return response()->json(['success' => true, 'movie' => $movie], 200);
+        $servers = $movie->episodes->pluck('server')->unique()->toArray();
+
+        return response()->json(['success' => true, 'movie' => $movie, 'servers' => $servers], 200);
     }
 
 
@@ -260,7 +290,22 @@ class MovieController extends Controller
         $request['studios'] = $studio_ids;
     }
 
-    protected function createEpisode(Request $request)
+    protected function createEpisode(Request $request, $id)
     {
+        $episodesData = request('episodes', []);
+
+        foreach ($episodesData as $episodeData) {
+            if (!empty($episodeData['server']) && !empty($episodeData['name']) && !empty($episodeData['type'])) {
+                $episode = Episode::create(
+                    [
+                        'movie_id' => $id,
+                        'server' => $episodeData['server'],
+                        'name' => $episodeData['name'],
+                        'type' => $episodeData['type'],
+                        'link' => $episodeData['link'],
+                    ]
+                );
+            }
+        }
     }
 }

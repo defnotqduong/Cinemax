@@ -242,7 +242,115 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="tapActive === 3" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">DS tập phim</div>
+                <div v-if="tapActive === 3" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
+                    <div class="grid grid-cols-2 mb-6">
+                        <label for="server_name" class="flex items-center justify-start">
+                            <input
+                                type="text"
+                                id="server_name"
+                                v-model="server_name"
+                                placeholder=""
+                                class="input rounded-l-md rounded-r-none border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                            />
+                            <button @click="addServer" class="btn h-10 min-h-10 px-3 gap-1 rounded-l-none rounded-r-md border-none bg-green hover:bg-green hover:opacity-80 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
+                                    <g>
+                                        <path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </g>
+                                </svg>
+                                Thêm
+                            </button>
+                        </label>
+                    </div>
+                    <div role="tablist" class="tabs tabs-lifted flex items-center justify-start">
+                        <a
+                            v-for="(server, i) in servers"
+                            :key="i"
+                            role="tab"
+                            class="tab text-gray-400 font-bold opacity-60"
+                            :class="tapActiveServer === server && 'tab-active'"
+                            @click="tapActiveServer = server"
+                        >
+                            {{ server }}
+                        </a>
+                        <a v-if="servers.length > 0" role="tab" class="tab text-gray-400 opacity-60 flex-1"></a>
+                    </div>
+                    <div v-if="servers.length > 0" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
+                        <div class="overflow-x-auto overflow-y-auto max-h-[500px] mb-10">
+                            <table class="table">
+                                <thead>
+                                    <tr class="border-b-gray-300">
+                                        <th class="text-sm opacity-80">Name</th>
+                                        <th class="text-sm opacity-80">Type</th>
+                                        <th class="text-sm opacity-80">Link tập phim</th>
+                                        <th class="text-sm opacity-80">Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(data, index) in episodes" :key="index" class="border-b-gray-300 text-gray-500" :class="{ hidden: data.server !== tapActiveServer }">
+                                        <td class="w-[20%]">
+                                            <input
+                                                type="text"
+                                                v-model="episodes[index].name"
+                                                placeholder=""
+                                                class="input rounded border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                            />
+                                        </td>
+                                        <td>
+                                            <select
+                                                v-model="episodes[index].type"
+                                                class="select rounded border-gray-300 outline-none bg-white h-10 min-h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                            >
+                                                <option>Embed</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                v-model="episodes[index].link"
+                                                placeholder=""
+                                                class="input rounded border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                            />
+                                        </td>
+                                        <td>
+                                            <button @click.prevent="deleteEpisode(index)" class="btn h-10 min-h-10 rounded bg-red-500 text-white hover:bg-red-600">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="-3 0 32 32">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <g id="Icon-Set-Filled" transform="translate(-261.000000, -205.000000)" fill="currentColor">
+                                                            <path
+                                                                d="M268,220 C268,219.448 268.448,219 269,219 C269.552,219 270,219.448 270,220 L270,232 C270,232.553 269.552,233 269,233 C268.448,233 268,232.553 268,232 L268,220 L268,220 Z M273,220 C273,219.448 273.448,219 274,219 C274.552,219 275,219.448 275,220 L275,232 C275,232.553 274.552,233 274,233 C273.448,233 273,232.553 273,232 L273,220 L273,220 Z M278,220 C278,219.448 278.448,219 279,219 C279.552,219 280,219.448 280,220 L280,232 C280,232.553 279.552,233 279,233 C278.448,233 278,232.553 278,232 L278,220 L278,220 Z M263,233 C263,235.209 264.791,237 267,237 L281,237 C283.209,237 285,235.209 285,233 L285,217 L263,217 L263,233 L263,233 Z M277,209 L271,209 L271,208 C271,207.447 271.448,207 272,207 L276,207 C276.552,207 277,207.447 277,208 L277,209 L277,209 Z M285,209 L279,209 L279,207 C279,205.896 278.104,205 277,205 L271,205 C269.896,205 269,205.896 269,207 L269,209 L263,209 C261.896,209 261,209.896 261,211 L261,213 C261,214.104 261.895,214.999 262.999,215 L285.002,215 C286.105,214.999 287,214.104 287,213 L287,211 C287,209.896 286.104,209 285,209 L285,209 Z"
+                                                            ></path>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="flex items-center justify-start gap-4">
+                            <button @click.prevent="addEpisode()" class="btn gap-1 h-10 min-h-10 rounded-md border-none bg-green hover:bg-green hover:opacity-80 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
+                                    <g>
+                                        <path id="Vector" d="M6 12H12M12 12H18M12 12V18M12 12V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </g></svg
+                                >Thêm tập mới
+                            </button>
+                            <button @click="deleteServer" class="btn gap-1 h-10 min-h-10 rounded-md border-none bg-red-500 hover:bg-red-600 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="-3 0 32 32">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="Icon-Set-Filled" transform="translate(-261.000000, -205.000000)" fill="currentColor">
+                                            <path
+                                                d="M268,220 C268,219.448 268.448,219 269,219 C269.552,219 270,219.448 270,220 L270,232 C270,232.553 269.552,233 269,233 C268.448,233 268,232.553 268,232 L268,220 L268,220 Z M273,220 C273,219.448 273.448,219 274,219 C274.552,219 275,219.448 275,220 L275,232 C275,232.553 274.552,233 274,233 C273.448,233 273,232.553 273,232 L273,220 L273,220 Z M278,220 C278,219.448 278.448,219 279,219 C279.552,219 280,219.448 280,220 L280,232 C280,232.553 279.552,233 279,233 C278.448,233 278,232.553 278,232 L278,220 L278,220 Z M263,233 C263,235.209 264.791,237 267,237 L281,237 C283.209,237 285,235.209 285,233 L285,217 L263,217 L263,233 L263,233 Z M277,209 L271,209 L271,208 C271,207.447 271.448,207 272,207 L276,207 C276.552,207 277,207.447 277,208 L277,209 L277,209 Z M285,209 L279,209 L279,207 C279,205.896 278.104,205 277,205 L271,205 C269.896,205 269,205.896 269,207 L269,209 L263,209 C261.896,209 261,209.896 261,211 L261,213 C261,214.104 261.895,214.999 262.999,215 L285.002,215 C286.105,214.999 287,214.104 287,213 L287,211 C287,209.896 286.104,209 285,209 L285,209 Z"
+                                            ></path>
+                                        </g>
+                                    </g></svg
+                                >Xóa server
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div v-if="tapActive === 4" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">Cập nhật phim</div>
                 <div v-if="tapActive === 5" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
                     <div class="flex flex-col gap-2">
@@ -344,8 +452,6 @@ export default defineComponent({
             year: '',
             type: '',
             status: '',
-            episode_server_count: 0,
-            episode_data_count: 0,
             view_total: 0,
             view_day: 0,
             view_week: 0,
@@ -359,6 +465,14 @@ export default defineComponent({
             is_copyright: false,
             is_sensitive_content: false
         })
+
+        const tapActiveServer = ref('Vietsub #1')
+
+        const server_name = ref('Thuyết minh #1')
+
+        const servers = ref([])
+
+        const episodes = ref([])
 
         const handleFileThumbnail = async e => {
             fileThumbnail.value = e.target.files[0]
@@ -376,6 +490,8 @@ export default defineComponent({
             e.preventDefault()
             loadingSubmit.value = true
 
+            movie.episodes = episodes.value
+
             const data = await editMovie(movie.id, movie)
 
             if (data && data.success) {
@@ -390,6 +506,40 @@ export default defineComponent({
             router.push({ name: 'dashboard-movie' })
         }
 
+        const addServer = e => {
+            e.preventDefault()
+
+            servers.value.push(server_name.value)
+
+            if (servers.value.length === 1) tapActiveServer.value = servers.value[0]
+        }
+
+        const deleteServer = e => {
+            e.preventDefault()
+
+            episodes.value = episodes.value.filter(episode => episode.server !== tapActiveServer.value)
+
+            const index = servers.value.indexOf(tapActiveServer.value)
+
+            servers.value.splice(index, 1)
+
+            if (servers.value.length > 0) tapActiveServer.value = servers.value[0]
+            else tapActiveServer.value = null
+        }
+
+        const addEpisode = () => {
+            episodes.value.push({
+                name: '',
+                server: tapActiveServer.value,
+                type: 'Embed',
+                link: ''
+            })
+        }
+
+        const deleteEpisode = i => {
+            episodes.value.splice(i, 1)
+        }
+
         return {
             tapActive,
             loading,
@@ -401,10 +551,18 @@ export default defineComponent({
             filePoster,
             posterUrl,
             ...toRefs(movie),
+            tapActiveServer,
+            server_name,
+            servers,
+            episodes,
             handleFileThumbnail,
             handleFilePoster,
             edit,
             cancel,
+            addServer,
+            deleteServer,
+            addEpisode,
+            deleteEpisode,
             editor: ClassicEditor,
             editorConfig: {}
         }
@@ -417,6 +575,7 @@ export default defineComponent({
 
             const [movie, categories, regions] = await Promise.all([getMovie(id), getAllCategory(), getAllRegion()])
 
+            console.log(movie)
             if (categories && categories.success) this.categories = categories.categories
             if (regions && regions.success) this.regions = regions.regions
             if (movie && movie.success) {
@@ -451,6 +610,9 @@ export default defineComponent({
                 this.is_recommended = Boolean(movie.movie.is_recommended)
                 this.is_copyright = Boolean(movie.movie.is_copyright)
                 this.is_sensitive_content = Boolean(movie.movie.is_sensitive_content)
+
+                this.servers = [...movie.servers]
+                this.episodes = [...movie.movie.episodes]
             }
 
             this.loading = false

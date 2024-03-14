@@ -276,14 +276,14 @@
                         <a v-if="servers.length > 0" role="tab" class="tab text-gray-400 opacity-60 flex-1"></a>
                     </div>
                     <div v-if="servers.length > 0" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
-                        <div class="overflow-x-auto mb-10">
+                        <div class="overflow-x-auto overflow-y-auto max-h-[500px] mb-10">
                             <table class="table">
                                 <thead>
                                     <tr class="border-b-gray-300">
                                         <th class="text-sm opacity-80">Name</th>
                                         <th class="text-sm opacity-80">Type</th>
                                         <th class="text-sm opacity-80">Link tập phim</th>
-                                        <th class="text-sm opacity-80">Action</th>
+                                        <th class="text-sm opacity-80">Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -451,8 +451,7 @@ export default defineComponent({
             year: '',
             type: '',
             status: '',
-            episode_server_count: 0,
-            episode_data_count: 0,
+            episodes: [],
             view_total: 0,
             view_day: 0,
             view_week: 0,
@@ -490,6 +489,8 @@ export default defineComponent({
         const create = async e => {
             e.preventDefault()
             loadingSubmit.value = true
+
+            movie.episodes = episodes.value
 
             const data = await createMovie(movie)
 
@@ -530,7 +531,7 @@ export default defineComponent({
             episodes.value.push({
                 name: '',
                 server: tapActiveServer.value,
-                type: '',
+                type: 'Embed',
                 link: ''
             })
         }

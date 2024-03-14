@@ -147,14 +147,14 @@
                                                 </div>
                                                 <div class="flex items-start justify-start">
                                                     <div class="w-[35%] text-lg font-extrabold">Thể loại:</div>
-                                                    <div class="flex-1 grid grid-cols-3 gap-3">
-                                                        <span class="bg-gray-200 px-2 rounded text-center" v-for="category in movie.categories" :key="category.id">{{ category.name }}</span>
+                                                    <div class="flex-1 grid grid-cols-3 gap-2">
+                                                        <span class="bg-gray-200 px-2 rounded text-center text-sm" v-for="category in movie.categories" :key="category.id">{{ category.name }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-start justify-start">
                                                     <div class="w-[35%] text-lg font-extrabold">Khu vực:</div>
-                                                    <div class="flex-1 grid grid-cols-3 gap-3">
-                                                        <span class="bg-gray-200 px-2 rounded text-center" v-for="region in movie.regions" :key="region.id">{{ region.name }}</span>
+                                                    <div class="flex-1 grid grid-cols-3 gap-2">
+                                                        <span class="bg-gray-200 px-2 rounded text-center text-sm" v-for="region in movie.regions" :key="region.id">{{ region.name }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="modal-action">

@@ -13,7 +13,7 @@ class Episode extends Model
 
     public $table = 'episodes';
 
-    protected $fillable = [];
+    protected $fillable = ['movie_id', 'server', 'name', 'slug', 'type', 'link'];
 
     public function getSlugOptions(): SlugOptions
     {
