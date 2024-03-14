@@ -85,7 +85,6 @@ class MovieController extends Controller
         $movie['is_show_in_theater'] = $request['is_show_in_theater'];
         $movie['is_recommended'] = $request['is_recommended'];
         $movie['is_copyright'] = $request['is_copyright'];
-        $movie['episode_data_count'] = $request['episode_data_count'];
         $movie['view_total'] = $request['view_total'];
         $movie['view_day'] = $request['view_day'];
         $movie['view_week'] = $request['view_week'];
@@ -220,7 +219,7 @@ class MovieController extends Controller
 
         if (!$movie) return response()->json(['success' => false, 'message' => 'Movie not found'], 404);
 
-        $servers = $movie->episodes->pluck('server')->unique()->toArray();
+        $servers = $movie->episodes->pluck('server')->unique()->values()->toArray();
 
         return response()->json(['success' => true, 'movie' => $movie, 'servers' => $servers], 200);
     }

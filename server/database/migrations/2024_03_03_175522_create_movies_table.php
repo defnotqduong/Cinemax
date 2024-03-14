@@ -35,9 +35,6 @@ return new class extends Migration
             $table->boolean('is_copyright')->default(false);
             $table->boolean('is_sensitive_content')->default(false);
 
-            $table->integer('episode_server_count')->default(0);
-            $table->integer('episode_data_count')->default(0);
-
             $table->integer('view_total')->default(0);
             $table->integer('view_day')->default(0);
             $table->integer('view_week')->default(0);

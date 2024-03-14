@@ -611,8 +611,8 @@ export default defineComponent({
                 this.is_copyright = Boolean(movie.movie.is_copyright)
                 this.is_sensitive_content = Boolean(movie.movie.is_sensitive_content)
 
-                this.servers = [...movie.servers]
-                this.episodes = [...movie.movie.episodes]
+                this.servers = movie.servers
+                this.episodes = movie.movie.episodes
             }
 
             this.loading = false
