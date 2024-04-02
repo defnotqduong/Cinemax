@@ -4,34 +4,22 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: '#f1b722',
-                red: '#ff0000',
-                purple: '#A958A5',
-                secondary: '#b7b7b7',
-                'primary-alpha': '#e53637',
-                comment: '#1d1e39',
-                badge: 'rgba(255, 255, 255, 0.2)',
-                'badge-primary': '#a21d0a'
+                primary: '#FF961B'
             },
-            backgroundColor: {
-                primary: '#f1b722',
-                secondary: '#b7b7b7',
-                'primary-alpha': '#e53637',
-                overlay: 'rgba(15, 23, 42, 0.85)',
-                gray: '#3d3d3d',
-                badge: 'rgba(255, 255, 255, 0.2)',
-                'badge-primary': '#a21d0a',
-                comment: '#1d1e39',
-                ep: 'rgba(255, 255, 255, 0.2)'
+            borderColor: {
+                primary: '#FF961B'
             },
+            backgroundColor: { overlay: 'rgba(15, 23, 42, 0.6)' },
             backgroundImage: {
-                blur: 'linear-gradient(0deg,#011138,transparent)'
+                blur: 'linear-gradient(0deg,#0c152a,transparent)',
+                blurV2: 'linear-gradient(90deg, rgba(0, 0, 0, 0.85), transparent)',
+                blurV3: 'linear-gradient(0deg, rgba(0, 0, 0, 0.2), transparent)'
             },
             boxShadow: {}
         }
     },
     daisyui: {
-        themes: ['light', 'dark', 'night']
+        themes: ['night']
     },
     plugins: [require('daisyui')]
 }

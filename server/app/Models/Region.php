@@ -26,4 +26,9 @@ class Region extends Model
     {
         return $this->belongsToMany(Movie::class);
     }
+
+    public function getUrl()
+    {
+        return '/quoc-gia/' . $this->slug;
+    }
 }

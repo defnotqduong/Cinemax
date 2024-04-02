@@ -21,7 +21,7 @@
                                 />
                             </svg>
                         </li>
-                        <li>Thể loại</li>
+                        <li>Quốc gia</li>
                         <li>
                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none">
                                 <path
@@ -33,7 +33,7 @@
                                 />
                             </svg>
                         </li>
-                        <li class="text-secondary">{{ genre.title }}</li>
+                        <li class="text-secondary">{{ category.title }}</li>
                     </ul>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                             <h4
                                 class="text-3xl font-bold uppercase text-white pl-3 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
                             >
-                                {{ genre.title }}
+                                {{ category.title }}
                             </h4>
                             <!-- <div class="relative flex items-center justify-center gap-3 py-[2px]">
                                 Sắp xếp theo :
@@ -58,7 +58,7 @@
                         <div>
                             <div v-if="movies.length === 0" class="min-h-[30vh]"></div>
                             <div v-if="movies.length > 0">
-                                <div class="grid grid-cols-4 items-start justify-start gap-8">
+                                <div class="grid grid-cols-5 items-start justify-start gap-8">
                                     <div v-for="movie in movies" :key="movie.id">
                                         <MovieCard :movie="movie" />
                                     </div>
@@ -84,12 +84,12 @@ import Pagination from '../../components/Pagination/Pagination.vue'
 import MovieCard from '../../components/Movie/MovieCard.vue'
 import Error from '../../components/Error/Error.vue'
 
-import { getGenre } from '../../webServices/genreService'
-import { getMovieByCategory, getMovieByCountry, getMovieByGenre } from '../../webServices/movieService'
+import { getCategory } from '../../webServices/categoryService'
+import { getMovieByCategory } from '../../webServices/movieService'
 export default defineComponent({
     components: { MovieCard, Pagination, Error },
     setup() {
-        const genre = ref({
+        const category = ref({
             id: null,
             title: '',
             slug: ''
@@ -113,7 +113,7 @@ export default defineComponent({
         const error = ref(false)
 
         return {
-            genre,
+            category,
             meta,
             links,
             movies,
@@ -139,14 +139,14 @@ export default defineComponent({
             const slug = this.$route.params.slug
             const page = this.$route.query.page || 1
 
-            const [genreData] = await Promise.all([getGenre(slug)])
+            const [categoryData] = await Promise.all([getCategory(slug)])
 
-            if (genreData && genreData.success) {
-                this.genre.id = genreData.genre.id
-                this.genre.title = genreData.genre.title
-                this.genre.slug = genreData.genre.slug
+            if (categoryData && categoryData.success) {
+                this.category.id = categoryData.category.id
+                this.category.title = categoryData.category.title
+                this.category.slug = categoryData.category.slug
 
-                const data = await getMovieByGenre({ genre_id: this.genre.id, page: page })
+                const data = await getMovieByCategory({ category_id: this.category.id, page: page })
 
                 console.log(data)
 
@@ -168,7 +168,7 @@ export default defineComponent({
         },
 
         async getMoviesByPage(page) {
-            const data = await getMovieByGenre({ genre_id: this.genre.id, page: page })
+            const data = await getMovieByCategory({ category_id: this.category.id, page: page })
 
             if (data && data.success) {
                 this.movies = data.movies.data
@@ -183,7 +183,7 @@ export default defineComponent({
             }
         },
         async changePage(page) {
-            this.$router.push({ name: 'home-genre', query: { page: page || 1 } })
+            this.$router.push({ name: 'home-category', query: { page: page || 1 } })
         }
     },
     updated() {},

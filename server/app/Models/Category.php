@@ -26,4 +26,9 @@ class Category extends Model
     {
         return $this->belongsToMany(Movie::class);
     }
+
+    public function getUrl()
+    {
+        return '/the-loai/' . $this->slug;
+    }
 }

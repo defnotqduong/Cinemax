@@ -6,12 +6,17 @@ import App from './App.vue'
 import store from './stores'
 import router from './routes'
 
-import SwiperClass, { Pagination } from 'Swiper'
+import SwiperClass, { Pagination, Navigation, EffectFade, Controller, Thumbs, FreeMode } from 'swiper'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+
 import 'swiper/css'
 import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+import 'swiper/css/effect-fade'
+import 'swiper/css/thumbs'
+import 'swiper/css/free-mode'
 
-SwiperClass.use([Pagination])
+SwiperClass.use([Pagination, Navigation, EffectFade, Controller, Thumbs, FreeMode])
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)

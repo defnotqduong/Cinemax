@@ -13,20 +13,14 @@ const home = [
             },
             {
                 path: 'the-loai/:slug',
-                name: 'home-genre',
-                component: () => import('../pages/Home/Genre.vue'),
+                name: 'home-category',
+                component: () => import('../pages/Home/Category.vue'),
                 props: {}
             },
             {
-                path: 'danh-muc/:slug',
-                name: 'home-category',
-                component: () => import('../pages/Home/Category.vue'),
-                props: route => ({ categoryId: route.query.q })
-            },
-            {
                 path: 'quoc-gia/:slug',
-                name: 'home-country',
-                component: () => import('../pages/Home/Country.vue'),
+                name: 'home-region',
+                component: () => import('../pages/Home/Region.vue'),
                 props: {}
             },
             {

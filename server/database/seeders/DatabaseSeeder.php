@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CatalogSeeder::class,
             CategorySeeder::class,
-            RegionSeeder::class
+            RegionSeeder::class,
+            MenuSeeder::class
         ]);
     }
 }

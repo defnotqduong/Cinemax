@@ -1,9 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController as GuestCategoryController;
+use App\Http\Controllers\MenuController as GuestMenuController;
+use App\Http\Controllers\MovieController as GuestMovieController;
+use App\Http\Controllers\RegionController as GuestRegionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,9 +37,36 @@ Route::group(['prefix' => 'auth', 'middleware' => 'api'], function () {
 });
 
 
+// Guest
+
+Route::group([], function () {
+    Route::group(['prefix' => 'category'], function () {
+        Route::get('', [GuestCategoryController::class, 'getAllCategory']);
+    });
+
+    Route::group(['prefix' => 'region'], function () {
+        Route::get('', [GuestRegionController::class, 'getAllRegion']);
+    });
+
+    Route::group(['prefix' => 'menu'], function () {
+        Route::get('', [GuestMenuController::class, 'getMenu']);
+    });
+
+    Route::group(['prefix' => 'movie'], function () {
+        Route::get('/forSlide', [GuestMovieController::class, 'getMovieForSlide']);
+        Route::get('/findByCatalog', [GuestMovieController::class, 'getMoviesByCatalog']);
+    });
+});
+
+
 // Admin
 
 Route::group(['prefix' => 'cms'], function () {
+
+    Route::group(['prefix' => 'menu'], function () {
+        Route::get('', [MenuController::class, 'getMenu']);
+    });
+
     Route::group(['prefix' => 'category'], function () {
         Route::get('', [CategoryController::class, 'getAllCategory']);
         Route::post('', [CategoryController::class, 'createCategory']);

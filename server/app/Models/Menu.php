@@ -44,7 +44,7 @@ class Menu extends Model
             }
         }
 
-        return $menu;
+        return $menu->values();
     }
 
     public function url()

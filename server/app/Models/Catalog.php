@@ -11,7 +11,7 @@ class Catalog extends Model
 {
     use HasFactory, HasSlug;
 
-    public $table = 'categories';
+    public $table = 'catalogs';
 
     protected $fillable = [];
 

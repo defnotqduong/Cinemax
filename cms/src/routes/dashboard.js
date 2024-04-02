@@ -53,6 +53,11 @@ const dashboard = [
                 path: 'region/:id/edit',
                 name: 'dashboard-region-edit',
                 component: () => import('../pages/Dashboard/Region/EditRegion.vue')
+            },
+            {
+                path: 'menu',
+                name: 'dashboard-menu',
+                component: () => import('../pages/Dashboard/Menu/Menu.vue')
             }
         ]
     }

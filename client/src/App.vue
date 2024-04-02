@@ -18,10 +18,8 @@ import Footer from './components/Footer/Footer.vue'
 
 import { useHomeStore } from './stores/modules/homeStore'
 
-import { getAllCategory } from './webServices/categoryService'
-import { getAllGenre } from './webServices/genreService'
-import { getAllCountry } from './webServices/countryService'
-import { getMovieByCategory, getAllMovie } from './webServices/movieService'
+import { getMenu } from './webServices/menuService'
+import { getMovieForHeroSlide, getMovieByCatalog } from './webServices/movieService'
 
 export default defineComponent({
     components: { Header, Footer },
@@ -38,38 +36,13 @@ export default defineComponent({
     methods: {
         async loadData() {
             this.loading = true
-            const [categoryData, genreData, countryData] = await Promise.all([getAllCategory(), getAllGenre(), getAllCountry()])
+            const [menuData, heroSlideData, movieByCatalogData] = await Promise.all([getMenu(), getMovieForHeroSlide(), getMovieByCatalog()])
 
-            if (categoryData && categoryData.success) this.homeStore.categories = categoryData.categories
-            if (genreData && genreData.success) this.homeStore.genres = genreData.genres
-            if (countryData && countryData.success) this.homeStore.countries = countryData.countries
-
-            const [seriesMovies, singleMovies, cartoonMovies, suggetMovies, newMovies] = await Promise.all([
-                getMovieByCategory({ category_id: this.findCategoryIdBySlug('phim-bo'), page: 1, limit: 12 }),
-                getMovieByCategory({ category_id: this.findCategoryIdBySlug('phim-le'), page: 1, limit: 12 }),
-                getMovieByCategory({ category_id: this.findCategoryIdBySlug('phim-hoat-hinh'), page: 1, limit: 12 }),
-                getMovieByCategory({ category_id: this.findCategoryIdBySlug('phim-bo'), page: 1, limit: 5 }),
-                getAllMovie({ page: 1, limit: 10 })
-            ])
-
-            if (seriesMovies && seriesMovies.success) this.homeStore.seriesMovies = seriesMovies.movies.data
-            if (singleMovies && singleMovies.success) this.homeStore.singleMovies = singleMovies.movies.data
-            if (cartoonMovies && cartoonMovies.success) this.homeStore.cartoonMovies = cartoonMovies.movies.data
-            if (suggetMovies && suggetMovies.success) this.homeStore.suggetMovies = suggetMovies.movies.data
-            if (newMovies && newMovies.success) this.homeStore.newMovies = newMovies.movies.data
+            if (menuData && menuData.success) this.homeStore.menu = menuData.menu
+            if (heroSlideData && heroSlideData.success) this.homeStore.heroSlide = heroSlideData.movies
+            if (movieByCatalogData && movieByCatalogData.success) this.homeStore.movieByCatalog = movieByCatalogData.result
 
             this.loading = false
-        },
-        findCategoryIdBySlug(slug) {
-            let categoryId = null
-
-            this.homeStore.categories.forEach(category => {
-                if (category.slug === slug) {
-                    categoryId = category.id
-                }
-            })
-
-            return categoryId
         }
     },
     mounted() {

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique()->index();
+            $table->string('type');
             $table->integer('paginate')->default(20);
             $table->longText('des')->nullable();
             $table->timestamps();

@@ -102,6 +102,13 @@
     font-style: italic;
 }
 
+@font-face {
+    font-family: 'Moonkids';
+    src: url('./assets/fonts/MoonkidspersonaluseExtrabold.otf') format('opentype');
+    font-weight: 800;
+    font-style: italic;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -139,3 +146,9 @@ html *::-webkit-scrollbar-track {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.dropdown-content:focus-within,
+.dropdown-content:focus {
+    visibility: hidden !important;
+    opacity: 0 !important;
+}

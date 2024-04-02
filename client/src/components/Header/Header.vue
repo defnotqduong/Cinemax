@@ -7,142 +7,97 @@
         class="fixed top-0 left-0 z-[9999] w-full transition-all duration-[400ms]"
     >
         <div class="navbar h-full justify-between max-w-[1220px] mx-auto py-0 font-medium text-white">
-            <div class="navbar-start w-auto mr-10">
+            <div class="navbar-start w-auto mr-20">
                 <div class="dropdown">
                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
                         </svg>
                     </div>
-                    <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                        <li>
-                            <a>Home</a>
-                        </li>
-                        <li>
-                            <a>Thể loại</a>
-                            <ul class="p-2">
-                                <li><a>Anime</a></li>
-                                <li><a>Kinh dị</a></li>
-                                <li><a>Viễn tưởng khoa học</a></li>
-                            </ul>
-                        </li>
-                        <li><a>Quốc gia</a></li>
-                        <li><a>Sắp chiếu</a></li>
-                    </ul>
                 </div>
-                <router-link :to="{ name: 'home-homepage' }" class="w-[160px]"
-                    ><img src="../../assets/images/logo.png" alt="Logo" class="object-contain object-center w-full"
-                /></router-link>
+                <router-link :to="{ name: 'home-homepage' }" class="w-[160px]">
+                    <div class="uppercase text-3xl" style="font-family: 'Moonkids', sans-serif">
+                        <span class="text-white">CINE</span><span class="text-primary">MAX</span>
+                    </div>
+                </router-link>
             </div>
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu menu-horizontal px-1 gap-1 text-base font-semibold">
-                    <li>
-                        <router-link :to="{ name: 'home-homepage' }" class="hover:bg-transparent hover:text-primary">Home</router-link>
-                    </li>
-                    <li>
-                        <div class="dropdown dropdown-hover dropdown-bottom group hover:bg-transparent hover:text-primary">
-                            <div tabindex="0" role="button">
-                                Thể loại
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="18px"
-                                    height="18px"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    class="inline-block group-hover:rotate-180 transition-all duration-[350ms]"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        clip-rule="evenodd"
-                                        d="M4.29289 8.29289C4.68342 7.90237 5.31658 7.90237 5.70711 8.29289L12 14.5858L18.2929 8.29289C18.6834 7.90237 19.3166 7.90237 19.7071 8.29289C20.0976 8.68342 20.0976 9.31658 19.7071 9.70711L12.7071 16.7071C12.3166 17.0976 11.6834 17.0976 11.2929 16.7071L4.29289 9.70711C3.90237 9.31658 3.90237 8.68342 4.29289 8.29289Z"
-                                        fill="currentColor"
-                                    />
-                                </svg>
-                            </div>
-                            <ul
-                                tabindex="0"
-                                class="dropdown-content grid grid-cols-3 z-[1] menu p-2 shadow bg-base-200 rounded-box w-[460px] max-h-[200px] overflow-y-auto before:w-0 text-white"
-                            >
-                                <li v-for="genre in homeStore.genres" :key="genre.id">
-                                    <router-link
-                                        :to="{
-                                            name: 'home-genre',
-                                            params: { slug: genre.slug }
-                                        }"
-                                        class="hover:bg-transparent hover:text-primary"
-                                    >
-                                        <p class="line-clamp-1">{{ genre.title }}</p></router-link
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="dropdown dropdown-hover dropdown-bottom group hover:bg-transparent hover:text-primary">
-                            <div tabindex="0" role="button">
-                                Quốc gia
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="18px"
-                                    height="18px"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    class="inline-block group-hover:rotate-180 transition-all duration-[350ms]"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        clip-rule="evenodd"
-                                        d="M4.29289 8.29289C4.68342 7.90237 5.31658 7.90237 5.70711 8.29289L12 14.5858L18.2929 8.29289C18.6834 7.90237 19.3166 7.90237 19.7071 8.29289C20.0976 8.68342 20.0976 9.31658 19.7071 9.70711L12.7071 16.7071C12.3166 17.0976 11.6834 17.0976 11.2929 16.7071L4.29289 9.70711C3.90237 9.31658 3.90237 8.68342 4.29289 8.29289Z"
-                                        fill="currentColor"
-                                    />
-                                </svg>
-                            </div>
-                            <ul
-                                tabindex="0"
-                                class="dropdown-content grid grid-cols-3 z-[1] menu p-2 shadow bg-base-200 rounded-box w-[460px] max-h-[200px] overflow-y-auto before:w-0 text-white"
-                            >
-                                <li v-for="country in homeStore.countries" :key="country.id">
-                                    <router-link
-                                        :to="{
-                                            name: 'home-country',
-                                            params: { slug: country.slug }
-                                        }"
-                                        class="hover:bg-transparent hover:text-primary"
-                                    >
-                                        <p class="line-clamp-1">{{ country.title }}</p></router-link
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li v-for="category in filteredCategories" :key="category.id">
+                    <li v-for="item in homeStore.menu" :key="item.id">
                         <router-link
-                            :to="{
-                                name: 'home-category',
-                                params: { slug: category.slug }
-                            }"
-                            class="hover:bg-transparent hover:text-primary"
+                            :to="item.link"
+                            v-if="item.children.length === 0"
+                            class="hover:bg-transparent hover:text-primary focus:bg-transparent focus-within:bg-transparent focus:text-white focus-within:text-white"
+                            >{{ item.name }}</router-link
                         >
-                            <p class="line-clamp-1">{{ category.title }}</p></router-link
-                        >
+                        <div v-if="item.children.length > 0" class="dropdown dropdown-hover dropdown-bottom group hover:bg-transparent hover:text-primary">
+                            <div tabindex="0" role="button">
+                                {{ item.name }}
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18px"
+                                    height="18px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    class="inline-block group-hover:rotate-180 transition-all duration-[350ms]"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M4.29289 8.29289C4.68342 7.90237 5.31658 7.90237 5.70711 8.29289L12 14.5858L18.2929 8.29289C18.6834 7.90237 19.3166 7.90237 19.7071 8.29289C20.0976 8.68342 20.0976 9.31658 19.7071 9.70711L12.7071 16.7071C12.3166 17.0976 11.6834 17.0976 11.2929 16.7071L4.29289 9.70711C3.90237 9.31658 3.90237 8.68342 4.29289 8.29289Z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                            </div>
+                            <ul
+                                tabindex="0"
+                                class="dropdown-content grid grid-cols-3 z-[1] menu p-2 shadow bg-base-200 rounded-box w-[460px] max-h-[200px] overflow-y-auto before:w-0 text-white"
+                            >
+                                <li v-for="subItem in item.children" :key="subItem.id">
+                                    <router-link :to="subItem.link" class="hover:bg-transparent hover:text-primary">
+                                        <p class="line-clamp-1">{{ subItem.name }}</p></router-link
+                                    >
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
-            <div class="navbar-end flex items-center justify-end gap-5">
-                <label class="input bg-transparent input-bordered h-10 flex items-center gap-2 text-sm">
+            <div class="navbar-end flex items-center justify-end gap-4">
+                <!-- <label class="input input-bordered rounded-full bg-transparent text-white h-10 flex items-center gap-2">
                     <input type="text" class="grow" placeholder="Tìm kiếm" />
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5">
                         <path
                             fill-rule="evenodd"
                             d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
                             clip-rule="evenodd"
                         />
                     </svg>
+                </label> -->
+                <label class="relative flex items-center justify-center h-10 transition-all duration-[400ms] ease" :class="isChecked ? 'w-[280px]' : 'w-10'">
+                    <input type="checkbox" v-model="isChecked" class="hidden" />
+                    <input
+                        type="text"
+                        class="bg-white rounded-full focus:border-none focus:outline-none absolute w-full h-full text-black transition-all duration-[400ms] ease"
+                        :class="isChecked ? 'pl-4 pr-12' : 'p-0'"
+                        placeholder="Tìm kiếm"
+                    />
+                    <div
+                        class="w-10 h-10 absolute top-0 right-0 bg-primary text-white flex items-center justify-center cursor-pointer"
+                        :class="isChecked ? 'rounded-r-full' : 'rounded-full'"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5">
+                            <path
+                                fill-rule="evenodd"
+                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </div>
                 </label>
                 <!-- <router-link
                     :to="{ name: 'auth-login' }"
-                    class="h-10 px-3 flex items-center justify-center border-[1px] border-primary rounded-lg text-primary hover:text-white hover:bg-primary transition-all duration-[400ms]"
+                    class="h-10 px-4 flex items-center justify-center rounded-full text-white text-sm uppercase bg-primary"
                     >Đăng nhập</router-link
                 > -->
             </div>
@@ -160,7 +115,9 @@ export default defineComponent({
 
         const isScrolled = ref(false)
 
-        return { isScrolled, homeStore }
+        const isChecked = ref(false)
+
+        return { isScrolled, isChecked, homeStore }
     },
     mounted() {
         window.addEventListener('scroll', this.shrinkHeader)
@@ -177,11 +134,7 @@ export default defineComponent({
             }
         }
     },
-    computed: {
-        filteredCategories() {
-            return this.homeStore.categories.filter(category => category.status === 1)
-        }
-    }
+    computed: {}
 })
 </script>
 

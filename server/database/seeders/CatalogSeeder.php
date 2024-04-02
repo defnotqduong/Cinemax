@@ -17,14 +17,23 @@ class CatalogSeeder extends Seeder
             [
                 'name' => 'Phim lẻ',
                 'slug' => 'phim-le',
-                'paginate' => 20,
-                'des' => 'Des Phim lẻ',
+                'type' => 'single',
+                'paginate' => 12,
+                'des' => 'Des Phim lẻ mới cập nhật',
             ],
             [
                 'name' => 'Phim bộ',
                 'slug' => 'phim-bo',
-                'paginate' => 20,
-                'des' => 'Des Phim bộ',
+                'type' => 'series',
+                'paginate' => 12,
+                'des' => 'Des Phim bộ mới cập nhật',
+            ],
+            [
+                'name' => 'Phim hoạt hình mới',
+                'slug' => 'phim-hoat-hinh',
+                'type' => 'cartoon',
+                'paginate' => 12,
+                'des' => 'Des Phim hoạt hình mới cập nhật',
             ],
         ]);
     }
