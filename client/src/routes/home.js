@@ -24,7 +24,7 @@ const home = [
                 props: {}
             },
             {
-                path: 'chi-tiet/:slug',
+                path: 'phim/:slug',
                 name: 'home-details',
                 component: () => import('../pages/Home/MovieDetails.vue'),
                 props: {}

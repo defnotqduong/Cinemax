@@ -3,34 +3,45 @@
         <Swiper
             :loop="true"
             :spaceBetween="20"
+            :autoplay="{ delay: 10000, disableOnInteraction: false }"
+            :speed="800"
+            :effect="'fade'"
             :thumbs="{ swiper: thumbsSwiper }"
-            :autoplay="{ delay: 3000, disableOnInteraction: false }"
-            :speed="1000"
             :modules="modules"
             class="top-swiper"
         >
             <SwiperSlide v-for="movie in homeStore.heroSlide" :key="movie.id">
-                <div class="relative h-[700px]">
+                <div class="relative h-[740px]">
                     <div
                         class="bg-cover bg-center bg-no-repeat absolute top-0 left-0 w-full h-full z-[-1] after:absolute after:content after:top-0 after:left-0 after:w-full after:h-full after:bg-blurV3 before:absolute before:content before:bottom-0 before:left-0 before:w-full before:h-full before:bg-blurV2"
                         :style="{ backgroundImage: `url('${movie.poster_url}')` }"
                     ></div>
                     <div class="max-w-[1220px] mx-auto py-[140px]">
                         <div class="flex items-center justify-start">
-                            <div class="w-[56%] pl-10">
-                                <h3 class="text-[60px] font-extrabold text-white line-clamp-2 leading-[1.1]">{{ movie.name }}</h3>
-                                <div class="mt-2 text-white font-bold line-clamp-3" v-html="movie.content"></div>
+                            <div class="w-[50%] pl-10">
+                                <h3 class="text-5xl font-extrabold text-white line-clamp-2 leading-[1.1]">{{ movie.name }}</h3>
+                                <div class="mt-2 text-gray-300 font-semibold line-clamp-3 opacity-80" v-html="movie.content"></div>
                                 <div class="mt-8 flex items-center justify-start gap-3">
-                                    <a>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-details',
+                                            params: { slug: movie.slug }
+                                        }"
+                                    >
                                         <button
-                                            class="px-8 py-2 bg-transparent rounded-full text-primary text-xl font-bold border-2 border-primary hover:bg-primary hover:text-white transiton-all duration-[300ms]"
+                                            class="px-8 py-[10px] rounded-full text-white text-xl font-bold bg-base-300 hover:bg-base-200 transiton-all duration-[300ms]"
                                         >
                                             <span>Trailer</span>
                                         </button>
-                                    </a>
-                                    <a>
+                                    </router-link>
+                                    <router-link
+                                        :to="{
+                                            name: 'home-details',
+                                            params: { slug: movie.slug }
+                                        }"
+                                    >
                                         <button
-                                            class="px-6 py-2 flex items-center justify-center gap-2 bg-primary rounded-full text-white text-xl font-bold border-2 border-primary hover:bg-primary hover:text-white transiton-all duration-[300ms]"
+                                            class="px-6 py-[10px] flex items-center justify-center gap-2 bg-primary rounded-full text-white text-xl font-bold hover:bg-primaryHover transiton-all duration-[300ms]"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
                                                 <path
@@ -42,7 +53,7 @@
                                             </svg>
                                             <span>Xem phim</span>
                                         </button>
-                                    </a>
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
@@ -51,20 +62,21 @@
             </SwiperSlide>
         </Swiper>
 
-        <div class="absolute left-0 bottom-8 px-10" :style="{ width: thumbsContainerWidth + '%' }">
+        <div class="absolute left-0 bottom-10 px-10" :style="{ width: thumbsContainerWidth + '%' }">
             <Swiper
                 @swiper="setThumbsSwiper"
-                :loop="true"
-                :spaceBetween="12"
-                :slidesPerView="heroSlideLength > 8 ? 8 : heroSlideLength"
+                :spaceBetween="30"
+                :slidesPerView="heroSlideLength > 7 ? 7 : heroSlideLength"
                 :freeMode="true"
                 :watchSlidesProgress="true"
                 :modules="modules"
                 class="thumbs-swiper"
             >
                 <SwiperSlide v-for="movie in homeStore.heroSlide" :key="movie.id">
-                    <div class="slide-item">
-                        <img :src="movie.thumb_url" alt="Thumb" />
+                    <div class="relative h-[180px]">
+                        <div class="slide-item">
+                            <img :src="movie.thumb_url" alt="Thumb" />
+                        </div>
                     </div>
                 </SwiperSlide>
             </Swiper>
@@ -90,7 +102,7 @@ export default defineComponent({
 
         const heroSlideLength = homeStore.heroSlide.length
 
-        const thumbsContainerWidth = heroSlideLength > 8 ? 100 : (100 / 8) * heroSlideLength
+        const thumbsContainerWidth = heroSlideLength > 7 ? 100 : (100 / 7) * heroSlideLength
 
         const thumbsSwiper = ref(null)
 
@@ -111,12 +123,26 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.thumbs-swiper {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+
+.thumbs-swiper .swiper-wrapper {
+    display: flex !important;
+    align-items: center !important;
+}
 .thumbs-swiper .slide-item {
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    height: 180px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     cursor: pointer;
+}
+
+.thumbs-swiper .swiper-slide {
+    padding: 20px 0;
 }
 
 .thumbs-swiper .slide-item img {
@@ -127,6 +153,12 @@ export default defineComponent({
     height: 100%;
     object-fit: cover;
     object-position: center;
+    border-radius: 8px;
+}
+
+.thumbs-swiper .swiper-slide-thumb-active .slide-item {
+    scale: 1.2;
+    transition: all 350ms ease;
 }
 
 .thumbs-swiper .slide-item::after {
@@ -137,9 +169,18 @@ export default defineComponent({
     width: 100%;
     height: 100%;
     background-color: rgba(15, 23, 42, 0.6);
+    border-radius: 8px;
 }
 
-.swiper-slide-thumb-active .slide-item::after {
+.thumbs-swiper .swiper-slide-thumb-active .slide-item::after {
     background-color: transparent;
 }
+
+/* .thumbs-swiper .slide-item img {
+    filter: grayscale(1);
+}
+
+.thumbs-swiper .swiper-slide-thumb-active .slide-item img {
+    filter: grayscale(0);
+} */
 </style>

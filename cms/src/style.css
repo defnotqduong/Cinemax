@@ -104,6 +104,13 @@
     font-style: italic;
 }
 
+@font-face {
+    font-family: 'Moonkids';
+    src: url('./assets/fonts/MoonkidspersonaluseExtrabold.otf') format('opentype');
+    font-weight: 800;
+    font-style: italic;
+}
+
 * {
     margin: 0;
     padding: 0;

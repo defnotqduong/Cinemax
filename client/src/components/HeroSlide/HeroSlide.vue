@@ -27,13 +27,18 @@
                                         <span>Trailer</span>
                                     </button>
                                 </a>
-                                <a>
+                                <router-link
+                                    :to="{
+                                        name: 'home-details',
+                                        params: { slug: movie.slug }
+                                    }"
+                                >
                                     <button
                                         class="px-8 py-2 bg-primary rounded-full text-white text-xl font-bold border-2 border-primary hover:bg-primary hover:text-white transiton-all duration-[300ms]"
                                     >
                                         <span>Xem phim</span>
                                     </button>
-                                </a>
+                                </router-link>
                             </div>
                         </div>
                         <div class="w-[360px] h-[460px] rounded-3xl overflow-hidden shadow mr-16">

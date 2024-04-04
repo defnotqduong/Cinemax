@@ -6,9 +6,9 @@ import App from './App.vue'
 import store from './stores'
 import router from './routes'
 
-import SwiperClass, { Pagination, Navigation, EffectFade, Controller, Thumbs, FreeMode } from 'swiper'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 
+import SwiperClass, { Pagination, Navigation, EffectFade, Controller, Thumbs, FreeMode } from 'Swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'

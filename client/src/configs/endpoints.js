@@ -44,6 +44,18 @@ export default {
     GET_MOVIE_BY_CATALOG_API: {
         method: 'get',
         url: '/movie/findByCatalog'
+    },
+    GET_MOVIE_BY_CATEGORY_API: {
+        method: 'get',
+        url: '/movie/findByCategory'
+    },
+    GET_MOVIE_BY_REGION_API: {
+        method: 'get',
+        url: '/movie/findByRegion'
+    },
+    GET_MOVIE_API: {
+        method: 'get',
+        url: '/movie'
     }
 
     // episode

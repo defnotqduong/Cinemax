@@ -21,4 +21,20 @@ class Catalog extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    public function getTypeLabel()
+    {
+        switch ($this->type) {
+            case 'series':
+                return 'Phim bộ';
+                break;
+            case 'single':
+                return 'Phim lẻ';
+                break;
+            case 'cartoon':
+                return 'Phim hoạt hình';
+            default:
+                return;
+        }
+    }
 }

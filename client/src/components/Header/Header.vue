@@ -74,16 +74,16 @@
                         />
                     </svg>
                 </label> -->
-                <label class="relative flex items-center justify-center h-10 transition-all duration-[400ms] ease" :class="isChecked ? 'w-[280px]' : 'w-10'">
+                <label class="relative flex items-center justify-center h-9 transition-all duration-[400ms] ease" :class="isChecked ? 'w-[280px]' : 'w-9'">
                     <input type="checkbox" v-model="isChecked" class="hidden" />
                     <input
                         type="text"
-                        class="bg-white rounded-full focus:border-none focus:outline-none absolute w-full h-full text-black transition-all duration-[400ms] ease"
+                        class="bg-white rounded-full focus:border-none focus:outline-none absolute w-full h-full text-black placeholder:text-sm transition-all duration-[400ms] ease"
                         :class="isChecked ? 'pl-4 pr-12' : 'p-0'"
                         placeholder="Tìm kiếm"
                     />
                     <div
-                        class="w-10 h-10 absolute top-0 right-0 bg-primary text-white flex items-center justify-center cursor-pointer"
+                        class="w-9 h-9 absolute top-0 right-0 bg-primary text-white flex items-center justify-center cursor-pointer border-[1px] border-primary"
                         :class="isChecked ? 'rounded-r-full' : 'rounded-full'"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5">

@@ -55,6 +55,9 @@ Route::group([], function () {
     Route::group(['prefix' => 'movie'], function () {
         Route::get('/forSlide', [GuestMovieController::class, 'getMovieForSlide']);
         Route::get('/findByCatalog', [GuestMovieController::class, 'getMoviesByCatalog']);
+        Route::get('/findByCategory', [GuestMovieController::class, 'getMovieByCategory']);
+        Route::get('/findByRegion', [GuestMovieController::class, 'getMovieByRegion']);
+        Route::get('/{slug}', [GuestMovieController::class, 'getMovie']);
     });
 });
 

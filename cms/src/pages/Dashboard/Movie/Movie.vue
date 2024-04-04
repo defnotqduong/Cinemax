@@ -46,7 +46,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="movie in movies" :key="movie.id" class="hover:bg-[rgba(124,105,239,0.1)] border-none">
-                            <td>
+                            <td class="w-[50%]">
                                 <div class="flex flex-col items-start justify-start">
                                     <div class="text-[15px]">
                                         <span class="font-semibold text-primary">{{ movie.name }}</span> <span class="text-green">[{{ movie.year }}]</span>

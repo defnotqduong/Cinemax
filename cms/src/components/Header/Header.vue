@@ -1,8 +1,6 @@
 <template>
     <div class="navbar py-3">
-        <div class="flex-1">
-            <router-link :to="{ name: 'dashboard-homepage' }" class="text-xl font-extrabold px-4">Movie</router-link>
-        </div>
+        <div class="flex-1"></div>
         <div class="flex-none">
             <div class="dropdown dropdown-end px-4">
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">

@@ -27,7 +27,7 @@
         >
             {{ meta.current_page - 1 }}
         </button>
-        <button class="w-12 h-12 border-[1px] border-white text-white rounded-full hover:text-white transition-all duration-[400ms]">
+        <button class="w-12 h-12 border-[1px] btn-disabled border-white text-white rounded-full hover:text-white transition-all duration-[400ms]">
             {{ meta.current_page }}
         </button>
         <button
