@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CrawlerController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\MovieTypeController;
@@ -102,5 +103,9 @@ Route::group(['prefix' => 'cms'], function () {
     });
 
     Route::group(['prefix' => 'episode'], function () {
+    });
+
+    Route::group(['prefix' => 'crawler'], function () {
+        Route::post('/fetch', [CrawlerController::class, 'fetch']);
     });
 });

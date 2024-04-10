@@ -11,7 +11,7 @@
             <div v-if="loading" class="flex items-center justify-center min-h-[30vh]">
                 <span class="loading loading-spinner text-primary"></span>
             </div>
-            <div v-if="!loading" class="w-[75%] mt-5 text-[15px]">
+            <div v-if="!loading && !isCrawling" class="w-[75%] mt-5 text-[15px]">
                 <div class="py-10 px-6 border-[1px] border-gray-300 rounded bg-white">
                     <div class="mb-4">
                         <h6 class="mb-2 text-gray-700">Link crawler phim</h6>
@@ -173,46 +173,51 @@
                                 <h6 class="mb-2 text-gray-700">Từ page</h6>
                                 <input
                                     type="text"
-                                    id="name"
-                                    placeholder="1"
-                                    class="input rounded-md border-gray-300 outline-none bg-white h-10 w-[120px] focus:outline-none focus:border-gray-500 placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                    v-model="fromPage"
+                                    placeholder=""
+                                    class="input rounded-md text-sm border-gray-300 outline-none bg-white h-10 focus:outline-none focus:border-gray-500 placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
                                 />
                             </div>
                             <div>
                                 <h6 class="mb-2 text-gray-700">Tới page</h6>
                                 <input
                                     type="text"
-                                    id="name"
-                                    placeholder="10"
-                                    class="input rounded-md border-gray-300 outline-none bg-white h-10 w-[120px] focus:outline-none focus:border-gray-500 placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                    v-model="toPage"
+                                    placeholder=""
+                                    class="input rounded-md text-sm border-gray-300 outline-none bg-white h-10 focus:outline-none focus:border-gray-500 placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
                                 />
                             </div>
-                            <div>
-                                <button class="btn h-10 min-h-10 px-4 rounded bg-green hover:bg-green hover:opacity-80 text-white text-sm">Lấy danh sách</button>
-                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button @click.prevent="fetchData" class="btn h-10 min-h-10 px-4 rounded bg-green hover:bg-green hover:opacity-80 text-white text-sm">
+                                <span v-if="!loadingSubmit">Lấy danh sách</span>
+                                <div v-if="loadingSubmit" class="flex items-center justify-center gap-2">
+                                    <span class="loading loading-spinner text-white text-sm"></span>
+                                    Đang tải
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="mt-2 flex items-center justify-start gap-3">
-                    <button @click="create" class="btn h-10 min-h-10 px-6 bg-green hover:bg-green hover:opacity-80 text-white text-base">
-                        <span v-if="!loadingSubmit" class="flex-1 flex items-center justify-center gap-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
-                                <path
-                                    fill-rule="evenodd"
-                                    clip-rule="evenodd"
-                                    d="M18.1716 1C18.702 1 19.2107 1.21071 19.5858 1.58579L22.4142 4.41421C22.7893 4.78929 23 5.29799 23 5.82843V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H18.1716ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21L5 21L5 15C5 13.3431 6.34315 12 8 12L16 12C17.6569 12 19 13.3431 19 15V21H20C20.5523 21 21 20.5523 21 20V6.82843C21 6.29799 20.7893 5.78929 20.4142 5.41421L18.5858 3.58579C18.2107 3.21071 17.702 3 17.1716 3H17V5C17 6.65685 15.6569 8 14 8H10C8.34315 8 7 6.65685 7 5V3H4ZM17 21V15C17 14.4477 16.5523 14 16 14L8 14C7.44772 14 7 14.4477 7 15L7 21L17 21ZM9 3H15V5C15 5.55228 14.5523 6 14 6H10C9.44772 6 9 5.55228 9 5V3Z"
-                                    fill="currentColor"
-                                /></svg
-                            >Lưu
-                        </span>
-                        <span v-if="loadingSubmit" class="loading loading-spinner text-white text-sm"></span>
-                    </button>
-                    <button @click="cancel" class="btn h-10 min-h-10 px-6 bg-red-500 hover:bg-red-600 text-white text-base">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
-                            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
-                            <path d="M18 18L6 6" stroke="currentColor" stroke-width="2" /></svg
-                        >Hủy
-                    </button>
+            </div>
+            <div v-if="isCrawling" class="w-[75%] mt-5 text-[15px]">
+                <div class="py-10 px-6 border-[1px] border-gray-300 rounded bg-white">
+                    <h5 class="text-xl text-gray-700 font-medium">Danh sách phim</h5>
+                    <div class="mt-1 text-gray-600">Đã chọn {{ selectedMovies.length }} / {{ movies.length }} phim</div>
+                    <label class="mt-3 w-auto cursor-pointer flex items-center justify-start gap-2">
+                        <input type="checkbox" @change="selectAll" class="h-3 w-3" />
+                        <span class="text-gray-700 text-base">Chọn tất cả</span>
+                    </label>
+                    <div class="mt-4 px-5 py-2 bg-[#e9f1fa] max-h-[400px] overflow-y-auto custom-scrollbar">
+                        <label v-for="(movie, index) in movies" :key="index" class="mt-2 cursor-pointer flex items-center justify-start gap-2">
+                            <input type="checkbox" :checked="selectedMovies.includes(movie)" @change="toggleSelection(movie)" class="h-3 w-3" />
+                            <span class="text-gray-700 text-base">{{ movie.name }}</span>
+                        </label>
+                    </div>
+                    <div class="mt-4 flex items-center justify-start gap-2">
+                        <button class="btn h-10 min-h-10 px-4 rounded bg-gray-400 hover:bg-gray-500 hover:opacity-80 text-white text-sm">Trước</button>
+                        <button class="btn h-10 min-h-10 px-4 rounded bg-green hover:bg-green hover:opacity-80 text-white text-sm">Tiếp</button>
+                    </div>
                 </div>
             </div>
         </form>
@@ -224,10 +229,13 @@ import { defineComponent, ref } from 'vue'
 import { getAllCategory } from '../../../webServices/categoryService'
 import { getAllRegion } from '../../../webServices/regionService'
 import { getAllMovieType } from '../../../webServices/movieTypeService'
+import { fetch } from '../../../webServices/crawlerService'
 export default defineComponent({
     setup() {
         const loading = ref(false)
         const loadingSubmit = ref(false)
+        const isCrawling = ref(false)
+        const isCheckAll = ref(false)
         const link = ref('https://ophim1.com/danh-sach/phim-moi-cap-nhat')
 
         const types = ref([])
@@ -245,9 +253,16 @@ export default defineComponent({
         const isShowRegion = ref(false)
         const searchRegionText = ref('')
 
+        const movies = ref([])
+        const selectedMovies = ref([])
+        const fromPage = ref(1)
+        const toPage = ref(10)
+
         return {
             loading,
             loadingSubmit,
+            isCrawling,
+            isCheckAll,
             link,
             types,
             isShowType,
@@ -260,7 +275,11 @@ export default defineComponent({
             regions,
             regionsSelected,
             isShowRegion,
-            searchRegionText
+            searchRegionText,
+            fromPage,
+            toPage,
+            movies,
+            selectedMovies
         }
     },
     methods: {
@@ -321,6 +340,38 @@ export default defineComponent({
                 return this.regions
             } else {
                 return this.regions.filter(region => region.name.toLowerCase().includes(searchText))
+            }
+        },
+        async fetchData() {
+            this.loadingSubmit = true
+
+            const data = await fetch({ link: this.link, from: this.fromPage, to: this.toPage })
+
+            console.log(data)
+
+            if (data && data.success) {
+                this.movies = data.movies
+                this.selectedMovies = data.movies
+                this.isCrawling = true
+                this.isCheckAll = true
+            }
+
+            this.loadingSubmit = false
+        },
+        selectAll() {
+            if (this.isCheckAll) {
+                this.selectedMovies = [...this.movies]
+            } else {
+                this.selectedMovies = []
+            }
+            this.isCheckAll = !this.isCheckAll
+        },
+        toggleSelection(movie) {
+            const index = this.selectedMovies.indexOf(movie)
+            if (index > -1) {
+                this.selectedMovies.splice(index, 1)
+            } else {
+                this.selectedMovies.push(movie)
             }
         }
     },
