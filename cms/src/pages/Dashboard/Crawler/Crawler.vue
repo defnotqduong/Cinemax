@@ -201,11 +201,11 @@
                 </div>
             </div>
             <div v-if="isCrawling" class="w-[75%] mt-5 text-[15px]">
-                <div class="py-10 px-6 border-[1px] border-gray-300 rounded bg-white">
+                <div v-if="process === 1" class="py-10 px-6 border-[1px] border-gray-300 rounded bg-white">
                     <h5 class="text-xl text-gray-700 font-medium">Danh sách phim</h5>
                     <div class="mt-1 text-gray-600">Đã chọn {{ selectedMovies.length }} / {{ movies.length }} phim</div>
                     <label class="mt-3 w-auto cursor-pointer flex items-center justify-start gap-2">
-                        <input type="checkbox" @change="selectAll" class="h-3 w-3" />
+                        <input type="checkbox" :checked="isCheckAll" @change="selectAll" class="h-3 w-3" />
                         <span class="text-gray-700 text-base">Chọn tất cả</span>
                     </label>
                     <div class="mt-4 px-5 py-2 bg-[#e9f1fa] max-h-[400px] overflow-y-auto custom-scrollbar">
@@ -215,7 +215,7 @@
                         </label>
                     </div>
                     <div class="mt-4 flex items-center justify-start gap-2">
-                        <button class="btn h-10 min-h-10 px-4 rounded bg-gray-400 hover:bg-gray-500 hover:opacity-80 text-white text-sm">Trước</button>
+                        <button @click.prevent="cancel" class="btn h-10 min-h-10 px-4 rounded bg-gray-400 hover:bg-gray-500 hover:opacity-80 text-white text-sm">Trước</button>
                         <button class="btn h-10 min-h-10 px-4 rounded bg-green hover:bg-green hover:opacity-80 text-white text-sm">Tiếp</button>
                     </div>
                 </div>
@@ -235,7 +235,8 @@ export default defineComponent({
         const loading = ref(false)
         const loadingSubmit = ref(false)
         const isCrawling = ref(false)
-        const isCheckAll = ref(false)
+        const process = ref(1)
+        const isCheckAll = ref(true)
         const link = ref('https://ophim1.com/danh-sach/phim-moi-cap-nhat')
 
         const types = ref([])
@@ -262,6 +263,7 @@ export default defineComponent({
             loading,
             loadingSubmit,
             isCrawling,
+            process,
             isCheckAll,
             link,
             types,
@@ -358,13 +360,28 @@ export default defineComponent({
 
             this.loadingSubmit = false
         },
+        cancel() {
+            switch (this.process) {
+                case 1:
+                    this.isCrawling = false
+                    break
+                case 2:
+                    this.process = 1
+                    break
+                case 3:
+                    this.process = 2
+                    break
+                default:
+                    break
+            }
+        },
         selectAll() {
+            this.isCheckAll = !this.isCheckAll
             if (this.isCheckAll) {
                 this.selectedMovies = [...this.movies]
             } else {
                 this.selectedMovies = []
             }
-            this.isCheckAll = !this.isCheckAll
         },
         toggleSelection(movie) {
             const index = this.selectedMovies.indexOf(movie)
