@@ -1,6 +1,6 @@
 <template>
     <div class="mt-[160px]">
-        <div v-if="loading" class="flex items-center justify-center min-h-[80vh]">
+        <div v-if="loading" class="flex items-center justify-center min-h-[60vh]">
             <span class="loading loading-spinner text-white"></span>
         </div>
         <div v-if="!loading">

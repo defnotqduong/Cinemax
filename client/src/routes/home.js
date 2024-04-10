@@ -30,7 +30,7 @@ const home = [
                 props: {}
             },
             {
-                path: 'xem-phim/:slug/:ep',
+                path: 'xem-phim/:slug',
                 name: 'home-watching',
                 component: () => import('../pages/Home/WatchMovie.vue'),
                 props: {}

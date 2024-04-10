@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MovieController;
+use App\Http\Controllers\Admin\MovieTypeController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController as GuestCategoryController;
@@ -58,6 +59,7 @@ Route::group([], function () {
         Route::get('/findByCategory', [GuestMovieController::class, 'getMovieByCategory']);
         Route::get('/findByRegion', [GuestMovieController::class, 'getMovieByRegion']);
         Route::get('/{slug}', [GuestMovieController::class, 'getMovie']);
+        Route::get('/getEpisodes/{slug}', [GuestMovieController::class, 'getEpisodes']);
     });
 });
 
@@ -93,6 +95,10 @@ Route::group(['prefix' => 'cms'], function () {
         Route::put('/{id}', [MovieController::class, 'editMovie']);
         Route::get('/findByCategoryId/{id}', [MovieController::class, 'getMovieOfCategory']);
         Route::get('/findByRegionId/{id}', [MovieController::class, 'getMovieOfRegion']);
+    });
+
+    Route::group(['prefix' => 'movieType'], function () {
+        Route::get('', [MovieTypeController::class, 'getMovieTypes']);
     });
 
     Route::group(['prefix' => 'episode'], function () {

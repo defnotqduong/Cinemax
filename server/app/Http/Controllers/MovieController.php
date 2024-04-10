@@ -57,7 +57,10 @@ class MovieController extends Controller
         $category = Category::where('slug', $slug)->first();
 
         if ($category) {
-            $movies  = $category->movies()->orderBy('created_at', 'desc')->paginate(20);
+            $movies = $category->movies()
+                // ->whereNotIn('type', ['cartoon'])
+                ->orderBy('created_at', 'desc')
+                ->paginate(20);
 
             return response()->json([
                 'success' => true,
@@ -79,7 +82,10 @@ class MovieController extends Controller
         if (!$region) return response(['success' => false], 404);
 
         if ($region) {
-            $movies  = $region->movies()->orderBy('created_at', 'desc')->paginate(20);
+            $movies  = $region->movies()
+                // ->whereNotIn('type', ['cartoon'])
+                ->orderBy('created_at', 'desc')
+                ->paginate(20);
 
             return response()->json([
                 'success' => true,
@@ -96,5 +102,45 @@ class MovieController extends Controller
         if (!$movie) return response(['success' => false, 'message' => 'Movie not found'], 404);
 
         return response()->json(['success' => true, 'movie' => $movie], 200);
+    }
+
+    public function getEpisodes($slug)
+    {
+        $movie = Movie::where('slug', $slug)->first();
+
+        if (!$movie)  return response()->json(['success' => false, 'message' => 'Movie not found'], 404);
+
+        $episodes = $movie->episodes()->orderBy('created_at', 'asc')->get();
+
+        $result = [];
+
+        foreach ($episodes as $episode) {
+            $serverName = $episode->server;
+
+            if (!isset($result[$serverName])) {
+                $result[$serverName] = [];
+            }
+            $result[$serverName][] = [
+                'id' => $episode->id,
+                'name' => $episode->name,
+                'server' => $episode->server,
+                'type' => $episode->type,
+                'link' => $episode->link,
+            ];
+        }
+
+        $newEpisodes = [];
+        foreach ($result as $serverName => $episodes) {
+            $newEpisodes[] = [
+                'server_name' => $serverName,
+                'server_data' => $episodes,
+            ];
+        }
+
+        return response()->json([
+            'success' => true,
+            'movie' => $movie,
+            'episodes' => $newEpisodes,
+        ], 200);
     }
 }

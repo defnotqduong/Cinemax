@@ -31,4 +31,10 @@ export const getMovie = async slug => {
     return connectServer[method](url)
 }
 
-export default { getMovieForHeroSlide, getMovieByCatalog, getMovieByCategory, getMovieByRegion, getMovie }
+export const getEpisodes = async slug => {
+    let { method, url } = api.GET_EPISODES_API
+    url = `${url}/${slug}`
+    return connectServer[method](url)
+}
+
+export default { getMovieForHeroSlide, getMovieByCatalog, getMovieByCategory, getMovieByRegion, getMovie, getEpisodes }

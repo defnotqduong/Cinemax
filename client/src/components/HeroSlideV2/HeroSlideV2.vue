@@ -41,7 +41,7 @@
                                         }"
                                     >
                                         <button
-                                            class="px-6 py-[10px] flex items-center justify-center gap-2 bg-primary rounded-full text-white text-xl font-bold hover:bg-primaryHover transiton-all duration-[300ms]"
+                                            class="px-6 py-[10px] flex items-center justify-center gap-2 bg-secondary rounded-full text-white text-xl font-bold hover:bg-secondaryHover transiton-all duration-[300ms]"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none">
                                                 <path

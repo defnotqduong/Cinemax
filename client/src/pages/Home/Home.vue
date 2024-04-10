@@ -5,7 +5,9 @@
             <div class="col-span-4">
                 <div class="mb-10" v-for="(data, index) in homeStore.movieByCatalog" :key="index">
                     <div class="mb-7 flex items-center justify-between">
-                        <h4 class="text-2xl font-bold uppercase text-primary">
+                        <h4
+                            class="text-2xl font-bold uppercase text-white pl-3 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
+                        >
                             {{ data.name }}
                         </h4>
                         <router-link

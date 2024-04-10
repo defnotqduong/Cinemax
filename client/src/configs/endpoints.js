@@ -56,7 +56,9 @@ export default {
     GET_MOVIE_API: {
         method: 'get',
         url: '/movie'
+    },
+    GET_EPISODES_API: {
+        method: 'get',
+        url: '/movie/getEpisodes'
     }
-
-    // episode
 }

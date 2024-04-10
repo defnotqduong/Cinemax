@@ -6,34 +6,33 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CatalogSeeder extends Seeder
+class MovieTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('catalogs')->insert([
+        DB::table('movietypes')->insert([
             [
-                'name' => 'Phim lẻ mới',
+                'name' => 'Phim lẻ',
                 'slug' => 'phim-le',
                 'type' => 'single',
-                'paginate' => 12,
-                'des' => 'Des Phim lẻ mới cập nhật',
             ],
             [
-                'name' => 'Phim bộ mới',
+                'name' => 'Phim bộ',
                 'slug' => 'phim-bo',
                 'type' => 'series',
-                'paginate' => 12,
-                'des' => 'Des Phim bộ mới cập nhật',
             ],
             [
-                'name' => 'Phim hoạt hình mới',
+                'name' => 'Phim hoạt hình',
                 'slug' => 'phim-hoat-hinh',
                 'type' => 'cartoon',
-                'paginate' => 12,
-                'des' => 'Des Phim hoạt hình mới cập nhật',
+            ],
+            [
+                'name' => 'TV Shows',
+                'slug' => 'tv-shows',
+                'type' => 'tvshows',
             ],
         ]);
     }

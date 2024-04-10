@@ -4,13 +4,13 @@ export default {
     theme: {
         extend: {
             colors: {
-                // primary: '#FF961B'
-                primary: '#0063F2',
-                primaryHover: '#0055CC'
+                primary: '#FF961B',
+                secondary: '#0063F2',
+                secondaryHover: '#0055CC'
             },
             borderColor: {
-                // primary: '#FF961B'
-                primary: '#0063F2'
+                primary: '#FF961B',
+                secondary: '#0063F2'
             },
             backgroundColor: { overlay: 'rgba(15, 23, 42, 0.7)' },
             backgroundImage: {

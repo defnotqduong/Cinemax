@@ -151,6 +151,21 @@ html *::-webkit-scrollbar-track {
 @tailwind components;
 @tailwind utilities;
 
+.custom-scrollbar::-webkit-scrollbar {
+    border-radius: 20px;
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
 :where(.menu li:not(.menu-title):not(.disabled) > *:not(ul):not(details):not(.menu-title)),
 :where(.menu li:not(.menu-title):not(.disabled) > details > summary:not(.menu-title)) {
     &:not(summary):not(.active).focus,

@@ -58,6 +58,11 @@ const dashboard = [
                 path: 'menu',
                 name: 'dashboard-menu',
                 component: () => import('../pages/Dashboard/Menu/Menu.vue')
+            },
+            {
+                path: 'crawler',
+                name: 'dashboard-crawler',
+                component: () => import('../pages/Dashboard/Crawler/Crawler.vue')
             }
         ]
     }

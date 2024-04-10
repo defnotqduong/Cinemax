@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="loading" class="mt-[160px] flex items-center justify-center min-h-[80vh]">
+        <div v-if="loading" class="mt-[160px] flex items-center justify-center min-h-[60vh]">
             <span class="loading loading-spinner text-white"></span>
         </div>
         <div v-if="!loading">
@@ -16,18 +16,21 @@
                 </div>
                 <div class="relative max-w-[1220px] mx-auto mb-10 mt-[-280px] z-10">
                     <MovieDetails :movie="movie" />
-                    <div class="grid grid-cols-3 gap-10 mt-16">
-                        <div class="col-span-3">
-                            <div class="mb-[30px]">
-                                <h4
-                                    class="text-2xl font-bold uppercase text-white pl-3 mt-1 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
-                                >
-                                    Có thể bạn muốn xem...
-                                </h4>
-                            </div>
-                            <div class="grid grid-cols-5 items-start justify-start gap-8">
-                                <div v-for="movie in homeStore.suggetMovies" :key="movie.id">
-                                    <MovieCard :movie="movie" />
+                    <div class="grid grid-cols-7 gap-16 mt-10 mb-24 ml-12">
+                        <div class="col-span-5 mt-10">
+                            <iframe :src="movie.trailer_url" frameborder="0" allowfullscreen class="w-full h-[420px] mx-auto rounded-md"></iframe>
+                        </div>
+                        <div class="col-span-2">
+                            <div>
+                                <div class="mb-[30px]">
+                                    <h4
+                                        class="text-base font-bold uppercase text-white pl-3 mt-1 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
+                                    >
+                                        Phim mới cập nhật
+                                    </h4>
+                                </div>
+                                <div class="max-h-[500px] overflow-y-auto custom-scrollbar">
+                                    <MovieListV2 :movies="homeStore.heroSlide" />
                                 </div>
                             </div>
                         </div>
@@ -82,10 +85,10 @@ export default defineComponent({
             if (data && data.success) this.movie = data.movie
 
             this.loading = false
+            window.scrollTo({ top: 0 })
         }
     },
     created() {
-        window.scrollTo({ top: 0 })
         this.getData()
     }
 })
