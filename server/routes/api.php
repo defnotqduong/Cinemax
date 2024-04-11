@@ -106,6 +106,7 @@ Route::group(['prefix' => 'cms'], function () {
     });
 
     Route::group(['prefix' => 'crawler'], function () {
+        Route::post('/', [CrawlerController::class, 'crawler']);
         Route::post('/fetch', [CrawlerController::class, 'fetch']);
     });
 });

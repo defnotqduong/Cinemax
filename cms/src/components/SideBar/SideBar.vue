@@ -1,6 +1,6 @@
 <template>
     <div class="fixed top-0 left-0 bottom-0 overflow-y-auto">
-        <ul class="menu bg-sideBar w-56 min-h-[100vh] py-6 px-3 font-semibold text-white gap-3">
+        <ul class="menu bg-sideBar w-56 min-h-[100vh] pt-6 pb-16 px-3 font-semibold text-white gap-3">
             <div class="w-[160px]">
                 <div class="uppercase text-3xl" style="font-family: 'Moonkids', sans-serif"><span class="text-white">CINE</span><span class="text-[#FF961B]">MAX</span></div>
             </div>
@@ -31,7 +31,7 @@
                 >
             </li>
             <li>
-                <details>
+                <details open>
                     <summary>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
                             <path

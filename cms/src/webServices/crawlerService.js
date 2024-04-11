@@ -6,4 +6,10 @@ export const fetch = async dataPost => {
     return connectServer[method](url, dataPost)
 }
 
-export default { fetch }
+export const crawler = async dataPost => {
+    let { url, method } = crawlerResource.CRAWLER_MOVIE_API
+
+    return connectServer[method](url, dataPost)
+}
+
+export default { fetch, crawler }

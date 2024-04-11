@@ -24,14 +24,14 @@
                                 class="p-1 border-[1px] rounded-md flex items-center justify-start flex-wrap gap-2"
                                 :class="isShowType ? 'border-gray-400 rounded-none rounded-t-md' : 'border-gray-300'"
                             >
-                                <li v-for="type in typesSelected" :key="type.id" class="px-2 py-1 flex items-center justify-center gap-2 bg-gray-200 border-[1px] border-gray-400 rounded text-sm">
+                                <li v-for="type in typesSelected" :key="type" class="px-2 py-1 flex items-center justify-center gap-2 bg-gray-200 border-[1px] border-gray-400 rounded text-sm">
                                     <span @click="changeTypesSelected(type)" class="cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="12px" height="12px" viewBox="0 0 24 24" fill="none">
                                             <path
                                                 d="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z"
                                                 fill="currentColor"
                                             /></svg></span
-                                    >{{ type.name }}
+                                    >{{ type }}
                                 </li>
                                 <input
                                     type="text"
@@ -55,9 +55,9 @@
                                     v-for="type in filteredTypes()"
                                     :key="type.id"
                                     :value="type.type"
-                                    @mousedown="changeTypesSelected(type)"
+                                    @mousedown="changeTypesSelected(type.type)"
                                     class="px-3 py-1 text-gray-700 cursor-pointer hover:bg-blue hover:text-white"
-                                    :class="{ 'bg-gray-300 text-white': typesSelected.includes(type) }"
+                                    :class="{ 'bg-gray-300 text-white': typesSelected.includes(type.type) }"
                                 >
                                     {{ type.name }}
                                 </option>
@@ -73,7 +73,7 @@
                             >
                                 <li
                                     v-for="category in categoriesSelected"
-                                    :key="category.id"
+                                    :key="category"
                                     class="px-2 py-1 flex items-center justify-center gap-2 bg-gray-200 border-[1px] border-gray-400 rounded text-sm"
                                 >
                                     <span @click="changeCategoriesSelected(category)" class="cursor-pointer">
@@ -82,7 +82,7 @@
                                                 d="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z"
                                                 fill="currentColor"
                                             /></svg></span
-                                    >{{ category.name }}
+                                    >{{ category }}
                                 </li>
                                 <input
                                     type="text"
@@ -106,9 +106,9 @@
                                     v-for="category in filteredCategories()"
                                     :key="category.id"
                                     :value="category.slug"
-                                    @mousedown="changeCategoriesSelected(category)"
+                                    @mousedown="changeCategoriesSelected(category.name)"
                                     class="px-3 py-1 text-gray-700 cursor-pointer hover:bg-blue hover:text-white"
-                                    :class="{ 'bg-gray-300 text-white': categoriesSelected.includes(category) }"
+                                    :class="{ 'bg-gray-300 text-white': categoriesSelected.includes(category.name) }"
                                 >
                                     {{ category.name }}
                                 </option>
@@ -133,7 +133,7 @@
                                                 d="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z"
                                                 fill="currentColor"
                                             /></svg></span
-                                    >{{ region.name }}
+                                    >{{ region }}
                                 </li>
                                 <input
                                     type="text"
@@ -157,9 +157,9 @@
                                     v-for="region in filteredRegions()"
                                     :key="region.id"
                                     :value="region.slug"
-                                    @mousedown="changeRegionsSelected(region)"
+                                    @mousedown="changeRegionsSelected(region.name)"
                                     class="px-3 py-1 text-gray-700 cursor-pointer hover:bg-blue hover:text-white"
-                                    :class="{ 'bg-gray-300 text-white': regionsSelected.includes(region) }"
+                                    :class="{ 'bg-gray-300 text-white': regionsSelected.includes(region.name) }"
                                 >
                                     {{ region.name }}
                                 </option>
@@ -189,7 +189,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <button @click.prevent="fetchData" class="btn h-10 min-h-10 px-4 rounded bg-green hover:bg-green hover:opacity-80 text-white text-sm">
+                            <button @click.prevent="fetchData" class="btn h-10 min-h-10 px-4 rounded bg-purple-500 hover:bg-purple-700 text-white text-sm">
                                 <span v-if="!loadingSubmit">Lấy danh sách</span>
                                 <div v-if="loadingSubmit" class="flex items-center justify-center gap-2">
                                     <span class="loading loading-spinner text-white text-sm"></span>
@@ -209,14 +209,131 @@
                         <span class="text-gray-700 text-base">Chọn tất cả</span>
                     </label>
                     <div class="mt-4 px-5 py-2 bg-[#e9f1fa] max-h-[400px] overflow-y-auto custom-scrollbar">
-                        <label v-for="(movie, index) in movies" :key="index" class="mt-2 cursor-pointer flex items-center justify-start gap-2">
+                        <label v-for="(movie, index) in movies" :key="index" class="mt-2 cursor-pointer flex items-center justify-start gap-2 text-gray-600 text-base">
                             <input type="checkbox" :checked="selectedMovies.includes(movie)" @change="toggleSelection(movie)" class="h-3 w-3" />
-                            <span class="text-gray-700 text-base">{{ movie.name }}</span>
+                            <span>{{ movie.name }}</span>
                         </label>
                     </div>
                     <div class="mt-4 flex items-center justify-start gap-2">
-                        <button @click.prevent="cancel" class="btn h-10 min-h-10 px-4 rounded bg-gray-400 hover:bg-gray-500 hover:opacity-80 text-white text-sm">Trước</button>
-                        <button class="btn h-10 min-h-10 px-4 rounded bg-green hover:bg-green hover:opacity-80 text-white text-sm">Tiếp</button>
+                        <button @click.prevent="rollbackProcess" class="btn h-10 min-h-10 px-4 rounded bg-gray-400 hover:bg-gray-500 hover:opacity-80 text-white text-sm">Trước</button>
+                        <button @click.prevent="proceedToNextStep" class="btn h-10 min-h-10 px-4 rounded bg-purple-500 hover:bg-purple-700 text-white text-sm">Tiếp</button>
+                    </div>
+                </div>
+                <div v-if="process === 2" class="py-10 px-6 border-[1px] border-gray-300 rounded bg-white">
+                    <h5 class="text-xl text-gray-700 font-medium">Cập nhật phim</h5>
+                    <div class="mt-4">
+                        <h6 class="mb-1 text-gray-700 text-lg">Tiến độ phim</h6>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.status" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Trạng thái phim</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.episodes" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Tập mới</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.episode_time" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Thời lượng phim</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.episode_current" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Tập phim hiện tại</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.episode_total" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Tổng số tập phim</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h6 class="mb-1 text-gray-700 text-lg">Thông tin phim</h6>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.name" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Tên phim</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.origin_name" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Tập tiếng anh</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.content" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Nội dung phim</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.thumb_url" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Ảnh thumbnail</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.poster_url" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Ảnh poster</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.trailer_url" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Link trailer</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.quality" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Chất lượng phim</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.language" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Ngôn ngữ</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.notify" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Nội dung thông báo</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.showtimes" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Giờ chiếu phim</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.year" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Năm sản xuất</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h6 class="mb-1 text-gray-700 text-lg">Phân loại phim</h6>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.type" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Định dạng phim</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.is_shown_in_theater" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Đánh dấu phim chiếu rạp</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.categories" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Thể loại</span>
+                            </label>
+                            <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
+                                <input type="checkbox" v-model="fields.regions" class="h-3 w-3" />
+                                <span class="text-gray-700 text-base">Khu vực</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-start gap-2">
+                        <button @click.prevent="rollbackProcess" class="btn h-10 min-h-10 px-4 rounded bg-gray-400 hover:bg-gray-500 hover:opacity-80 text-white text-sm">Trước</button>
+                        <button @click.prevent="proceedToNextStep" class="btn h-10 min-h-10 px-4 rounded bg-purple-500 hover:bg-purple-700 text-white text-sm">Tiếp</button>
+                    </div>
+                </div>
+                <div v-if="process === 3" class="py-10 px-6 border-[1px] border-gray-300 rounded bg-white">
+                    <h5 class="text-xl text-gray-700 font-medium">Đang tiến hành crawl...</h5>
+                    <div class="mt-1 text-gray-600">Crawl {{ selectedMovies.length }} / {{ movies.length }} phim (Thành công: 0, Thất bại: 0)</div>
+                    <div class="mt-4 px-5 py-2 bg-[#e9f1fa] max-h-[400px] overflow-y-auto custom-scrollbar">
+                        <label v-for="(movie, index) in movies" :key="index" class="mt-2 cursor-pointer flex items-center justify-start gap-2 text-gray-500 text-base">
+                            <span>{{ index + 1 }}.</span>
+                            <span>{{ movie.name }}</span>
+                            <span class="ml-auto">Pending</span>
+                        </label>
+                    </div>
+                    <div class="mt-4 flex items-center justify-start gap-2">
+                        <button @click.prevent="rollbackProcess" class="btn h-10 min-h-10 px-4 rounded bg-gray-400 hover:bg-gray-500 hover:opacity-80 text-white text-sm">Trước</button>
+                        <button @click.prevent="proceedToNextStep" class="btn h-10 min-h-10 px-4 rounded bg-purple-500 hover:bg-purple-700 text-white text-sm">Tiếp</button>
                     </div>
                 </div>
             </div>
@@ -229,7 +346,7 @@ import { defineComponent, ref } from 'vue'
 import { getAllCategory } from '../../../webServices/categoryService'
 import { getAllRegion } from '../../../webServices/regionService'
 import { getAllMovieType } from '../../../webServices/movieTypeService'
-import { fetch } from '../../../webServices/crawlerService'
+import { fetch, crawler } from '../../../webServices/crawlerService'
 export default defineComponent({
     setup() {
         const loading = ref(false)
@@ -259,6 +376,29 @@ export default defineComponent({
         const fromPage = ref(1)
         const toPage = ref(10)
 
+        const fields = ref({
+            episodes: true,
+            status: true,
+            episode_time: true,
+            episode_current: true,
+            episode_total: true,
+            name: true,
+            origin_name: true,
+            content: true,
+            thumb_url: true,
+            poster_url: true,
+            trailer_url: true,
+            quality: true,
+            language: true,
+            notify: true,
+            showtimes: true,
+            year: true,
+            type: true,
+            is_shown_in_theater: true,
+            categories: true,
+            regions: true
+        })
+
         return {
             loading,
             loadingSubmit,
@@ -281,7 +421,8 @@ export default defineComponent({
             fromPage,
             toPage,
             movies,
-            selectedMovies
+            selectedMovies,
+            fields
         }
     },
     methods: {
@@ -296,6 +437,7 @@ export default defineComponent({
 
             this.loading = false
         },
+
         changeTypesSelected(type) {
             const index = this.typesSelected.indexOf(type)
             if (index === -1) {
@@ -349,18 +491,16 @@ export default defineComponent({
 
             const data = await fetch({ link: this.link, from: this.fromPage, to: this.toPage })
 
-            console.log(data)
-
             if (data && data.success) {
-                this.movies = data.movies
-                this.selectedMovies = data.movies
+                this.movies = [...data.movies]
+                this.selectedMovies = [...data.movies]
                 this.isCrawling = true
                 this.isCheckAll = true
             }
 
             this.loadingSubmit = false
         },
-        cancel() {
+        rollbackProcess() {
             switch (this.process) {
                 case 1:
                     this.isCrawling = false
@@ -370,6 +510,19 @@ export default defineComponent({
                     break
                 case 3:
                     this.process = 2
+                    break
+                default:
+                    break
+            }
+        },
+        proceedToNextStep() {
+            switch (this.process) {
+                case 1:
+                    this.process = 2
+                    break
+                case 2:
+                    this.process = 3
+                    this.crawlMovie()
                     break
                 default:
                     break
@@ -385,10 +538,24 @@ export default defineComponent({
         },
         toggleSelection(movie) {
             const index = this.selectedMovies.indexOf(movie)
+            console.log(index)
             if (index > -1) {
                 this.selectedMovies.splice(index, 1)
             } else {
                 this.selectedMovies.push(movie)
+            }
+        },
+        async crawlMovie() {
+            for (const movie of this.selectedMovies) {
+                const data = {
+                    excludedType: this.typesSelected,
+                    excludedCategories: this.categoriesSelected,
+                    excludedRegions: this.regionsSelected,
+                    fields: this.fields,
+                    slug: movie.slug
+                }
+                const res = await crawler(data)
+                console.log(res)
             }
         }
     },
