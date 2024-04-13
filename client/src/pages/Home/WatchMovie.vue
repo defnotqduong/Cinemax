@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-[160px]">
+    <div class="mt-[140px]">
         <div v-if="loading" class="flex items-center justify-center min-h-[60vh]">
             <span class="loading loading-spinner text-white"></span>
         </div>
@@ -41,9 +41,9 @@
                 <Error />
             </div>
             <div v-if="!error" class="max-w-[1200px] mx-auto px-2 mb-10">
-                <div class="pt-8">
+                <div class="pt-4">
                     <div class="mb-20 flex items-center justify-center">
-                        <iframe width="80%" height="460" :src="episode && episode.link" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="90%" height="520" :src="episode && episode.link" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div>
                         <div class="mb-6 flex items-center justify-between">

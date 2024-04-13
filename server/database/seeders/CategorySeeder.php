@@ -99,6 +99,14 @@ class CategorySeeder extends Seeder
                 "slug" => "kinh-dien",
             ],
             [
+                "name" => "Hoạt hình",
+                "slug" => "hoat-hinh",
+            ],
+            [
+                "name" => "TV Shows",
+                "slug" => "tv-shows",
+            ],
+            [
                 "name" => "Phim 18+",
                 "slug" => "phim-18",
             ],

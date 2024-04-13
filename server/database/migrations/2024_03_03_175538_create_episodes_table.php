@@ -18,12 +18,9 @@ return new class extends Migration
 
             $table->string('server');
             $table->string('name');
-            $table->string('slug');
             $table->string('type');
             $table->string('link')->nullable();
             $table->timestamps();
-
-            $table->index(['movie_id', 'slug']);
         });
     }
 

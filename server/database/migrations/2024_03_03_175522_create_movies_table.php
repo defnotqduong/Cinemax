@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->string('thumb_url', 2048)->nullable();
             $table->string('poster_url', 2048)->nullable();
-            $table->enum('type', ['single', 'series', 'cartoon']);
+            $table->enum('type', ['single', 'series', 'cartoon', 'tvshows', 'unknow']);
             $table->enum('status', ['trailer', 'ongoing', 'completed']);
             $table->string('trailer_url', 2048)->nullable();
             $table->string('episode_time')->nullable();

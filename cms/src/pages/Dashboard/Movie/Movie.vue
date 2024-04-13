@@ -249,7 +249,7 @@ export default defineComponent({
             region_id: null,
             year: null,
             type: null,
-            sort: null,
+            sort: 'create',
             search: null,
             page: 1,
             limit: 10

@@ -13,7 +13,7 @@ class Actor extends Model
 
     public $table = 'actors';
 
-    protected $fillable = [];
+    protected $guarded = ['id'];
 
     public function getSlugOptions(): SlugOptions
     {

@@ -13,7 +13,7 @@ class MovieController extends Controller
 
     public function getMovieForSlide()
     {
-        $movies = Movie::orderBy('created_at', 'desc')->take(10)->get();
+        $movies = Movie::whereNotIn('type', ['cartoon'])->orderBy('created_at', 'desc')->take(10)->get();
 
         return response()->json(['success' => true, 'movies' => $movies], 200);
     }
@@ -38,7 +38,6 @@ class MovieController extends Controller
 
     public function getMovieByCategory(Request $request)
     {
-
         $slug = $request->query('slug');
         $page = $request->query('page');
 
@@ -46,7 +45,6 @@ class MovieController extends Controller
 
         if ($catalog) {
             $movies = Movie::where('type', $catalog->type)->orderBy('created_at', 'desc')->paginate(20);
-
             return response()->json([
                 'success' => true,
                 'name' => $catalog->getTypeLabel(),
@@ -57,10 +55,14 @@ class MovieController extends Controller
         $category = Category::where('slug', $slug)->first();
 
         if ($category) {
-            $movies = $category->movies()
-                // ->whereNotIn('type', ['cartoon'])
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
+
+            $query = $category->movies()->orderBy('created_at', 'desc');
+
+            if ($category->slug != 'hoat-hinh') {
+                $query = $query->whereNotIn('type', ['cartoon']);
+            }
+
+            $movies = $query->paginate(20);
 
             return response()->json([
                 'success' => true,
@@ -71,6 +73,7 @@ class MovieController extends Controller
 
         return response(['success' => false], 404);
     }
+
 
     public function getMovieByRegion(Request $request)
     {
@@ -83,7 +86,7 @@ class MovieController extends Controller
 
         if ($region) {
             $movies  = $region->movies()
-                // ->whereNotIn('type', ['cartoon'])
+                ->whereNotIn('type', ['cartoon'])
                 ->orderBy('created_at', 'desc')
                 ->paginate(20);
 
@@ -110,7 +113,10 @@ class MovieController extends Controller
 
         if (!$movie)  return response()->json(['success' => false, 'message' => 'Movie not found'], 404);
 
-        $episodes = $movie->episodes()->orderBy('created_at', 'asc')->get();
+        $episodes = $movie->episodes()
+            ->orderByRaw("CAST(LPAD(name, 2, '0') AS UNSIGNED) ASC")
+            ->get();
+
 
         $result = [];
 

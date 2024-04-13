@@ -13,7 +13,7 @@ class Director extends Model
 
     public $table = 'directors';
 
-    protected $fillable = [];
+    protected $guarded = ['id'];
 
     public function getSlugOptions(): SlugOptions
     {

@@ -7,7 +7,7 @@ use App\Models\Crawler;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use PhpParser\Node\Stmt\TryCatch;
+
 
 class CrawlerController extends Controller
 {
@@ -49,7 +49,8 @@ class CrawlerController extends Controller
         try {
             $link = str_replace('{slug}', $request['slug'], $pattern);
             $crawler = (new Crawler($link, request('fields', []), request('excludedCategories', []), request('excludedRegions', []), request('excludedType', [])))->handle();
-            return response()->json(['success' => true, 'slug' => $request['slug']], 200);
+
+            return response()->json(['success' => true, 'message' => 'Thành công'], 200);
         } catch (Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }

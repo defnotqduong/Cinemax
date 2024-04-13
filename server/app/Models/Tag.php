@@ -13,7 +13,7 @@ class Tag extends Model
 
     public $table = 'tags';
 
-    protected $fillable = [];
+    protected $guarded = ['id'];
 
     public function getSlugOptions(): SlugOptions
     {

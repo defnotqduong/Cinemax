@@ -301,7 +301,7 @@
                                                 v-model="episodes[index].type"
                                                 class="select rounded border-gray-300 outline-none bg-white h-10 min-h-10 w-full focus:outline-none focus:border-gray-500 text-sm placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
                                             >
-                                                <option>Embed</option>
+                                                <option value="embed">embed</option>
                                             </select>
                                         </td>
                                         <td>
@@ -576,6 +576,7 @@ export default defineComponent({
             const [movie, categories, regions] = await Promise.all([getMovie(id), getAllCategory(), getAllRegion()])
 
             console.log(movie)
+
             if (categories && categories.success) this.categories = categories.categories
             if (regions && regions.success) this.regions = regions.regions
             if (movie && movie.success) {
@@ -612,7 +613,7 @@ export default defineComponent({
                 this.is_sensitive_content = Boolean(movie.movie.is_sensitive_content)
 
                 this.servers = movie.servers
-                this.episodes = movie.movie.episodes
+                this.episodes = movie.episodes
             }
 
             this.loading = false

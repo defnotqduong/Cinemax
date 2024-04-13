@@ -215,13 +215,16 @@ class MovieController extends Controller
 
     public function getMovieOverview(Request $request, $id)
     {
-        $movie = Movie::with('categories', 'regions', 'episodes')->find($id);
+        $movie = Movie::with('categories', 'regions')->find($id);
 
         if (!$movie) return response()->json(['success' => false, 'message' => 'Movie not found'], 404);
 
-        $servers = $movie->episodes->pluck('server')->unique()->values()->toArray();
+        $episodes = $movie->episodes()->orderByRaw("CAST(LPAD(name, 2, '0') AS UNSIGNED) ASC")->get();
 
-        return response()->json(['success' => true, 'movie' => $movie, 'servers' => $servers], 200);
+        $servers = $episodes->pluck('server')->unique()->values()->toArray();
+
+
+        return response()->json(['success' => true, 'movie' => $movie, 'servers' => $servers, 'episodes' => $episodes], 200);
     }
 
 

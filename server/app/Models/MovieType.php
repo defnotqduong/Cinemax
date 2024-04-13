@@ -13,7 +13,7 @@ class MovieType extends Model
 
     public $table = 'movietypes';
 
-    protected $fillable = [];
+    protected $guarded = ['id'];
 
     public function getSlugOptions(): SlugOptions
     {

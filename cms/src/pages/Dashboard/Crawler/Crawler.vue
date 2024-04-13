@@ -193,7 +193,7 @@
                                 <span v-if="!loadingSubmit">Lấy danh sách</span>
                                 <div v-if="loadingSubmit" class="flex items-center justify-center gap-2">
                                     <span class="loading loading-spinner text-white text-sm"></span>
-                                    Đang tải
+                                    Đang tải: {{ pagesLoaded }}/{{ totalPages }} page
                                 </div>
                             </button>
                         </div>
@@ -225,23 +225,23 @@
                         <h6 class="mb-1 text-gray-700 text-lg">Tiến độ phim</h6>
                         <div class="grid grid-cols-2 gap-2">
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.status" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('status')" @change="toggleField('status')" />
                                 <span class="text-gray-700 text-base">Trạng thái phim</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.episodes" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('episodes')" @change="toggleField('episodes')" />
                                 <span class="text-gray-700 text-base">Tập mới</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.episode_time" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('episode_time')" @change="toggleField('episode_time')" />
                                 <span class="text-gray-700 text-base">Thời lượng phim</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.episode_current" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('episode_current')" @change="toggleField('episode_current')" />
                                 <span class="text-gray-700 text-base">Tập phim hiện tại</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.episode_total" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('episode_total')" @change="toggleField('episode_total')" />
                                 <span class="text-gray-700 text-base">Tổng số tập phim</span>
                             </label>
                         </div>
@@ -250,47 +250,47 @@
                         <h6 class="mb-1 text-gray-700 text-lg">Thông tin phim</h6>
                         <div class="grid grid-cols-2 gap-2">
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.name" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('name')" @change="toggleField('name')" />
                                 <span class="text-gray-700 text-base">Tên phim</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.origin_name" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('origin_name')" @change="toggleField('origin_name')" />
                                 <span class="text-gray-700 text-base">Tập tiếng anh</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.content" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('content')" @change="toggleField('content')" />
                                 <span class="text-gray-700 text-base">Nội dung phim</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.thumb_url" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('thumb_url')" @change="toggleField('thumb_url')" />
                                 <span class="text-gray-700 text-base">Ảnh thumbnail</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.poster_url" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('poster_url')" @change="toggleField('poster_url')" />
                                 <span class="text-gray-700 text-base">Ảnh poster</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.trailer_url" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('trailer_url')" @change="toggleField('trailer_url')" />
                                 <span class="text-gray-700 text-base">Link trailer</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.quality" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('quality')" @change="toggleField('quality')" />
                                 <span class="text-gray-700 text-base">Chất lượng phim</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.language" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('language')" @change="toggleField('language')" />
                                 <span class="text-gray-700 text-base">Ngôn ngữ</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.notify" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('notify')" @change="toggleField('notify')" />
                                 <span class="text-gray-700 text-base">Nội dung thông báo</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.showtimes" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('showtimes')" @change="toggleField('showtimes')" />
                                 <span class="text-gray-700 text-base">Giờ chiếu phim</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.year" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('year')" @change="toggleField('year')" />
                                 <span class="text-gray-700 text-base">Năm sản xuất</span>
                             </label>
                         </div>
@@ -299,19 +299,19 @@
                         <h6 class="mb-1 text-gray-700 text-lg">Phân loại phim</h6>
                         <div class="grid grid-cols-2 gap-2">
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.type" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('type')" @change="toggleField('type')" />
                                 <span class="text-gray-700 text-base">Định dạng phim</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.is_shown_in_theater" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('is_show_in_theater')" @change="toggleField('is_show_in_theater')" />
                                 <span class="text-gray-700 text-base">Đánh dấu phim chiếu rạp</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.categories" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('categories')" @change="toggleField('categories')" />
                                 <span class="text-gray-700 text-base">Thể loại</span>
                             </label>
                             <label class="w-auto cursor-pointer flex items-center justify-start gap-2">
-                                <input type="checkbox" v-model="fields.regions" class="h-3 w-3" />
+                                <input type="checkbox" class="h-3 w-3" :checked="fields.includes('regions')" @change="toggleField('regions')" />
                                 <span class="text-gray-700 text-base">Khu vực</span>
                             </label>
                         </div>
@@ -323,17 +323,22 @@
                 </div>
                 <div v-if="process === 3" class="py-10 px-6 border-[1px] border-gray-300 rounded bg-white">
                     <h5 class="text-xl text-gray-700 font-medium">Đang tiến hành crawl...</h5>
-                    <div class="mt-1 text-gray-600">Crawl {{ selectedMovies.length }} / {{ movies.length }} phim (Thành công: 0, Thất bại: 0)</div>
-                    <div class="mt-4 px-5 py-2 bg-[#e9f1fa] max-h-[400px] overflow-y-auto custom-scrollbar">
-                        <label v-for="(movie, index) in movies" :key="index" class="mt-2 cursor-pointer flex items-center justify-start gap-2 text-gray-500 text-base">
+                    <div class="mt-1 text-gray-600">Crawl {{ totalCount }} / {{ selectedMovies.length }} phim (Thành công: {{ successCount }}, Thất bại: {{ failureCount }})</div>
+                    <div v-if="moviesCrawler.length > 0" class="mt-4 px-5 py-2 bg-[#e9f1fa] max-h-[400px] overflow-y-auto custom-scrollbar">
+                        <label
+                            v-for="(movie, index) in moviesCrawler"
+                            :key="index"
+                            class="mt-2 cursor-pointer flex items-center justify-start gap-2 text-base"
+                            :class="movie.status ? 'text-green' : 'text-red-500'"
+                        >
                             <span>{{ index + 1 }}.</span>
                             <span>{{ movie.name }}</span>
-                            <span class="ml-auto">Pending</span>
+                            <span class="ml-auto">{{ movie.message }}</span>
                         </label>
                     </div>
                     <div class="mt-4 flex items-center justify-start gap-2">
                         <button @click.prevent="rollbackProcess" class="btn h-10 min-h-10 px-4 rounded bg-gray-400 hover:bg-gray-500 hover:opacity-80 text-white text-sm">Trước</button>
-                        <button @click.prevent="proceedToNextStep" class="btn h-10 min-h-10 px-4 rounded bg-purple-500 hover:bg-purple-700 text-white text-sm">Tiếp</button>
+                        <button @click.prevent="proceedToNextStep" class="btn h-10 min-h-10 px-4 rounded bg-purple-500 hover:bg-purple-700 text-white text-sm">Xong</button>
                     </div>
                 </div>
             </div>
@@ -375,29 +380,36 @@ export default defineComponent({
         const selectedMovies = ref([])
         const fromPage = ref(1)
         const toPage = ref(10)
+        const totalPages = ref(null)
+        const pagesLoaded = ref(null)
 
-        const fields = ref({
-            episodes: true,
-            status: true,
-            episode_time: true,
-            episode_current: true,
-            episode_total: true,
-            name: true,
-            origin_name: true,
-            content: true,
-            thumb_url: true,
-            poster_url: true,
-            trailer_url: true,
-            quality: true,
-            language: true,
-            notify: true,
-            showtimes: true,
-            year: true,
-            type: true,
-            is_shown_in_theater: true,
-            categories: true,
-            regions: true
-        })
+        const totalCount = ref(0)
+        const successCount = ref(0)
+        const failureCount = ref(0)
+        const moviesCrawler = ref([])
+
+        const fields = ref([
+            'status',
+            'episodes',
+            'episode_time',
+            'episode_current',
+            'episode_total',
+            'name',
+            'origin_name',
+            'content',
+            'thumb_url',
+            'poster_url',
+            'trailer_url',
+            'quality',
+            'language',
+            'notify',
+            'showtimes',
+            'year',
+            'type',
+            'is_show_in_theater',
+            'categories',
+            'regions'
+        ])
 
         return {
             loading,
@@ -420,9 +432,15 @@ export default defineComponent({
             searchRegionText,
             fromPage,
             toPage,
+            totalPages,
+            pagesLoaded,
             movies,
             selectedMovies,
-            fields
+            fields,
+            totalCount,
+            successCount,
+            failureCount,
+            moviesCrawler
         }
     },
     methods: {
@@ -489,17 +507,56 @@ export default defineComponent({
         async fetchData() {
             this.loadingSubmit = true
 
-            const data = await fetch({ link: this.link, from: this.fromPage, to: this.toPage })
+            let from = parseInt(this.fromPage)
+            let to = parseInt(this.toPage)
 
-            if (data && data.success) {
-                this.movies = [...data.movies]
-                this.selectedMovies = [...data.movies]
-                this.isCrawling = true
-                this.isCheckAll = true
+            if (to < from) [from, to] = [to, from]
+
+            this.pagesLoaded = 0
+            this.totalPages = to - from + 1
+            this.movies = []
+            this.selectedMovies = []
+
+            const promises = []
+
+            for (let i = from; i <= to; i++) {
+                promises.push(this.fetchDataForPage(i))
             }
 
+            await Promise.all(
+                promises.map(promise => {
+                    return promise.then(() => {
+                        this.pagesLoaded++
+                    })
+                })
+            )
+
+            promises.forEach(promise => {
+                promise.then(data => {
+                    if (data && data.success) {
+                        this.movies = [...this.movies, ...data.movies]
+                        this.selectedMovies = [...this.selectedMovies, ...data.movies]
+                    }
+                })
+            })
+
+            this.isCrawling = true
+            this.isCheckAll = true
             this.loadingSubmit = false
         },
+
+        fetchDataForPage(page) {
+            return new Promise((resolve, reject) => {
+                fetch({ link: this.link, from: page, to: page })
+                    .then(data => {
+                        resolve(data)
+                    })
+                    .catch(error => {
+                        reject(error)
+                    })
+            })
+        },
+
         rollbackProcess() {
             switch (this.process) {
                 case 1:
@@ -524,6 +581,10 @@ export default defineComponent({
                     this.process = 3
                     this.crawlMovie()
                     break
+                case 3:
+                    this.process = 1
+                    this.isCrawling = false
+                    break
                 default:
                     break
             }
@@ -538,14 +599,26 @@ export default defineComponent({
         },
         toggleSelection(movie) {
             const index = this.selectedMovies.indexOf(movie)
-            console.log(index)
             if (index > -1) {
                 this.selectedMovies.splice(index, 1)
             } else {
                 this.selectedMovies.push(movie)
             }
         },
+        toggleField(field) {
+            const index = this.fields.indexOf(field)
+            if (index !== -1) {
+                this.fields.splice(index, 1)
+            } else {
+                this.fields.push(field)
+            }
+        },
         async crawlMovie() {
+            this.totalCount = 0
+            this.successCount = 0
+            this.failureCount = 0
+            this.moviesCrawler = []
+
             for (const movie of this.selectedMovies) {
                 const data = {
                     excludedType: this.typesSelected,
@@ -554,8 +627,24 @@ export default defineComponent({
                     fields: this.fields,
                     slug: movie.slug
                 }
+
                 const res = await crawler(data)
+
                 console.log(res)
+
+                this.totalCount++
+
+                if (res && res.success) {
+                    this.successCount++
+                } else {
+                    this.failureCount++
+                }
+
+                this.moviesCrawler.push({
+                    name: movie.name,
+                    status: res && res.success,
+                    message: res ? (res.success ? res.message : res.data.message) : 'Không nhận được phản hồi từ server'
+                })
             }
         }
     },

@@ -13,7 +13,7 @@ class Studio extends Model
 
     public $table = 'studios';
 
-    protected $fillable = [];
+    protected $guarded = ['id'];
 
     public function getSlugOptions(): SlugOptions
     {

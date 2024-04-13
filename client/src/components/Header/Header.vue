@@ -51,7 +51,7 @@
                             </div>
                             <ul
                                 tabindex="0"
-                                class="dropdown-content grid grid-cols-3 z-[1] menu p-2 shadow bg-base-200 rounded-box w-[460px] max-h-[200px] overflow-y-auto before:w-0 text-white"
+                                class="dropdown-content grid grid-cols-3 z-[1] menu p-2 shadow bg-base-200 rounded-box w-[460px] max-h-[200px] overflow-y-auto before:w-0 text-white custom-scrollbar"
                             >
                                 <li v-for="subItem in item.children" :key="subItem.id">
                                     <router-link :to="subItem.link" class="hover:bg-transparent hover:text-primary">
@@ -63,7 +63,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="navbar-end flex items-center justify-end gap-4">
+            <div class="navbar-end flex items-center justify-end gap-2">
                 <!-- <label class="input input-bordered rounded-full bg-transparent text-white h-10 flex items-center gap-2">
                     <input type="text" class="grow" placeholder="Tìm kiếm" />
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5">
@@ -76,15 +76,9 @@
                 </label> -->
                 <label class="relative flex items-center justify-center h-9 transition-all duration-[400ms] ease" :class="isChecked ? 'w-[280px]' : 'w-9'">
                     <input type="checkbox" v-model="isChecked" class="hidden" />
-                    <input
-                        type="text"
-                        class="bg-white rounded-full focus:border-none focus:outline-none absolute w-full h-full text-black placeholder:text-sm transition-all duration-[400ms] ease"
-                        :class="isChecked ? 'pl-4 pr-12' : 'p-0'"
-                        placeholder="Tìm kiếm"
-                    />
                     <div
-                        class="w-9 h-9 absolute top-0 right-0 bg-primary text-white flex items-center justify-center cursor-pointer border-[1px] border-primary"
-                        :class="isChecked ? 'rounded-r-full' : 'rounded-full'"
+                        class="w-9 h-9 absolute top-0 left-0 z-10 bg-primary text-white flex items-center justify-center cursor-pointer border-[1px] border-primary"
+                        :class="isChecked ? 'rounded-l-full' : 'rounded-full'"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5">
                             <path
@@ -94,11 +88,16 @@
                             />
                         </svg>
                     </div>
+                    <input
+                        type="text"
+                        v-model="searchText"
+                        class="bg-white rounded-full focus:border-none focus:outline-none absolute w-full h-full text-black placeholder:text-sm transition-all duration-[400ms] ease"
+                        :class="isChecked ? 'pr-4 pl-12' : 'p-0'"
+                        placeholder="Tìm kiếm"
+                    />
                 </label>
-                <!-- <router-link
-                    :to="{ name: 'auth-login' }"
-                    class="h-10 px-4 flex items-center justify-center rounded-full text-white text-sm uppercase bg-primary"
-                    >Đăng nhập</router-link
+                <!-- <router-link :to="{ name: 'auth-login' }" class="h-10 px-4 flex items-center justify-center rounded-full text-white text-sm bg-primary"
+                    >Log in</router-link
                 > -->
             </div>
         </div>
@@ -117,7 +116,9 @@ export default defineComponent({
 
         const isChecked = ref(false)
 
-        return { isScrolled, isChecked, homeStore }
+        const searchText = ref('')
+
+        return { isScrolled, isChecked, searchText, homeStore }
     },
     mounted() {
         window.addEventListener('scroll', this.shrinkHeader)

@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-[160px]">
+    <div class="mt-[140px]">
         <div v-if="loading" class="flex items-center justify-center min-h-[60vh]">
             <span class="loading loading-spinner text-white"></span>
         </div>

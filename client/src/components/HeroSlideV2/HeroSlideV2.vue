@@ -4,7 +4,7 @@
             :loop="true"
             :spaceBetween="20"
             :autoplay="{ delay: 10000, disableOnInteraction: false }"
-            :speed="800"
+            :speed="600"
             :effect="'fade'"
             :thumbs="{ swiper: thumbsSwiper }"
             :modules="modules"

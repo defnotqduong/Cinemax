@@ -1,6 +1,6 @@
 <?php
 
-namespace Ophim\Crawler\OphimCrawler\Contracts;
+namespace App\Contracts;
 
 abstract class BaseCrawler
 {
@@ -11,7 +11,7 @@ abstract class BaseCrawler
     protected $excludedType;
 
 
-    public function __construct($link, $fields, $excludedCategories = [], $excludedRegions = [], $excludedType = [])
+    public function __construct($link, $fields = [], $excludedCategories = [], $excludedRegions = [], $excludedType = [])
     {
         $this->link = $link;
         $this->fields = $fields;

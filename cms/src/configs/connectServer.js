@@ -14,8 +14,7 @@ const connectServer = config => {
     }
 
     return axios.create({
-        headers: headers,
-        timeout: TIMEOUT
+        headers: headers
     })
 }
 

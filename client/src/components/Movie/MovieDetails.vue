@@ -6,7 +6,8 @@
             </div>
         </div>
         <div class="col-span-4">
-            <h4 class="text-5xl font-bold mb-6 text-white leading-[1.1]">{{ movie.name }}</h4>
+            <h4 class="text-5xl font-bold mb-2 text-white leading-[1.1]">{{ movie.name }}</h4>
+            <h5 class="text-2xl font-bold mb-6 text-white opacity-70">{{ movie.origin_name }}</h5>
             <div class="w-[90%]">
                 <ul class="grid grid-cols-6 gap-x-2 gap-y-3 mb-6">
                     <li
@@ -30,8 +31,9 @@
                         Năm: <span class="text-white">{{ movie.year }}</span>
                     </li>
                     <li>
-                        Thời lượng: <span class="text-white">{{ movie.type === 'series' ? movie.episode_total : movie.episode_time }}</span>
+                        Thời lượng: <span class="text-white">{{ formatDuration(movie) }}</span>
                     </li>
+
                     <li>
                         Trạng thái: <span class="text-white">{{ movie.episode_current }}</span>
                     </li>
@@ -93,7 +95,7 @@
                     :class="isLearnMore ? 'line-clamp-none after:bg-transparent' : 'line-clamp-3 after:bg-blur'"
                     v-html="movie.content"
                 ></div>
-                <button class="py-2 text-white flex items-center justify-center gap-2" @click="isLearnMore = !isLearnMore">
+                <button v-if="movie.content !== ''" class="py-2 text-white flex items-center justify-center gap-2" @click="isLearnMore = !isLearnMore">
                     {{ isLearnMore ? 'Ẩn bớt' : 'Xem thêm' }}
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +130,18 @@ export default defineComponent({
             isLearnMore
         }
     },
-    methods: {}
+    methods: {
+        formatDuration() {
+            if (this.movie.type === 'series') {
+                if (!/tập/i.test(this.movie.episode_total)) {
+                    return this.movie.episode_total + ' Tập'
+                } else {
+                    return this.movie.episode_total.replace(/tập/i, 'Tập')
+                }
+            }
+            return this.movie.episode_time
+        }
+    }
 })
 </script>
 

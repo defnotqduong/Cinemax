@@ -13,7 +13,7 @@ class Catalog extends Model
 
     public $table = 'catalogs';
 
-    protected $fillable = [];
+    protected $guarded = ['id'];
 
     public function getSlugOptions(): SlugOptions
     {

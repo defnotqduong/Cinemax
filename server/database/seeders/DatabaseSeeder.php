@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\MovieType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,7 +18,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             RegionSeeder::class,
             MenuSeeder::class,
-            MovieType::class,
+            MovieTypeSeeder::class,
         ]);
     }
 }

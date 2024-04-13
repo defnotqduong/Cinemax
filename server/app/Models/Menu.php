@@ -11,7 +11,7 @@ class Menu extends Model
 
     public $table = 'menus';
 
-    protected $fillable = ['name', 'type', 'link', 'parent_id', 'lft', 'rgt'];
+    protected $guarded = ['id'];
 
     public function parent()
     {

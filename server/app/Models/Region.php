@@ -13,7 +13,7 @@ class Region extends Model
 
     public $table = 'regions';
 
-    protected $fillable = [];
+    protected $guarded = ['id'];
 
     public function getSlugOptions(): SlugOptions
     {
