@@ -37,10 +37,8 @@
                     </ul>
                 </div>
             </div>
-            <div v-if="error">
-                <Error />
-            </div>
-            <div v-if="!error" class="max-w-[1200px] mx-auto px-2 mb-10">
+
+            <div class="max-w-[1200px] mx-auto px-2 mb-10">
                 <div class="pt-4">
                     <div class="mb-20 flex items-center justify-center">
                         <iframe width="90%" height="520" :src="episode && episode.link" frameborder="0" allowfullscreen></iframe>
@@ -97,7 +95,6 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import Review from '../../components/Review/Review.vue'
-import Error from '../../components/Error/Error.vue'
 
 import { getEpisodes } from '../../webServices/movieService'
 export default defineComponent({
@@ -114,9 +111,8 @@ export default defineComponent({
         const episodes = ref([])
 
         const loading = ref(false)
-        const error = ref(false)
 
-        return { movie, episodes, episode, loading, error }
+        return { movie, episodes, episode, loading }
     },
     watch: {},
     methods: {
@@ -125,11 +121,15 @@ export default defineComponent({
 
             this.loading = true
             const [data] = await Promise.all([getEpisodes(slug)])
-            console.log(data)
+
+            if (data && data.status === 404) this.$router.push({ name: 'home-homepage' })
+
             if (data && data.success) {
                 this.movie = data.movie
-                this.episodes = data.episodes
+                this.episodes = [...data.episodes]
                 this.episode = data?.episodes[0]?.server_data[0]
+
+                this.episodes.sort((a, b) => a.server_name.localeCompare(b.server_name))
             }
 
             this.loading = false

@@ -64,38 +64,64 @@
                 </ul>
             </div>
             <div class="navbar-end flex items-center justify-end gap-2">
-                <!-- <label class="input input-bordered rounded-full bg-transparent text-white h-10 flex items-center gap-2">
-                    <input type="text" class="grow" placeholder="Tìm kiếm" />
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5">
-                        <path
-                            fill-rule="evenodd"
-                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                            clip-rule="evenodd"
-                        />
-                    </svg>
-                </label> -->
-                <label class="relative flex items-center justify-center h-9 transition-all duration-[400ms] ease" :class="isChecked ? 'w-[280px]' : 'w-9'">
-                    <input type="checkbox" v-model="isChecked" class="hidden" />
-                    <div
-                        class="w-9 h-9 absolute top-0 left-0 z-10 bg-primary text-white flex items-center justify-center cursor-pointer border-[1px] border-primary"
-                        :class="isChecked ? 'rounded-l-full' : 'rounded-full'"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5">
-                            <path
-                                fill-rule="evenodd"
-                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    </div>
+                <form class="input-container">
                     <input
                         type="text"
+                        ref="input"
+                        name="text"
                         v-model="searchText"
-                        class="bg-white rounded-full focus:border-none focus:outline-none absolute w-full h-full text-black placeholder:text-sm transition-all duration-[400ms] ease"
-                        :class="isChecked ? 'pr-4 pl-12' : 'p-0'"
-                        placeholder="Tìm kiếm"
+                        @input="handleDebouncedSearch"
+                        class="input"
+                        placeholder="Tìm kiếm phim..."
                     />
-                </label>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" class="icon">
+                        <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+                        <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <rect fill="white" height="24" width="24"></rect>
+                            <path
+                                fill=""
+                                d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM9 11.5C9 10.1193 10.1193 9 11.5 9C12.8807 9 14 10.1193 14 11.5C14 12.8807 12.8807 14 11.5 14C10.1193 14 9 12.8807 9 11.5ZM11.5 7C9.01472 7 7 9.01472 7 11.5C7 13.9853 9.01472 16 11.5 16C12.3805 16 13.202 15.7471 13.8957 15.31L15.2929 16.7071C15.6834 17.0976 16.3166 17.0976 16.7071 16.7071C17.0976 16.3166 17.0976 15.6834 16.7071 15.2929L15.31 13.8957C15.7471 13.202 16 12.3805 16 11.5C16 9.01472 13.9853 7 11.5 7Z"
+                                clip-rule="evenodd"
+                                fill-rule="evenodd"
+                            ></path>
+                        </g>
+                    </svg>
+                    <ul
+                        v-if="movies.length > 0"
+                        class="absolute top-[50px] left-0 w-full max-h-[300px] overflow-y-auto custom-scrollbar bg-base-300 p-2 rounded-lg"
+                    >
+                        <li v-for="movie in movies" :key="movie.id" class="mb-2">
+                            <div class="flex items-center justify-start">
+                                <div class="mr-4 w-12">
+                                    <router-link
+                                        :to="{
+                                            name: 'home-details',
+                                            params: { slug: movie.slug }
+                                        }"
+                                        @click="handleInputSearch"
+                                    >
+                                        <img :src="movie.thumb_url" alt="thumb" class="w-full h-full object-cover object-center rounded-md" />
+                                    </router-link>
+                                </div>
+                                <div class="flex-1">
+                                    <h5 class="mr-4 text-white text-base font-semibold cursor-pointer line-clamp-1">
+                                        <router-link
+                                            :to="{
+                                                name: 'home-details',
+                                                params: { slug: movie.slug }
+                                            }"
+                                            @click="handleInputSearch"
+                                        >
+                                            {{ movie.name }}
+                                        </router-link>
+                                    </h5>
+                                    <h6 class="mt-1 text-sm line-clamp-1">{{ movie.origin_name }}</h6>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
                 <!-- <router-link :to="{ name: 'auth-login' }" class="h-10 px-4 flex items-center justify-center rounded-full text-white text-sm bg-primary"
                     >Log in</router-link
                 > -->
@@ -107,6 +133,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import { useHomeStore } from '../../stores/modules/homeStore'
+import { searchMovie } from '../../webServices/movieService'
 export default defineComponent({
     props: {},
     setup() {
@@ -114,11 +141,11 @@ export default defineComponent({
 
         const isScrolled = ref(false)
 
-        const isChecked = ref(false)
-
         const searchText = ref('')
+        const movies = ref([])
+        const debounceTimeout = ref(null)
 
-        return { isScrolled, isChecked, searchText, homeStore }
+        return { isScrolled, searchText, homeStore, movies, debounceTimeout }
     },
     mounted() {
         window.addEventListener('scroll', this.shrinkHeader)
@@ -133,10 +160,84 @@ export default defineComponent({
             } else {
                 this.isScrolled = false
             }
+        },
+        handleDebouncedSearch() {
+            clearTimeout(this.debounceTimeout)
+            this.debounceTimeout = setTimeout(() => {
+                this.searchMovies(this.searchText)
+            }, 500)
+        },
+        async searchMovies(searchText) {
+            this.movies = []
+            if (searchText.trim() !== '') {
+                const movies = await searchMovie({ searchText: searchText })
+                this.movies = [...movies.movies]
+            }
+        },
+        handleInputSearch() {
+            this.searchText = ''
+            this.movies = []
         }
     },
     computed: {}
 })
 </script>
 
-<style></style>
+<style scoped>
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    width: 24px;
+    height: 24px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    padding: 18px 16px;
+    color: rgb(58, 57, 57);
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.input::placeholder {
+    color: transparent;
+    font-size: 14px;
+}
+
+.input:focus::placeholder {
+    color: rgb(131, 128, 128);
+}
+
+.input:focus,
+.input:not(:placeholder-shown) {
+    background-color: #fff;
+    border: 1px solid rgb(91, 107, 255);
+    width: 280px;
+    cursor: default;
+    padding: 18px 16px 18px 50px;
+}
+
+.icon {
+    position: absolute;
+    left: 0;
+    height: 40px;
+    width: 40px;
+    background-color: #fff;
+    border-radius: 99px;
+    z-index: -1;
+    fill: rgb(91, 107, 255);
+    border: 1px solid rgb(91, 107, 255);
+}
+
+.input:focus + .icon,
+.input:not(:placeholder-shown) + .icon {
+    z-index: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+</style>

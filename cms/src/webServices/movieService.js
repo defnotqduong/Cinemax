@@ -28,6 +28,12 @@ export const editMovie = async (id, dataPost) => {
     return connectServer[method](url, dataPost)
 }
 
-export const deleteMovie = async dataPost => {}
+export const deleteMovie = async id => {
+    let { method, url } = movieResource.DELETE_MOVIE_API
 
-export default { getAllMovie, getMovie, createMovie, editMovie }
+    url = `${url}/${id}`
+
+    return connectServer[method](url)
+}
+
+export default { getAllMovie, getMovie, createMovie, editMovie, deleteMovie }

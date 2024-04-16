@@ -58,8 +58,6 @@ export const put = async (path, data = {}, config = {}) => {
 
         return res.data
     } catch (err) {
-        if (err === 'expireToken') return (window.location.href = '/')
-
         console.log('catch api PUT: ', err)
         return err.response
     }

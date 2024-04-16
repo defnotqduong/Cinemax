@@ -126,7 +126,6 @@ body {
 
 html,
 body {
-    @apply scroll-smooth;
     -webkit-tap-highlight-color: transparent;
 }
 

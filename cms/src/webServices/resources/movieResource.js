@@ -15,5 +15,9 @@ export default {
     EDIT_MOVIE_API: {
         method: 'put',
         url: '/cms/movie'
+    },
+    DELETE_MOVIE_API: {
+        method: 'deleted',
+        url: '/cms/movie'
     }
 }

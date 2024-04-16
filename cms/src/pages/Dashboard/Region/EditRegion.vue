@@ -15,14 +15,18 @@
                 <div class="p-6 bg-white border-[1px] border-gray-400 rounded-lg">
                     <div class="grid grid-cols-1 gap-x-6 gap-y-4">
                         <label for="name">
-                            <div class="mb-2 text-gray-700 font-bold">Tên khu vực <span class="text-red-500">*</span></div>
+                            <div class="mb-2 text-gray-700 font-bold" :class="errors.hasOwnProperty('name') ? 'text-red-500' : 'text-gray-700'">Tên khu vực <span class="text-red-500">*</span></div>
                             <input
                                 type="text"
                                 id="name"
                                 v-model="name"
                                 placeholder="Tên khu vực"
-                                class="input rounded-md border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                class="input rounded-md outline-none bg-white h-10 w-full focus:outline-none placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                :class="errors.hasOwnProperty('name') ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-gray-500'"
                             />
+                            <div v-if="errors.hasOwnProperty('name')" class="mt-1">
+                                <p v-for="(message, index) in errors.name" :key="index" class="text-red-500">{{ message }}</p>
+                            </div>
                         </label>
                         <label for="des">
                             <div class="mb-2 text-gray-700 font-bold">Description</div>
@@ -80,11 +84,15 @@ export default defineComponent({
 
         const loadingSubmit = ref(false)
 
+        const errors = ref({})
+
         const edit = async e => {
             e.preventDefault()
             loadingSubmit.value = true
 
             const data = await editRegion(region.id, region)
+
+            if (data && data.status === 422) errors.value = data.data.errors
 
             if (data && data.success) {
                 router.push({ name: 'dashboard-region' })
@@ -101,6 +109,7 @@ export default defineComponent({
             ...toRefs(region),
             loading,
             loadingSubmit,
+            errors,
             edit,
             cancel
         }
@@ -112,6 +121,8 @@ export default defineComponent({
             const id = this.$route.params.id
 
             const [region] = await Promise.all([getRegion(id)])
+
+            if (region && region.status === 404) this.$router.push({ name: 'dashboard-region' })
 
             if (region && region.success) {
                 this.id = region.region.id

@@ -36,6 +36,18 @@ class MovieController extends Controller
         return response()->json(['success' => true, 'result' => $result], 200);
     }
 
+    public function searchMovie(Request $request)
+
+    {
+        $search = $request->query('search');
+
+        $movies = Movie::where('name', 'like', '%' . $search . '%')
+            ->orWhere('origin_name', 'like', '%' . $search . '%')
+            ->get();
+
+        return response()->json(['success' => true, 'movies' => $movies], 200);
+    }
+
     public function getMovieByCategory(Request $request)
     {
         $slug = $request->query('slug');

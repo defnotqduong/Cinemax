@@ -4,8 +4,7 @@
             :loop="true"
             :spaceBetween="20"
             :autoplay="{ delay: 10000, disableOnInteraction: false }"
-            :speed="600"
-            :effect="'fade'"
+            :speed="800"
             :thumbs="{ swiper: thumbsSwiper }"
             :modules="modules"
             class="top-swiper"
@@ -13,7 +12,7 @@
             <SwiperSlide v-for="movie in homeStore.heroSlide" :key="movie.id">
                 <div class="relative h-[740px]">
                     <div
-                        class="bg-cover bg-center bg-no-repeat absolute top-0 left-0 w-full h-full z-[-1] after:absolute after:content after:top-0 after:left-0 after:w-full after:h-full after:bg-blurV3 before:absolute before:content before:bottom-0 before:left-0 before:w-full before:h-full before:bg-blurV2"
+                        class="bg-cover bg-center bg-no-repeat absolute top-0 left-0 w-full h-full z-[-1] before:absolute before:content before:bottom-0 before:left-0 before:w-full before:h-full before:bg-blurV2"
                         :style="{ backgroundImage: `url('${movie.poster_url}')` }"
                     ></div>
                     <div class="max-w-[1220px] mx-auto py-[140px]">

@@ -7,18 +7,6 @@
                 Bình luận
             </h4>
         </div>
-        <!-- <div class="mb-16">
-            <div v-for="i in 5" :key="i">
-                <Comment />
-            </div>
-        </div> -->
-        <!-- <div class="mb-7 flex items-center justify-between">
-            <h4
-                class="text-xl font-bold uppercase text-white pl-3 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
-            >
-                Viết bình luận
-            </h4>
-        </div> -->
         <form action="">
             <textarea
                 class="w-full min-h-[110px] resize-none bg-white rounded-md pt-4 pl-4 pr-1 pb-1 mb-6 text-black"

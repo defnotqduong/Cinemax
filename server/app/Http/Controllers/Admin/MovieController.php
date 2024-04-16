@@ -213,6 +213,19 @@ class MovieController extends Controller
         return response()->json(['success' => true, 'message' => 'Movie updated successfully'], 200);
     }
 
+    public function deleteMovie(Request $request, $id)
+    {
+        $movie = Movie::find($id);
+
+        if (!$movie) return response()->json(['success' => false, 'message' => 'Movie not found'], 404);
+
+        $movie->episodes()->delete();
+
+        $movie->delete();
+
+        return response()->json(['success' => true,  'message' => 'Movie deleted'], 200);
+    }
+
     public function getMovieOverview(Request $request, $id)
     {
         $movie = Movie::with('categories', 'regions')->find($id);

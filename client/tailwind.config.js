@@ -12,9 +12,9 @@ export default {
                 primary: '#FF961B',
                 secondary: '#0063F2'
             },
-            backgroundColor: { overlay: 'rgba(15, 23, 42, 0.7)' },
+            backgroundColor: { overlay: 'rgba(15, 23, 42, 0.6)' },
             backgroundImage: {
-                blur: 'linear-gradient(0deg,#0c152a,transparent)',
+                blur: 'linear-gradient(0deg,#101727,transparent)',
                 blurV2: 'linear-gradient(90deg, rgba(15, 23, 42, 1), transparent)',
                 blurV3: 'linear-gradient(0deg, rgba(15, 23, 42, 0.9), transparent)'
             },

@@ -86,7 +86,7 @@
                                 <div class="flex items-center justify-start gap-2">
                                     <div>
                                         <label
-                                            :for="'my_modal_' + movie.id"
+                                            :for="'my_modal_detail' + movie.id"
                                             class="btn px-2 my-2 flex items-center gap-1 justify-center bg-transparent border-none outline-none shadow-none text-primary hover:text-[#495057] hover:bg-transparent"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="14px" height="14px" viewBox="0 0 32 32" version="1.1">
@@ -95,7 +95,7 @@
                                                 /></svg
                                             >Chi tiết</label
                                         >
-                                        <input type="checkbox" :id="'my_modal_' + movie.id" class="modal-toggle" />
+                                        <input type="checkbox" :id="'my_modal_detail' + movie.id" class="modal-toggle" />
                                         <div class="modal" role="dialog">
                                             <div class="modal-box bg-white p-8 flex flex-col gap-8">
                                                 <div class="flex items-start justify-start">
@@ -158,10 +158,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-action">
-                                                    <label :for="'my_modal_' + movie.id" class="btn px-3 h-10 min-h-10 bg-gray-400 text-white hover:bg-gray-500">Đóng</label>
+                                                    <label :for="'my_modal_detail' + movie.id" class="btn px-3 h-10 min-h-10 bg-gray-400 text-white hover:bg-gray-500">Đóng</label>
                                                 </div>
                                             </div>
-                                            <label class="modal-backdrop" :for="'my_modal_' + movie.id">Close</label>
+                                            <label class="modal-backdrop" :for="'my_modal_detail' + movie.id">Close</label>
                                         </div>
                                     </div>
                                     <router-link
@@ -184,7 +184,10 @@
                                         </svg>
                                         Sửa
                                     </router-link>
-                                    <button class="px-2 my-2 flex items-center gap-1 justify-center text-primary hover:text-[#495057]">
+                                    <label
+                                        :for="'my_modal_' + movie.id"
+                                        class="btn px-2 my-2 flex items-center gap-1 justify-center bg-transparent border-none outline-none shadow-none text-primary hover:text-[#495057] hover:bg-transparent"
+                                    >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="-3 0 32 32">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                 <g id="Icon-Set-Filled" transform="translate(-261.000000, -205.000000)" fill="currentColor">
@@ -192,10 +195,46 @@
                                                         d="M268,220 C268,219.448 268.448,219 269,219 C269.552,219 270,219.448 270,220 L270,232 C270,232.553 269.552,233 269,233 C268.448,233 268,232.553 268,232 L268,220 L268,220 Z M273,220 C273,219.448 273.448,219 274,219 C274.552,219 275,219.448 275,220 L275,232 C275,232.553 274.552,233 274,233 C273.448,233 273,232.553 273,232 L273,220 L273,220 Z M278,220 C278,219.448 278.448,219 279,219 C279.552,219 280,219.448 280,220 L280,232 C280,232.553 279.552,233 279,233 C278.448,233 278,232.553 278,232 L278,220 L278,220 Z M263,233 C263,235.209 264.791,237 267,237 L281,237 C283.209,237 285,235.209 285,233 L285,217 L263,217 L263,233 L263,233 Z M277,209 L271,209 L271,208 C271,207.447 271.448,207 272,207 L276,207 C276.552,207 277,207.447 277,208 L277,209 L277,209 Z M285,209 L279,209 L279,207 C279,205.896 278.104,205 277,205 L271,205 C269.896,205 269,205.896 269,207 L269,209 L263,209 C261.896,209 261,209.896 261,211 L261,213 C261,214.104 261.895,214.999 262.999,215 L285.002,215 C286.105,214.999 287,214.104 287,213 L287,211 C287,209.896 286.104,209 285,209 L285,209 Z"
                                                     ></path>
                                                 </g>
-                                            </g>
-                                        </svg>
-                                        Xóa
-                                    </button>
+                                            </g></svg
+                                        >Xóa</label
+                                    >
+                                    <input type="checkbox" :id="'my_modal_' + movie.id" class="modal-toggle" />
+                                    <div class="modal" role="dialog">
+                                        <div class="modal-box bg-white p-8 flex flex-col gap-8">
+                                            <div class="flex flex-col items-start justify-start">
+                                                <h5 class="text-lg font-bold mb-4">Xác nhận xóa:</h5>
+                                                <p class="text-base">
+                                                    Bạn có chắc chắn muốn xóa phim
+                                                    <span class="text-red-600 font-extrabold">{{ movie.name }}</span> không?
+                                                </p>
+                                            </div>
+                                            <div class="flex items-center justify-end gap-4">
+                                                <div class="modal-action">
+                                                    <label @click="deleted(movie.id)" :for="'my_modal_' + movie.id" class="btn px-3 h-10 min-h-10 bg-red-500 text-white hover:bg-red-700">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="-3 0 32 32">
+                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                <g id="Icon-Set-Filled" transform="translate(-261.000000, -205.000000)" fill="currentColor">
+                                                                    <path
+                                                                        d="M268,220 C268,219.448 268.448,219 269,219 C269.552,219 270,219.448 270,220 L270,232 C270,232.553 269.552,233 269,233 C268.448,233 268,232.553 268,232 L268,220 L268,220 Z M273,220 C273,219.448 273.448,219 274,219 C274.552,219 275,219.448 275,220 L275,232 C275,232.553 274.552,233 274,233 C273.448,233 273,232.553 273,232 L273,220 L273,220 Z M278,220 C278,219.448 278.448,219 279,219 C279.552,219 280,219.448 280,220 L280,232 C280,232.553 279.552,233 279,233 C278.448,233 278,232.553 278,232 L278,220 L278,220 Z M263,233 C263,235.209 264.791,237 267,237 L281,237 C283.209,237 285,235.209 285,233 L285,217 L263,217 L263,233 L263,233 Z M277,209 L271,209 L271,208 C271,207.447 271.448,207 272,207 L276,207 C276.552,207 277,207.447 277,208 L277,209 L277,209 Z M285,209 L279,209 L279,207 C279,205.896 278.104,205 277,205 L271,205 C269.896,205 269,205.896 269,207 L269,209 L263,209 C261.896,209 261,209.896 261,211 L261,213 C261,214.104 261.895,214.999 262.999,215 L285.002,215 C286.105,214.999 287,214.104 287,213 L287,211 C287,209.896 286.104,209 285,209 L285,209 Z"
+                                                                    ></path>
+                                                                </g>
+                                                            </g></svg
+                                                        >Xóa</label
+                                                    >
+                                                </div>
+
+                                                <div class="modal-action">
+                                                    <label :for="'my_modal_' + movie.id" class="btn px-3 h-10 min-h-10 bg-gray-400 text-white hover:bg-gray-500">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none">
+                                                            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
+                                                            <path d="M18 18L6 6" stroke="currentColor" stroke-width="2" /></svg
+                                                        >Hủy</label
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label class="modal-backdrop" :for="'my_modal_' + movie.id">Close</label>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -220,7 +259,7 @@
 import { defineComponent, ref } from 'vue'
 import Pagination from '@/components/Pagination/Pagination.vue'
 
-import { getAllMovie } from '../../../webServices/movieService'
+import { getAllMovie, deleteMovie } from '../../../webServices/movieService'
 export default defineComponent({
     components: { Pagination },
     setup() {
@@ -257,34 +296,41 @@ export default defineComponent({
 
         const movies = ref([])
 
-        return { loading, overview, meta, links, filter, movies }
-    },
-    methods: {
-        async getData(page) {
-            this.loading = true
+        const getData = async page => {
+            loading.value = true
 
-            this.filter.page = page || 1
+            filter.value.page = page || 1
 
-            const data = await getAllMovie(this.filter)
+            const data = await getAllMovie(filter.value)
 
             if (data && data.success) {
-                this.movies = data.movies.data
+                movies.value = data.movies.data
 
-                this.overview.from = data.movies.from
-                this.overview.to = data.movies.to
-                this.overview.total = data.movies.total
+                overview.value.from = data.movies.from
+                overview.value.to = data.movies.to
+                overview.value.total = data.movies.total
 
-                this.meta.current_page = data.movies.current_page
-                this.meta.last_page = data.movies.last_page
+                meta.value.current_page = data.movies.current_page
+                meta.value.last_page = data.movies.last_page
 
-                this.links.first_page_url = data.movies.first_page_url
-                this.links.last_page_url = data.movies.last_page_url
-                this.links.prev_page_url = data.movies.prev_page_url
-                this.links.next_page_url = data.movies.next_page_url
+                links.value.first_page_url = data.movies.first_page_url
+                links.value.last_page_url = data.movies.last_page_url
+                links.value.prev_page_url = data.movies.prev_page_url
+                links.value.next_page_url = data.movies.next_page_url
             }
 
-            this.loading = false
-        },
+            loading.value = false
+        }
+
+        const deleted = async id => {
+            const data = await deleteMovie(id)
+
+            if (data && data.success) await getData(meta.value.current_page)
+        }
+
+        return { loading, overview, meta, links, filter, movies, getData, deleted }
+    },
+    methods: {
         getType(type) {
             switch (type) {
                 case 'single':

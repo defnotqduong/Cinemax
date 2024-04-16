@@ -1,38 +1,38 @@
 <template>
     <div>
-        <div v-if="loading" class="mt-[160px] flex items-center justify-center min-h-[60vh]">
+        <div v-if="loading" class="mt-[160px] flex items-center justify-center min-h-[80vh]">
             <span class="loading loading-spinner text-white"></span>
         </div>
         <div v-if="!loading">
-            <div v-if="error">
-                <Error />
+            <div class="relative container h-[380px] mx-auto px-2 mb-16">
+                <div
+                    class="bg-cover bg-center bg-no-repeat absolute top-0 left-0 w-full h-full z-[-1] after:absolute after:content after:top-0 after:left-0 after:w-full after:h-full after:bg-overlay before:absolute before:content before:bottom-0 before:left-0 before:w-full before:h-full before:bg-blur"
+                    :style="{ backgroundImage: `url('${movie.poster_url}')` }"
+                ></div>
             </div>
-            <div v-if="!error">
-                <div class="relative container h-[380px] mx-auto px-2 mb-16">
-                    <div
-                        class="bg-cover bg-center bg-no-repeat absolute top-0 left-0 w-full h-full z-[-1] after:absolute after:content after:top-0 after:left-0 after:w-full after:h-full after:bg-overlay before:absolute before:content before:bottom-0 before:left-0 before:w-full before:h-full before:bg-blur"
-                        :style="{ backgroundImage: `url('${movie.poster_url}')` }"
-                    ></div>
-                </div>
-                <div class="relative max-w-[1220px] mx-auto mb-10 mt-[-280px] z-10">
-                    <MovieDetails :movie="movie" />
-                    <div class="grid grid-cols-7 gap-16 mt-10 mb-24 ml-12">
-                        <div class="col-span-5 mt-10">
-                            <iframe :src="movie.trailer_url" frameborder="0" allowfullscreen class="w-full h-[420px] mx-auto rounded-md"></iframe>
+            <div class="relative max-w-[1220px] mx-auto mb-10 mt-[-280px] z-10">
+                <MovieDetails :movie="movie" />
+                <div class="grid grid-cols-7 gap-16 mt-20 mb-24 ml-12">
+                    <div class="col-span-5">
+                        <div class="mb-[30px]">
+                            <h4
+                                class="text-base font-bold uppercase text-white pl-3 mt-1 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
+                            >
+                                Trailer
+                            </h4>
                         </div>
-                        <div class="col-span-2">
-                            <div>
-                                <div class="mb-[30px]">
-                                    <h4
-                                        class="text-base font-bold uppercase text-white pl-3 mt-1 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
-                                    >
-                                        Phim mới cập nhật
-                                    </h4>
-                                </div>
-                                <div class="max-h-[500px] overflow-y-auto custom-scrollbar">
-                                    <MovieListV2 :movies="homeStore.heroSlide" />
-                                </div>
-                            </div>
+                        <iframe :src="movie.trailer_url" frameborder="0" allowfullscreen class="w-full h-[420px] mx-auto rounded-md"></iframe>
+                    </div>
+                    <div class="col-span-2">
+                        <div class="mb-[30px]">
+                            <h4
+                                class="text-base font-bold uppercase text-white pl-3 mt-1 relative after:absolute after:content after:top-0 after:left-0 after:h-full after:w-1 after:rounded-md after:bg-primary"
+                            >
+                                Phim mới cập nhật
+                            </h4>
+                        </div>
+                        <div class="max-h-[500px] overflow-y-auto custom-scrollbar">
+                            <MovieListV2 :movies="homeStore.heroSlide" />
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,6 @@ import MovieListV2 from '../../components/Movie/MovieListV2.vue'
 import MovieListV3 from '../../components/Movie/MovieListV3.vue'
 import MovieCard from '../../components/Movie/MovieCard.vue'
 import Review from '../../components/Review/Review.vue'
-import Error from '../../components/Error/Error.vue'
 
 import { getMovie } from '../../webServices/movieService'
 import { useHomeStore } from '../../stores/modules/homeStore'
@@ -63,12 +62,11 @@ export default defineComponent({
 
         const movie = ref(null)
 
-        const error = ref(false)
-
-        return { loading, movie, error, homeStore }
+        return { loading, movie, homeStore }
     },
     watch: {
         '$route.params.slug'() {
+            window.scrollTo({ top: 0 })
             this.getData()
         }
     },
@@ -80,15 +78,15 @@ export default defineComponent({
 
             const data = await getMovie(slug)
 
-            console.log(data)
+            if (data && data.status === 404) this.$router.push({ name: 'home-homepage' })
 
             if (data && data.success) this.movie = data.movie
 
             this.loading = false
-            window.scrollTo({ top: 0 })
         }
     },
     created() {
+        window.scrollTo({ top: 0 })
         this.getData()
     }
 })

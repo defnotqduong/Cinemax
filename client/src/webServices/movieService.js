@@ -6,6 +6,13 @@ export const getMovieForHeroSlide = async dataPost => {
     return connectServer[method](url, dataPost)
 }
 
+export const searchMovie = async dataPost => {
+    let { method, url } = api.SEARCH_MOVIE_API
+    const { searchText } = dataPost
+    url = `${url}?search=${searchText}`
+    return connectServer[method](url)
+}
+
 export const getMovieByCatalog = async dataPost => {
     let { method, url } = api.GET_MOVIE_BY_CATALOG_API
     return connectServer[method](url, dataPost)
@@ -37,4 +44,4 @@ export const getEpisodes = async slug => {
     return connectServer[method](url)
 }
 
-export default { getMovieForHeroSlide, getMovieByCatalog, getMovieByCategory, getMovieByRegion, getMovie, getEpisodes }
+export default { getMovieForHeroSlide, searchMovie, getMovieByCatalog, getMovieByCategory, getMovieByRegion, getMovie, getEpisodes }

@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoryController as GuestCategoryController;
 use App\Http\Controllers\MenuController as GuestMenuController;
 use App\Http\Controllers\MovieController as GuestMovieController;
 use App\Http\Controllers\RegionController as GuestRegionController;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,7 @@ Route::group([], function () {
 
     Route::group(['prefix' => 'movie'], function () {
         Route::get('/forSlide', [GuestMovieController::class, 'getMovieForSlide']);
+        Route::get('/search', [GuestMovieController::class, 'searchMovie']);
         Route::get('/findByCatalog', [GuestMovieController::class, 'getMoviesByCatalog']);
         Route::get('/findByCategory', [GuestMovieController::class, 'getMovieByCategory']);
         Route::get('/findByRegion', [GuestMovieController::class, 'getMovieByRegion']);
@@ -96,6 +98,7 @@ Route::group(['prefix' => 'cms'], function () {
         Route::put('/{id}', [MovieController::class, 'editMovie']);
         Route::get('/findByCategoryId/{id}', [MovieController::class, 'getMovieOfCategory']);
         Route::get('/findByRegionId/{id}', [MovieController::class, 'getMovieOfRegion']);
+        Route::delete('/{id}', [MovieController::class, 'deleteMovie']);
     });
 
     Route::group(['prefix' => 'movieType'], function () {

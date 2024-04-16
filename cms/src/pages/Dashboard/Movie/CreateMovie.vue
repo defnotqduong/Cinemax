@@ -23,24 +23,34 @@
                 <div v-if="tapActive === 1" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
                     <div class="grid grid-cols-2 gap-x-6 gap-y-4">
                         <label for="name">
-                            <div class="mb-2 text-gray-700 font-bold">Tên phim <span class="text-red-500">*</span></div>
+                            <div class="mb-2 text-gray-700 font-bold" :class="errors.hasOwnProperty('name') ? 'text-red-500' : 'text-gray-700'">Tên phim <span class="text-red-500">*</span></div>
                             <input
                                 type="text"
                                 id="name"
                                 v-model="name"
                                 placeholder="Tên phim"
-                                class="input rounded-md border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                class="input rounded-md outline-none bg-white h-10 w-full focus:outline-none placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                :class="errors.hasOwnProperty('name') ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-gray-500'"
                             />
+                            <div v-if="errors.hasOwnProperty('name')" class="mt-1">
+                                <p v-for="(message, index) in errors.name" :key="index" class="text-red-500">{{ message }}</p>
+                            </div>
                         </label>
                         <label for="origin_name">
-                            <div class="mb-2 text-gray-700 font-bold">Tên tiếng anh <span class="text-red-500">*</span></div>
+                            <div class="mb-2 text-gray-700 font-bold" :class="errors.hasOwnProperty('origin_name') ? 'text-red-500' : 'text-gray-700'">
+                                Tên tiếng anh <span class="text-red-500">*</span>
+                            </div>
                             <input
                                 type="text"
                                 id="origin_name"
                                 v-model="origin_name"
-                                placeholder=""
-                                class="input rounded-md border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                placeholder="Tên tiếng anh"
+                                class="input rounded-md outline-none bg-white h-10 w-full focus:outline-none placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
+                                :class="errors.hasOwnProperty('name') ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-gray-500'"
                             />
+                            <div v-if="errors.hasOwnProperty('origin_name')" class="mt-1">
+                                <p v-for="(message, index) in errors.origin_name" :key="index" class="text-red-500">{{ message }}</p>
+                            </div>
                         </label>
                         <label for="thumb_url" class="col-span-2">
                             <div class="mb-2 text-gray-700 font-bold">Thumbnail</div>
@@ -62,32 +72,6 @@
                                 class="input rounded-md border-gray-300 outline-none bg-white h-10 w-full focus:outline-none focus:border-gray-500 placeholder:text-sm placeholder:text-gray-400 transition-all duration-300"
                             />
                         </label>
-                        <!-- <div class="col-span-2 grid grid-cols-5 gap-10">
-                            <div class="col-span-2">
-                                <div class="mb-2 text-primary font-bold">Ảnh thumb</div>
-                                <label for="thumb" class="block w-[180px] h-[260px] border-[1px] border-table rounded overflow-hidden">
-                                    <img :src="thumbUrl" alt="thumb" class="w-full h-full object-cover object-center" />
-                                </label>
-                                <input
-                                    type="file"
-                                    @change="handleFileThumbnail"
-                                    id="thumb"
-                                    class="hidden input h-10 border-input outline-none rounded w-full focus:outline-none focus:border-input-focus placeholder:text-sm placeholder:opacity-70"
-                                />
-                            </div>
-                            <div class="col-span-3">
-                                <div class="mb-2 text-primary font-bold">Ảnh poster</div>
-                                <label for="poster" class="block w-full h-[260px] border-[1px] border-table rounded">
-                                    <img :src="posterUrl" alt="poster" class="w-full h-full object-cover object-center" />
-                                </label>
-                                <input
-                                    type="file"
-                                    id="poster"
-                                    @change="handleFilePoster"
-                                    class="hidden input h-10 border-input outline-none rounded w-full focus:outline-none focus:border-input-focus placeholder:text-sm placeholder:opacity-70"
-                                />
-                            </div>
-                        </div> -->
                         <label for="content" class="col-span-2">
                             <div class="mb-2 text-gray-700 font-bold">Nội dung</div>
                             <ckeditor :editor="editor" v-model="content" :config="editorConfig"></ckeditor>
@@ -189,7 +173,7 @@
                 <div v-if="tapActive === 2" class="p-6 bg-white border-r-[1px] border-l-[1px] border-b-[1px] border-gray-400 rounded-b-lg">
                     <div class="grid grid-cols-2 gap-x-6 gap-y-4">
                         <div class="col-span-2">
-                            <div class="mb-2 text-gray-700 font-bold">Định dạng <span class="text-red-500">*</span></div>
+                            <div class="mb-2 text-gray-700 font-bold" :class="errors.hasOwnProperty('type') ? 'text-red-500' : 'text-gray-700'">Định dạng <span class="text-red-500">*</span></div>
                             <label class="w-auto max-w-[160px] flex items-center justify-start gap-2">
                                 <input type="radio" name="type" class="" v-model="type" value="single" />
                                 <span>Phim lẻ</span>
@@ -202,9 +186,12 @@
                                 <input type="radio" name="type" class="" v-model="type" value="cartoon" />
                                 <span>Phim hoạt hình</span>
                             </label>
+                            <div v-if="errors.hasOwnProperty('type')" class="mt-1">
+                                <p v-for="(message, index) in errors.type" :key="index" class="text-red-500">{{ message }}</p>
+                            </div>
                         </div>
                         <div class="col-span-2">
-                            <div class="mb-2 text-gray-700 font-bold">Tình trạng <span class="text-red-500">*</span></div>
+                            <div class="mb-2 text-gray-700 font-bold" :class="errors.hasOwnProperty('status') ? 'text-red-500' : 'text-gray-700'">Tình trạng <span class="text-red-500">*</span></div>
                             <label class="w-auto max-w-[160px] flex items-center justify-start gap-2">
                                 <input type="radio" name="status" class="" v-model="status" value="trailer" />
                                 <span>Sắp chiếu</span>
@@ -217,6 +204,9 @@
                                 <input type="radio" name="status" class="" v-model="status" value="completed" />
                                 <span>Hoàn thành</span>
                             </label>
+                            <div v-if="errors.hasOwnProperty('status')" class="mt-1">
+                                <p v-for="(message, index) in errors.status" :key="index" class="text-red-500">{{ message }}</p>
+                            </div>
                         </div>
                         <div class="col-span-2">
                             <div class="mb-2 text-gray-700 font-bold">Thể loại</div>
@@ -422,8 +412,8 @@ export default defineComponent({
         const tapActive = ref(1)
 
         const loading = ref(false)
-
         const loadingSubmit = ref(false)
+        const errors = ref({})
 
         const categories = ref([])
         const regions = ref([])
@@ -489,10 +479,13 @@ export default defineComponent({
         const create = async e => {
             e.preventDefault()
             loadingSubmit.value = true
+            errors.value = {}
 
             movie.episodes = episodes.value
 
             const data = await createMovie(movie)
+
+            if (data && data.status === 422) errors.value = data.data.errors
 
             if (data && data.success) {
                 router.push({ name: 'dashboard-movie' })
@@ -545,6 +538,7 @@ export default defineComponent({
             tapActiveServer,
             loading,
             loadingSubmit,
+            errors,
             categories,
             regions,
             fileThumbnail,

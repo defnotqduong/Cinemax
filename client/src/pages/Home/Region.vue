@@ -1,6 +1,6 @@
 <template>
     <div class="mt-[140px]">
-        <div v-if="loading" class="flex items-center justify-center min-h-[60vh]">
+        <div v-if="loading" class="flex items-center justify-center min-h-[80vh]">
             <span class="loading loading-spinner text-white"></span>
         </div>
         <div v-if="!loading">
@@ -37,7 +37,7 @@
                     </ul>
                 </div>
             </div>
-            <div v-if="!error" class="max-w-[1220px] mx-auto px-2 pb-10 grid grid-cols-3 gap-12">
+            <div class="max-w-[1220px] mx-auto px-2 pb-10 grid grid-cols-3 gap-12">
                 <div class="col-span-3">
                     <div class="mb-10">
                         <div class="mb-14 flex items-start justify-between">
@@ -65,9 +65,6 @@
                     </div>
                 </div>
             </div>
-            <div v-if="error" class="max-w-[1200px] min-h-[70vh] mx-auto flex items-center justify-center">
-                <Error />
-            </div>
         </div>
     </div>
 </template>
@@ -76,7 +73,6 @@
 import { defineComponent, ref, reactive, toRefs } from 'vue'
 import Pagination from '@/components/Pagination/Pagination.vue'
 import MovieCard from '@/components/Movie/MovieCard.vue'
-import Error from '@/components/Error/Error.vue'
 import NotFound from '@/components/NotFound/NotFound.vue'
 
 import { getMovieByRegion } from '../../webServices/movieService'
@@ -105,7 +101,6 @@ export default defineComponent({
         const movies = ref([])
         const loading = ref(false)
         const loadingPage = ref(false)
-        const error = ref(false)
 
         return {
             category,
@@ -114,8 +109,7 @@ export default defineComponent({
             name,
             movies,
             loading,
-            loadingPage,
-            error
+            loadingPage
         }
     },
     watch: {
@@ -131,14 +125,13 @@ export default defineComponent({
     methods: {
         async getData() {
             this.loading = true
-            this.error = false
 
             const slug = this.$route.params.slug
             const page = this.$route.query.page || 1
 
             const [resultData] = await Promise.all([getMovieByRegion({ slug, page })])
 
-            console.log(resultData)
+            if (resultData && resultData.status === 404) this.$router.push({ name: 'home-homepage' })
 
             if (resultData && resultData.success) {
                 this.name = resultData.name
@@ -158,9 +151,9 @@ export default defineComponent({
         },
 
         async getMoviesByPage(slug, page) {
-            const resultData = await getMovieByRegion({ slug, page })
+            const [resultData] = await Promise.all([getMovieByRegion({ slug, page })])
 
-            console.log(resultData)
+            if (resultData && resultData.status === 404) this.$router.push({ name: 'home-homepage' })
 
             if (resultData && resultData.success) {
                 this.name = resultData.name
@@ -182,6 +175,7 @@ export default defineComponent({
     },
     updated() {},
     created() {
+        window.scrollTo({ top: 0 })
         this.getData()
     }
 })

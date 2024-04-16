@@ -41,6 +41,10 @@ export default {
         method: 'get',
         url: '/movie/forSlide'
     },
+    SEARCH_MOVIE_API: {
+        method: 'get',
+        url: '/movie/search'
+    },
     GET_MOVIE_BY_CATALOG_API: {
         method: 'get',
         url: '/movie/findByCatalog'
