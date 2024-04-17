@@ -120,8 +120,9 @@
 body {
     font-family: 'Nunito', sans-serif;
     font-weight: 500;
-    /* background-color: #e9eaef; */
-    background-color: #e9f1fa;
+    background-color: #e9eaef;
+    /* background-color: #e9f1fa; */
+    /* background-color: #12131a; */
 }
 
 html,
@@ -170,12 +171,12 @@ html *::-webkit-scrollbar-track {
     &:not(summary):not(.active).focus,
     &:not(summary):not(.active):focus,
     &:is(summary):not(.active):focus-visible {
-        @apply bg-primary/15 cursor-pointer outline-none;
+        @apply bg-[#2e303e] cursor-pointer outline-none;
     }
     @media (hover: hover) {
         &:not(.active):hover {
             @apply cursor-pointer outline-none;
-            @apply bg-primary/15;
+            @apply bg-[#2e303e];
         }
     }
 }
@@ -183,7 +184,7 @@ html *::-webkit-scrollbar-track {
 .menu li > *:not(ul):not(.menu-title):not(details):active,
 .menu li > *:not(ul):not(.menu-title):not(details).active,
 .menu li > details > summary:active {
-    @apply bg-white text-black [@media(hover:hover)]:bg-white [@media(hover:hover)]:text-black;
+    @apply bg-blue text-white [@media(hover:hover)]:bg-blue [@media(hover:hover)]:text-white;
 }
 
 .tabs-lifted > .tab.tab-active:not(.tab-disabled):not([disabled]),

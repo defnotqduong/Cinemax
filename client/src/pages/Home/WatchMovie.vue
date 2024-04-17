@@ -119,6 +119,7 @@ export default defineComponent({
         async getData() {
             const slug = this.$route.params.slug
 
+            window.scrollTo({ top: 0 })
             this.loading = true
             const [data] = await Promise.all([getEpisodes(slug)])
 

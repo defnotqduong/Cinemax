@@ -124,6 +124,7 @@ export default defineComponent({
     },
     methods: {
         async getData() {
+            window.scrollTo({ top: 0 })
             this.loading = true
             this.error = false
             const slug = this.$route.params.slug
@@ -147,10 +148,10 @@ export default defineComponent({
             }
 
             this.loading = false
-            window.scrollTo({ top: 0 })
         },
 
         async getMoviesByPage(slug, page) {
+            window.scrollTo({ top: 0 })
             const [resultData] = await Promise.all([getMovieByCategory({ slug, page })])
 
             if (resultData && resultData.status === 404) this.$router.push({ name: 'home-homepage' })
@@ -167,8 +168,6 @@ export default defineComponent({
                 this.links.prev_page_url = resultData.movies.prev_page_url
                 this.links.next_page_url = resultData.movies.next_page_url
             }
-
-            window.scrollTo({ top: 0 })
         },
         async changePage(page) {
             this.$router.push({ name: 'home-category', query: { page: page || 1 } })
