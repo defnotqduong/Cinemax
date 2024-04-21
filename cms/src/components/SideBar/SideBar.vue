@@ -41,6 +41,14 @@ export default defineComponent({
                 items: []
             },
             {
+                name: 'Quản lý người dùng',
+                icon: 'movie',
+                link: 'dashboard-movie',
+                active: 'user',
+                open: false,
+                items: []
+            },
+            {
                 name: 'Phân loại',
                 icon: 'classify',
                 open: false,
@@ -67,13 +75,13 @@ export default defineComponent({
             {
                 name: 'Tùy chỉnh',
                 icon: 'custom',
-                open: true,
+                open: false,
                 items: [
                     { name: 'Menu', icon: 'menu', link: 'dashboard-menu', active: 'menu' },
                     { name: 'Cài đặt', icon: 'settings', link: 'dashboard-homepage', active: 'settings' }
                 ]
             },
-            { name: 'Mở rộng', icon: 'extend', open: true, items: [{ name: 'Crawler Ophim', icon: 'crawler', link: 'dashboard-crawler', active: 'crawler' }] }
+            { name: 'Mở rộng', icon: 'extend', open: false, items: [{ name: 'Crawler Ophim', icon: 'crawler', link: 'dashboard-crawler', active: 'crawler' }] }
         ])
 
         return {

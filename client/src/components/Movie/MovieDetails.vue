@@ -1,11 +1,11 @@
 <template>
-    <div class="mx-12 grid grid-cols-6 gap-10">
-        <div class="col-span-2">
-            <div>
+    <div class="mx-12 grid grid-cols-8 gap-10">
+        <div class="col-span-3">
+            <div class="ml-10">
                 <img :src="movie.thumb_url" alt="thumb" class="w-full object-cover object-center rounded-3xl" />
             </div>
         </div>
-        <div class="col-span-4">
+        <div class="col-span-5">
             <h4 class="text-5xl font-bold mb-2 text-white leading-[1.1]">{{ movie.name }}</h4>
             <h5 class="text-2xl font-bold mb-6 text-white opacity-70">{{ movie.origin_name }}</h5>
             <div class="w-[90%]">

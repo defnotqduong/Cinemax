@@ -7,22 +7,24 @@
                 Bình luận
             </h4>
         </div>
-        <form action="">
+        <form @submit.prevent="">
             <textarea
                 class="w-full min-h-[110px] resize-none bg-white rounded-md pt-4 pl-4 pr-1 pb-1 mb-6 text-black"
                 placeholder="Bình luận của bạn"
             ></textarea>
-            <button
-                class="px-3 py-2 relative flex items-center justify-center gap-2 rounded bg-secondary text-white text-sm font-semibold hover:bg-secondaryHover transition-all duration-300 ease"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 100 100" aria-hidden="true">
-                    <path
-                        d="M87.13 0a2.386 2.386 0 0 0-.64.088a2.386 2.386 0 0 0-.883.463L11.34 62.373a2.386 2.386 0 0 0 1.619 4.219l37.959-1.479l17.697 33.614a2.386 2.386 0 0 0 4.465-.707L89.486 2.79A2.386 2.386 0 0 0 87.131 0z"
-                        fill="currentColor"
-                        fill-rule="evenodd"
-                    />
-                </svg>
-                Bình luận
+            <button class="bg-secondary text-white">
+                <div class="svg-wrapper-1">
+                    <div class="svg-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path
+                                fill="currentColor"
+                                d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                            ></path>
+                        </svg>
+                    </div>
+                </div>
+                <span>Bình luận</span>
             </button>
         </form>
     </div>
@@ -37,4 +39,56 @@ export default defineComponent({
 })
 </script>
 
-<style></style>
+<style scoped>
+button {
+    font-family: inherit;
+    font-size: 15px;
+    padding: 0.6em 1em;
+    padding-left: 0.9em;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+button span {
+    display: block;
+    margin-left: 0.3em;
+    transition: all 0.4s ease-in-out;
+}
+
+button svg {
+    display: block;
+    transform-origin: center center;
+    transition: transform 0.4s ease-in-out;
+}
+
+button:hover .svg-wrapper {
+    animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+button:hover svg {
+    transform: translateX(2em) rotate(45deg) scale(1.1);
+}
+
+button:hover span {
+    transform: translateX(6em);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+@keyframes fly-1 {
+    from {
+        transform: translateY(0.1em);
+    }
+
+    to {
+        transform: translateY(-0.1em);
+    }
+}
+</style>

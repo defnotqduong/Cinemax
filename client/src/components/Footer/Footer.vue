@@ -29,7 +29,7 @@
             </div>
         </nav>
         <aside>
-            <p class="font-semibold">Copyright © 2024 - All right reserved by QuangDuong</p>
+            <p class="font-semibold">Copyright © 2024 - All right reserved by Quduonq</p>
         </aside>
     </footer>
 </template>
